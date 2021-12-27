@@ -27,7 +27,7 @@ Traefik 2 as Docker Reverse Proxy on unRAID
       Setting up Traefik 2.x as Reverse Proxy for Docker Containers on unRAID 6.8.x
 
 
-    ","inLanguage":"en-us","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/datosh.github.io\/post\/unraid_reverse_traefik\/"},"author":{"@type":"Person","name":"DaTosh"},"creator":{"@type":"Person","name":"DaTosh"},"accountablePerson":{"@type":"Person","name":"DaTosh"},"copyrightHolder":{"@type":"Person","name":"DaTosh"},"copyrightYear":"2021","dateCreated":"2021-01-23T15:28:15.00Z","datePublished":"2021-01-23T15:28:15.00Z","dateModified":"2021-01-23T15:28:15.00Z","publisher":{"@type":"Organization","name":"DaTosh","url":"https://datosh.github.io/","logo":{"@type":"ImageObject","url":"https:\/\/datosh.github.io\/favicon-32x32.png","width":"32","height":"32"}},"image":[],"url":"https:\/\/datosh.github.io\/post\/unraid_reverse_traefik\/","wordCount":"515","genre":[],"keywords":["docker","traefik","unraid","reverse proxy"]}</script>
+    ","inLanguage":"en-us","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/datosh.github.io\/post\/unraid_reverse_traefik\/"},"author":{"@type":"Person","name":"DaTosh"},"creator":{"@type":"Person","name":"DaTosh"},"accountablePerson":{"@type":"Person","name":"DaTosh"},"copyrightHolder":{"@type":"Person","name":"DaTosh"},"copyrightYear":"2021","dateCreated":"2021-01-23T15:28:15.00Z","datePublished":"2021-01-23T15:28:15.00Z","dateModified":"2021-01-23T15:28:15.00Z","publisher":{"@type":"Organization","name":"DaTosh","url":"https://datosh.github.io/","logo":{"@type":"ImageObject","url":"https:\/\/datosh.github.io\/favicon-32x32.png","width":"32","height":"32"}},"image":[],"url":"https:\/\/datosh.github.io\/post\/unraid_reverse_traefik\/","wordCount":"518","genre":[],"keywords":["docker","traefik","unraid","reverse proxy"]}</script>
 </head>
 <body>
 <header><div class="page-top
@@ -119,27 +119,27 @@ Sat, Jan 23, 2021
 can become quite annoying. Using a reverse proxy as a single point of entry
 will allow us to hide this from the user, and use easy to remember DNS records
 instead.</p>
-<p>In this example we will Traefik 2.x as a reverse proxy on an unRAID 6.8.x
+<p>In this example we will use Traefik 2.x as a reverse proxy on an unRAID 6.8.x
 machine, and configure easy access to the unRAID webUI, Traefik dashboard, as
 well as an example Wordpress container, to show how traffic can be routed to
 any container running on unRAID.</p>
 <h2 id=configure-dns-records>Configure DNS Records</h2>
 <p>First we need to create three DNS records, all pointing to the box unRAID is
-running on. In this example we assume the TLD <code>localdomain</code>, and unRAID
+running on. In this example we assume the TLD <code>home</code>, and unRAID
 running on <code>192.168.1.10</code>.</p>
 <ul>
-<li><code>unraid.localdomain</code> → <code>192.168.1.10</code></li>
-<li><code>traefik.localdomain</code> → <code>192.168.1.10</code></li>
-<li><code>wordpress.localdomain</code> → <code>192.168.1.10</code></li>
+<li><code>unraid.home</code> → <code>192.168.1.10</code></li>
+<li><code>traefik.home</code> → <code>192.168.1.10</code></li>
+<li><code>wordpress.home</code> → <code>192.168.1.10</code></li>
 </ul>
-<p>How and where to configure these is out of scope here&mldr;</p>
+<p>How and where to configure these depends on the DNS server you are using.</p>
 <h2 id=reconfigure-unraids-http-port>Reconfigure unRAID&rsquo;s HTTP Port</h2>
 <p>Traefik will be listening on port <code>80</code> and we need to free up this port,
 since unRAID&rsquo;s WebUI will be using it by default.</p>
 <p>Go to <code>Settings → Management Access</code>, and change <code>HTTP port</code>.
-Here we will be using <code>HTTP port: 8080</code>.</p>
+Here we will be using <code>HTTP port: 8085</code>.</p>
 <p><strong>In case your Traefik container is broken, you can always access your
-unRAID server at <code>http://192.168.1.10:8080</code>.</strong></p>
+unRAID server at <code>http://192.168.1.10:8085</code>.</strong></p>
 <h2 id=prepare-traefik-configuration>Prepare Traefik Configuration</h2>
 <p>In order to configure Trafik we will be using a mix of dynamic configuration
 (via Docker labels), and static configuration (via configuration files).</p>
@@ -165,14 +165,14 @@ unRAID server at <code>http://192.168.1.10:8080</code>.</strong></p>
 </span><span style=color:#f8f8f8;text-decoration:underline>      </span><span style=color:#204a87;font-weight:700>entryPoints</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline>
 </span><span style=color:#f8f8f8;text-decoration:underline>      </span>- <span style=color:#000>http</span><span style=color:#f8f8f8;text-decoration:underline>
 </span><span style=color:#f8f8f8;text-decoration:underline>      </span><span style=color:#204a87;font-weight:700>service</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline> </span><span style=color:#000>unraid</span><span style=color:#f8f8f8;text-decoration:underline>
-</span><span style=color:#f8f8f8;text-decoration:underline>      </span><span style=color:#204a87;font-weight:700>rule</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline> </span><span style=color:#4e9a06>&#34;Host(`unraid.localdomain`)&#34;</span><span style=color:#f8f8f8;text-decoration:underline>
+</span><span style=color:#f8f8f8;text-decoration:underline>      </span><span style=color:#204a87;font-weight:700>rule</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline> </span><span style=color:#4e9a06>&#34;Host(`unraid.home`)&#34;</span><span style=color:#f8f8f8;text-decoration:underline>
 </span><span style=color:#f8f8f8;text-decoration:underline>  </span><span style=color:#204a87;font-weight:700>services</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline>
 </span><span style=color:#f8f8f8;text-decoration:underline>    </span><span style=color:#204a87;font-weight:700>unraid</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline>
 </span><span style=color:#f8f8f8;text-decoration:underline>      </span><span style=color:#204a87;font-weight:700>loadBalancer</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline>
 </span><span style=color:#f8f8f8;text-decoration:underline>        </span><span style=color:#204a87;font-weight:700>servers</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline>
-</span><span style=color:#f8f8f8;text-decoration:underline>        </span>- <span style=color:#204a87;font-weight:700>url</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline> </span><span style=color:#4e9a06>&#34;http://192.168.1.10:8080/&#34;</span><span style=color:#f8f8f8;text-decoration:underline>
+</span><span style=color:#f8f8f8;text-decoration:underline>        </span>- <span style=color:#204a87;font-weight:700>url</span><span style=color:#000;font-weight:700>:</span><span style=color:#f8f8f8;text-decoration:underline> </span><span style=color:#4e9a06>&#34;http://192.168.1.10:8085/&#34;</span><span style=color:#f8f8f8;text-decoration:underline>
 </span></code></pre></div><h2 id=launch-traefik-container>Launch Traefik Container</h2>
-<p>Now we can finally launch the actual Traefik container. Go to the <code>Docker</code> tab
+<p>Now we can launch the actual Traefik container. Go to the <code>Docker</code> tab
 in unRAID and <code>ADD CONTAINER</code>.<br>
 We need to fill in the following configuration:</p>
 <p>Name: <code>traefik</code><br>
@@ -200,20 +200,20 @@ the Treafik dashboard now.</p>
 <p>And a final <strong>label</strong></p>
 <ul>
 <li><strong>key</strong> = <code>traefik.http.routers.api.rule</code></li>
-<li><strong>value</strong> = Host(`traefik.localdomain`)</li>
+<li><strong>value</strong> = Host(`traefik.home`)</li>
 </ul>
 <p>Your container configuration should look like
 <a href=https://i.imgur.com/206isoD.png>this</a></p>
 <p>After creating the container you are now able to access unRAID at
-<a href=http://unraid.localdomain>http://unraid.localdomain</a>, and the
-Traefik dashboard at <a href=http://traefik.localdomain>http://traefik.localdomain</a>.</p>
+<a href=http://unraid.home>http://unraid.home</a>, and the
+Traefik dashboard at <a href=http://traefik.home>http://traefik.home</a>.</p>
 <h2 id=proxying-any-container>Proxying any Container</h2>
 <p>In order to add another container to our Traefik configuration we simply need
 to add a single label to it.</p>
 <p>Assuming we have a Wordpress container running we can add a <strong>label</strong> with</p>
 <ul>
 <li><strong>key</strong> = <code>traefik.http.routers.wordpress.rule</code></li>
-<li><strong>value</strong> = Host(<code>wordpress.localdomain</code>)</li>
+<li><strong>value</strong> = Host(<code>wordpress.home</code>)</li>
 </ul>
 <p>If our container is only exposing a single port,
 <a href=https://doc.traefik.io/traefik/providers/docker/#port-detection>Traefik is smart enough to pick it up,</a>
