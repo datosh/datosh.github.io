@@ -213,7 +213,7 @@ to add a single label to it.</p>
 <p>Assuming we have a Wordpress container running we can add a <strong>label</strong> with</p>
 <ul>
 <li><strong>key</strong> = <code>traefik.http.routers.wordpress.rule</code></li>
-<li><strong>value</strong> = Host(<code>wordpress.home</code>)</li>
+<li><strong>value</strong> = Host(`wordpress.home`)</li>
 </ul>
 <p>If our container is only exposing a single port,
 <a href=https://doc.traefik.io/traefik/providers/docker/#port-detection>Traefik is smart enough to pick it up,</a>
