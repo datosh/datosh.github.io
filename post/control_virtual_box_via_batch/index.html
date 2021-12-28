@@ -31,7 +31,7 @@ Control VirtualBox VMs via Batch
       
 
 
-    ","inLanguage":"en-us","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/datosh.github.io\/post\/control_virtual_box_via_batch\/"},"author":{"@type":"Person","name":"DaTosh"},"creator":{"@type":"Person","name":"DaTosh"},"accountablePerson":{"@type":"Person","name":"DaTosh"},"copyrightHolder":{"@type":"Person","name":"DaTosh"},"copyrightYear":"2021","dateCreated":"2021-12-28T17:12:59.00Z","datePublished":"2021-12-28T17:12:59.00Z","dateModified":"2021-12-28T17:12:59.00Z","publisher":{"@type":"Organization","name":"DaTosh","url":"https://datosh.github.io/","logo":{"@type":"ImageObject","url":"https:\/\/datosh.github.io\/favicon-32x32.png","width":"32","height":"32"}},"image":[],"url":"https:\/\/datosh.github.io\/post\/control_virtual_box_via_batch\/","wordCount":"173","genre":[],"keywords":["virtual box","windows","batch"]}</script>
+    ","inLanguage":"en-us","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/datosh.github.io\/post\/control_virtual_box_via_batch\/"},"author":{"@type":"Person","name":"DaTosh"},"creator":{"@type":"Person","name":"DaTosh"},"accountablePerson":{"@type":"Person","name":"DaTosh"},"copyrightHolder":{"@type":"Person","name":"DaTosh"},"copyrightYear":"2021","dateCreated":"2021-12-28T17:12:59.00Z","datePublished":"2021-12-28T17:12:59.00Z","dateModified":"2021-12-28T17:12:59.00Z","publisher":{"@type":"Organization","name":"DaTosh","url":"https://datosh.github.io/","logo":{"@type":"ImageObject","url":"https:\/\/datosh.github.io\/favicon-32x32.png","width":"32","height":"32"}},"image":[],"url":"https:\/\/datosh.github.io\/post\/control_virtual_box_via_batch\/","wordCount":"220","genre":[],"keywords":["virtual box","windows","batch"]}</script>
 </head>
 <body>
 <header><div class="page-top
@@ -117,7 +117,7 @@ animated fadeInDown">
 Tue, Dec 28, 2021
 </span>
 <em class="fas fa-stopwatch"></em>
-<span class=reading-time>One-minute read</span>
+<span class=reading-time>2-minute read</span>
 </div>
 </div><p>VirtualBox GUI is slow for repetitive tasks such as starting & stopping virtual
 machines. In addition, some tasks such as starting VMs <strong>headless</strong> is not
@@ -141,7 +141,13 @@ to stop all machines:</p>
 </code></pre></div><p>Instead of using <code>acpipowerbutton</code> which performs a clean shutdown, you could
 also use <code>savestate</code> to save the current VM state to disk, to restart it later.</p>
 <p>The same start batch script will work for both modes.</p>
-<h3 id=sources>Sources</h3>
+<h2 id=status>Status</h2>
+<p>These scripts allow me to not run VirtualBox GUI at all. The downside
+is that I sometimes forget which state my VMs are in, running vs. shutdown.</p>
+<p>A simple status script helps me to check on my VMs without starting the GUI.</p>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bat data-lang=bat><span style=color:#4e9a06>&#34;</span><span style=color:#000>%ProgramFiles%</span><span style=color:#4e9a06>\Oracle\VirtualBox\VBoxManage.exe&#34;</span> list runningvms
+<span style=color:#000;font-weight:700>@</span><span style=color:#204a87;font-weight:700>pause</span>
+</code></pre></div><h3 id=sources>Sources</h3>
 <p><a href=https://superuser.com/a/996832>SuperUser StackExchange</a></p>
 </div>
 <div class=post-footer>
