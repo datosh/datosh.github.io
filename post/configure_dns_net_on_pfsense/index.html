@@ -2,7 +2,7 @@
 <title>
 DaTosh
 |
-DaTosh Blog
+Configure DNS:NET as ISP on pfSense Router
 </title>
 <meta charset=utf-8><meta name=generator content="Hugo 0.91.2"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name=description content="
@@ -17,14 +17,21 @@ DaTosh Blog
 <link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=canonical href=/>
-<link rel=alternate type=application/rss+xml href=/index.xml title="DaTosh Blog">
+<link rel=canonical href=/post/configure_dns_net_on_pfsense/>
 <script type=text/javascript src=/js/anatole-header.min.2a2cd9614b7d007dfbb75e8da19e3a0fa872ceab53c6d000c00b7a0c89b85bfc.js integrity="sha256-KizZYUt9AH37t16NoZ46D6hyzqtTxtAAwAt6DIm4W/w=" crossorigin=anonymous></script>
 <script type=text/javascript src=/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus=" crossorigin=anonymous></script>
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="DaTosh Blog">
-<meta name=twitter:description content>
-<script type=application/ld+json>{"@context":"http://schema.org","@type":"WebSite","name":"DaTosh Blog","url":"https:\/\/datosh.github.io\/","description":"","thumbnailUrl":"https:\/\/datosh.github.io\/","license":""}</script>
+<meta name=twitter:title content="Configure DNS:NET as ISP on pfSense Router">
+<meta name=twitter:description content="Since DNS:NET provides support only for a limited number of supported routers, and pfSense is not on that list, I will share my configuration here.">
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","articleSection":"post","name":"Configure DNS:NET as ISP on pfSense Router","headline":"Configure DNS:NET as ISP on pfSense Router","alternativeHeadline":"","description":"
+      
+        Since DNS:NET provides support only for a limited number of supported routers, and pfSense is not on that list, I will share my configuration here.
+
+
+      
+
+
+    ","inLanguage":"en-us","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/datosh.github.io\/post\/configure_dns_net_on_pfsense\/"},"author":{"@type":"Person","name":"DaTosh"},"creator":{"@type":"Person","name":"DaTosh"},"accountablePerson":{"@type":"Person","name":"DaTosh"},"copyrightHolder":{"@type":"Person","name":"DaTosh"},"copyrightYear":"2022","dateCreated":"2022-01-05T00:00:00.00Z","datePublished":"2022-01-05T00:00:00.00Z","dateModified":"2022-01-05T00:00:00.00Z","publisher":{"@type":"Organization","name":"DaTosh","url":"https://datosh.github.io/","logo":{"@type":"ImageObject","url":"https:\/\/datosh.github.io\/favicon-32x32.png","width":"32","height":"32"}},"image":[],"url":"https:\/\/datosh.github.io\/post\/configure_dns_net_on_pfsense\/","wordCount":"175","genre":[],"keywords":["pfsense","dns:net","vlan","router"]}</script>
 </head>
 <body>
 <header><div class="page-top
@@ -38,7 +45,7 @@ animated fadeInDown">
 <ul class=nav__list id=navMenu>
 <div class=nav__links>
 <li>
-<a class=current href=/ title>Home</a>
+<a href=/ title>Home</a>
 </li>
 <li>
 <a href=/post/ title>Posts</a>
@@ -101,82 +108,53 @@ DaTosh
 <div class=content>
 <div class="post
 animated fadeInDown">
-<div class="post-title post-content">
-</div>
-</div>
-<div class="post
-animated fadeInDown">
-<div class=post-title>
-<h3><a href=/post/configure_dns_net_on_pfsense/>Configure DNS:NET as ISP on pfSense Router</a></h3>
-</div>
 <div class=post-content>
-<div class=p_part>
-<p>
-Since DNS:NET provides support only for a limited number of supported routers, and pfSense is not on that list, I will share my configuration here.
-</p>
-</div>
-</div>
-<div class=post-footer>
-<div class=meta>
+<div class=post-title>
+<h1>Configure DNS:NET as ISP on pfSense Router</h1>
 <div class=info>
 <em class="fas fa-calendar-day"></em>
 <span class=date>
 Wed, Jan 5, 2022
 </span>
+<em class="fas fa-stopwatch"></em>
+<span class=reading-time>One-minute read</span>
+</div>
+</div><p>Since DNS:NET provides support only for a limited number of supported
+routers, and pfSense is not on that list, I will share my configuration here.</p>
+<p>This guide is aimed at <strong>pfSense Community Edition Version 2.5.x</strong>.</p>
+<p>In the following configurations, parameters that are omitted should be left
+empty or with their default value.</p>
+<p>This configuration assumes that the WAN port is called <strong>em0</strong>. You can check
+your network ports at <strong><code>Interface -> Assignments</code></strong>.</p>
+<h2 id=configure-vlan-tag>Configure VLAN Tag</h2>
+<p>Go to <strong><code>Interface -> Assignments -> VLANs</code></strong> and
+create a <strong>new</strong> VLAN with the following configuration:</p>
+<ul>
+<li>Parent Interface: <strong>em0</strong> (or your WAN interface)</li>
+<li>VLAN Tag: <strong>37</strong></li>
+<li>Description: <strong>dnsnet</strong></li>
+</ul>
+<h2 id=configure-pppoe>Configure PPPoE</h2>
+<p>Also in the Interface section, go to <code>PPPs</code> and create a <strong>new</strong> PPP
+configuration:</p>
+<ul>
+<li>Link Type: <strong>PPPoE</strong></li>
+<li>Link Interface(s): <strong>em0.37</strong> (This is the VLAN interface we created in
+previous step)</li>
+<li>Username & Password: These values are provided to you by DNS:NET, or can be
+accessed using their
+<a href=https://mein.dns-net.de/>customer portal</a>.</li>
+</ul>
+<h2 id=configure-interface-assignments>Configure Interface Assignments</h2>
+<p>Go back to <strong><code>Interface -> Assignments</code></strong> and select <strong>PPPOE0(em0.37)</strong>
+for your WAN Network Port.</p>
+<p>Save & Apply! :)</p>
+</div>
+<div class=post-footer>
+<div class=info>
 <span class=separator><a class=tag href=/tags/pfsense/>pfsense</a><a class=tag href=/tags/dnsnet/>dns:net</a><a class=tag href=/tags/vlan/>vlan</a><a class=tag href=/tags/router/>router</a></span>
 </div>
 </div>
-</div>
-</div>
-<div class="post
-animated fadeInDown">
-<div class=post-title>
-<h3><a href=/post/control_virtual_box_via_batch/>Control VirtualBox VMs via Batch</a></h3>
-</div>
-<div class=post-content>
-<div class=p_part>
-<p>
-VirtualBox GUI is slow for repetitive tasks such as starting & stopping virtual machines.
-</p>
-</div>
-</div>
-<div class=post-footer>
-<div class=meta>
-<div class=info>
-<em class="fas fa-calendar-day"></em>
-<span class=date>
-Tue, Dec 28, 2021
-</span>
-<span class=separator><a class=tag href=/tags/virtual-box/>virtual box</a><a class=tag href=/tags/windows/>windows</a><a class=tag href=/tags/batch/>batch</a></span>
-</div>
-</div>
-</div>
-</div>
-<div class="post
-animated fadeInDown">
-<div class=post-title>
-<h3><a href=/post/unraid_reverse_traefik/>Traefik 2 as Docker Reverse Proxy on unRAID</a></h3>
-</div>
-<div class=post-content>
-<div class=p_part>
-<p>
-Hosting multiple containers on unRAID, and keeping track of their port mappings can become quite annoying.
-</p>
-</div>
-</div>
-<div class=post-footer>
-<div class=meta>
-<div class=info>
-<em class="fas fa-calendar-day"></em>
-<span class=date>
-Sat, Jan 23, 2021
-</span>
-<span class=separator><a class=tag href=/tags/docker/>docker</a><a class=tag href=/tags/traefik/>traefik</a><a class=tag href=/tags/unraid/>unraid</a><a class=tag href=/tags/reverse-proxy/>reverse proxy</a></span>
-</div>
-</div>
-</div>
-</div>
-<div class=pagination>
 </div>
 </div>
 </div>
