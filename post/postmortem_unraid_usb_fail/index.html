@@ -22,17 +22,17 @@ Postmortem: unRAID Flash Device Failure
 <script type=text/javascript src=/js/anatole-theme-switcher.min.7fd87181cdd7e8413aa64b6867bb32f3a8dc242e684fc7d5bbb9f600dbc2b6eb.js integrity="sha256-f9hxgc3X6EE6pktoZ7sy86jcJC5oT8fVu7n2ANvCtus=" crossorigin=anonymous></script>
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Postmortem: unRAID Flash Device Failure">
-<meta name=twitter:description content="Status: Complete, action items in progress
-Summary: unRAID&rsquo;s OS Flash Device failed undeteced for 14 days, preventing server to successfully reboot.">
+<meta name=twitter:description content="Status: Complete, action items in progress.
+Summary: unRAID&rsquo;s OS Flash Device failed undeteced for 14 days, preventing server to successfully reboot, taking all internal services down, including pfSense VM which prevented home network from accessing internet.">
 <script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","articleSection":"post","name":"Postmortem: unRAID Flash Device Failure","headline":"Postmortem: unRAID Flash Device Failure","alternativeHeadline":"","description":"
       
-        Status: Complete, action items in progress\nSummary: unRAID\u0026rsquo;s OS Flash Device failed undeteced for 14 days, preventing server to successfully reboot.
+        Status: Complete, action items in progress.\nSummary: unRAID\u0026rsquo;s OS Flash Device failed undeteced for 14 days, preventing server to successfully reboot, taking all internal services down, including pfSense VM which prevented home network from accessing internet.
 
 
       
 
 
-    ","inLanguage":"en-us","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/datosh.github.io\/post\/postmortem_unraid_usb_fail\/"},"author":{"@type":"Person","name":"DaTosh"},"creator":{"@type":"Person","name":"DaTosh"},"accountablePerson":{"@type":"Person","name":"DaTosh"},"copyrightHolder":{"@type":"Person","name":"DaTosh"},"copyrightYear":"2022","dateCreated":"2022-01-23T16:43:44.00Z","datePublished":"2022-01-23T16:43:44.00Z","dateModified":"2022-01-23T16:43:44.00Z","publisher":{"@type":"Organization","name":"DaTosh","url":"https://datosh.github.io/","logo":{"@type":"ImageObject","url":"https:\/\/datosh.github.io\/favicon-32x32.png","width":"32","height":"32"}},"image":[],"url":"https:\/\/datosh.github.io\/post\/postmortem_unraid_usb_fail\/","wordCount":"226","genre":[],"keywords":[]}</script>
+    ","inLanguage":"en-us","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/datosh.github.io\/post\/postmortem_unraid_usb_fail\/"},"author":{"@type":"Person","name":"DaTosh"},"creator":{"@type":"Person","name":"DaTosh"},"accountablePerson":{"@type":"Person","name":"DaTosh"},"copyrightHolder":{"@type":"Person","name":"DaTosh"},"copyrightYear":"2022","dateCreated":"2022-01-23T16:43:44.00Z","datePublished":"2022-01-23T16:43:44.00Z","dateModified":"2022-01-23T16:43:44.00Z","publisher":{"@type":"Organization","name":"DaTosh","url":"https://datosh.github.io/","logo":{"@type":"ImageObject","url":"https:\/\/datosh.github.io\/favicon-32x32.png","width":"32","height":"32"}},"image":[],"url":"https:\/\/datosh.github.io\/post\/postmortem_unraid_usb_fail\/","wordCount":"494","genre":[],"keywords":[]}</script>
 </head>
 <body>
 <header><div class="page-top
@@ -118,36 +118,60 @@ animated fadeInDown">
 Sun, Jan 23, 2022
 </span>
 <em class="fas fa-stopwatch"></em>
-<span class=reading-time>2-minute read</span>
+<span class=reading-time>3-minute read</span>
 </div>
-</div><p><strong>Status:</strong> Complete, action items in progress</p>
-<p><strong>Summary:</strong> unRAID&rsquo;s OS Flash Device failed undeteced for 14 days, preventing server
-to successfully reboot.</p>
-<p><strong>Impact:</strong> 2 hours of internet outage.</p>
-<p><strong>Root Cause:</strong> Flash device failed.</p>
-<p><strong>Trigger:</strong> Reboot of server.</p>
-<p><strong>Resolution:</strong> Migrated to new flash device.</p>
-<p><strong>Detection:</strong> Broken web UI, when trying to instantiate new VM.</p>
+</div><p><strong>Status:</strong> Complete, action items in progress.</p>
+<p><strong>Summary:</strong> <a href=https://unraid.net/>unRAID&rsquo;s OS</a>
+Flash Device failed undeteced for 14 days, preventing server
+to successfully reboot, taking all internal services down, including
+<a href=https://www.pfsense.org/>pfSense</a>
+VM which prevented home network from accessing internet.</p>
+<p><strong>Impact:</strong> 2 hours of limited internet access (mobile data plan).
+Internal services still offline, due to broken configuration.</p>
+<p><strong>Root Cause:</strong> Flash device failed undeteced. No backup & limited internet
+access delayed mitigation.</p>
+<p><strong>Trigger:</strong> Failing reboot of unRAID server.</p>
+<p><strong>Resolution:</strong> Since no backup of unRAID flash device was available,
+I reinstalled unRAID onto new flash device. Activation of unRAID trial
+license or requesting replacement key
+<a href=https://forums.unraid.net/topic/55382-no-internet-no-unraid/>without internet access was impossible</a>.
+Since unRAID does not support WiFi, direct usage of mobile data plan was not
+possible.<br>
+In the end, I used Windows
+<a href=https://en.wikipedia.org/wiki/Internet_Connection_Sharing>Internet Connection Sharing (ICS)</a>
+feature and mobile data plan to get wired home network temporarily back online,
+so unRAID key could be requested for new flash device.
+<a href=https://wiki.unraid.net/Manual/Changing_The_Flash_Device#What_to_do_if_you_have_no_backup_and_do_not_know_your_disk_assignments>Assigned disks in unRAID array from memory</a>
+to boot pfSense VM, and home network back online.<br>
+Original unRAID configuration was lost, and still needs to be re-created
+from memory to get all internal services back online.</p>
+<p><strong>Detection:</strong> Broken web UI, when trying to instantiate new VM. All other
+services were still running fine.</p>
 <p><strong>Action Items:</strong></p>
 <ul>
+<li><a href=https://github.com/datosh/home/issues/4>Restore unRAID configuration</a></li>
 <li><a href=https://github.com/datosh/home/issues/1>Automated cloud backup of unRAID flash device</a></li>
 <li><a href=https://github.com/datosh/home/issues/3>Automated backup of pfSense config</a></li>
 <li><a href=https://github.com/datosh/datosh.github.io/issues/1>Document mobile data & windows router setup</a></li>
-<li><a href=https://github.com/datosh/home/issues/4>Restore unRAID configuration</a></li>
 <li><a href=https://github.com/datosh/home/issues/5>Implement alerting of unRAID system log errors</a></li>
 </ul>
 <h2 id=lessons-learned>Lessons Learned</h2>
 <h3 id=what-went-well>What went well</h3>
 <ul>
-<li>Outage was fixed in a timely manner.</li>
+<li>Outage was fixed in a timely manner, despite many technical
+limitations of home network.</li>
+<li>No critical internal service data was lost in process, only service
+configuration.</li>
 </ul>
 <h3 id=what-went-wrong>What went wrong</h3>
 <ul>
-<li>Should have saved more information (system log) or tried to save config (usb backup) before deciding to reboot faulty system.</li>
+<li>Should have saved more information (system log) or tried to save config
+(usb backup) before deciding to reboot faulty system.</li>
 </ul>
 <h3 id=where-we-got-lucky>Where we got lucky</h3>
 <ul>
 <li>Lucky to find Windows mobile data share feature.</li>
+<li>Remembered disk assignments in unRAID arrays.</li>
 </ul>
 <h2 id=timeline>Timeline</h2>
 <p>2022-01-09</p>
@@ -156,12 +180,23 @@ to successfully reboot.</p>
 </ul>
 <p>2022-01-23</p>
 <ul>
-<li>14:26 When trying to spin up a new VM, notice broken unRAID UI</li>
-<li>14:28 Check unRAID syslog and see errors starting from January 9th re. broken
+<li>14:25 When trying to spin up a new VM, I notice broken unRAID UI.</li>
+<li>14:30 Check unRAID syslog and see errors starting from January 9th re. broken
 <code>/boot/</code> folder.</li>
-<li>14:51 Decide to reboot server</li>
-<li>14:53 OUTAGE BEGINS - Server unable to boot</li>
-<li>15:11 OUTAGE MITIGATED - Mobile access point deployed</li>
+<li>14:50 OUTAGE BEGINS - Decide to reboot server</li>
+<li>14:52 Server unable to boot</li>
+<li>15:10 OUTAGE MITIGATED - Mobile access point deployed</li>
+<li>15:15 Verified that flash device is broken on second machine.</li>
+<li>15:20 Reinstall unRAID onto new flash device, since no backup is available.</li>
+<li>15:30 Searching for a solution to get wired internet connection onto any
+machine so unRAID license can be moved.</li>
+<li>15:40 Deploying Windows ICS & reconfiguring unRAID to use new gateway.</li>
+<li>15:45 unRAID successfully activated</li>
+<li>16:00 Switch back to original unRAID network config and boot unRAID.</li>
+<li>16:15 Restore unRAID disk assignments manually, and verify using various
+<code>mount</code> commands</li>
+<li>16:30 unRAID array back online.</li>
+<li>16:35 Boot pfSense VM</li>
 <li>16:41 OUTAGE ENDS - Server & pfSense booted and configured</li>
 </ul>
 <p>2022-01-xx</p>
