@@ -15,6 +15,7 @@ author = "DaTosh"
 profilePicture = "images/Profile.jpg"
 contentratio = 0.75
 doNotLoadAnimations = true
+copyright = "2020-{{ YEAR }}"
 
 [[params.socialIcons]]
 icon = "fab fa-github"
@@ -46,8 +47,14 @@ url = "https://www.linkedin.com/in/fabian-kammel-7781b7173/"
   url = "/post/"
 
   [[menu.main]]
-  name = "goinvaders"
+  name = "Talks & Projects"
   weight = 300
+  identifier = "portfolio"
+  url = "/portfolio/"
+
+  [[menu.main]]
+  name = "goinvaders"
+  weight = 400
   identifier = "goinvaders"
   url = "/goinvaders/game.html"
 

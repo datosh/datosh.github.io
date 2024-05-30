@@ -1,0 +1,111 @@
+portfolioitems:
+  - title: Talks & Projects
+    portfolioitem:
+
+      - image: '/images/portfolio/kubecon_amsterdam_2023.png'
+        name: |
+          Hacking & Defending Kubernetes Clusters: We'll Do It LIVE!!
+        description: |
+          Ever wondered about the security of your own Kubernetes cluster,
+          but new to Kubernetes security and not sure where to start? In this
+          talk Fabian and James will, via a series of live demos, demonstrate
+          both common attacks and offensive techniques against Kubernetes
+          clusters and workloads, and the runtime controls to protect against
+          them. Scenarios include: Leveraging a compromised Container to
+          attack the underlying node, pivot across the network, or abuse
+          accessible secrets and tokens.  A Malicious Insider exploiting common
+          RBAC misconfigurations. Using a single node to hijack the entire cluster.
+
+          Each attack will be contextualised via mapping to the threat model
+          resources available to the community today, such as the MITRE ATT&CK®
+          Containers Matrix and CNCF Financial Services User Group attack trees.
+          Fabian and James will explain how to use these resources, and the
+          demonstrated attacks and controls to threat model, security test and
+          defend your own Kubernetes Clusters.
+
+          + [Slides](https://drive.google.com/file/d/1Za-PMlsmOhgyVfUmfsiSZ-DNM7Hle3GU/view)
+          + [Recording](https://www.youtube.com/watch?v=J3pS-XBdNpU)
+        tags:
+          - Talk
+          - Kubernetes Security
+        authors:
+          - April 2023
+
+      - image: '/images/portfolio/berlin_meetup_2022.jpg'
+        link: https://www.youtube.com/watch?v=PDSJTrj9LpA&t=5106
+        name: |
+          Level-up your security game as a K8s developer!
+        description: |
+          In this talk I will present how to incorporate security best practices
+          in your day-to-day tasks as a (Golang) Kubernetes developer. We will
+          cover how to sign your git commits, scan container images for vulnerabilities
+          and release + deploy minimal images that make both you and your SREs happy!
+          We will heavily rely on the Sigstore ecosystem to sign without the hassle of
+          key management. No subscriptions or server deployments are required, which
+          will enable you to adopt these practices right away.
+
+          [Slides](https://docs.google.com/presentation/d/13gGldvn3lpp9MQnPrVzAi-eJPzKKrXjuwTbEOz0kTck/view)
+        tags:
+          - Talk
+          - Git Commit Signing
+          - Container Image Security
+          - Supply Chain Security
+        authors:
+          - December 2022
+
+      - image: '/images/portfolio/sigstorecon_2022.png'
+        link: https://www.youtube.com/watch?v=mJczpE-sXgo
+        name: |
+          Verifiable Build Environments in the Cloud: Powered by Sigstore and Enclaves
+        description: |
+          Confidential computing is a breakthrough security technology.
+          With it data can be kept encrypted during processing. Tools in the
+          confidential computing space utilize these new concepts to provide
+          fully-encrypted, high security environments, but as everyone in
+          security knows: you are only as strong as your weakest link. Supply
+          Chain Security is one of our industries weakest links. This talk will
+          provide a deep drive of how Sigstore can help confidential (and other
+          high security) products maintain a high level of security, keep their
+          trusted compute base minimal, all the while preserving a high
+          engineering velocity. To that end we will sketch out an architecture
+          to build and sign in the cloud without malicious actors being able to
+          steal signing keys or tamper with build processes. We will also show
+          a live working demo of how such a system could be realized.
+
+          [Slides](https://drive.google.com/file/d/1nFwTPR5aE4JOdkaU5qYMyEOgrjLgoas9/view)
+        tags:
+          - Talk
+          - Confidential Computing
+          - Supply Chain Security
+        authors:
+          - October 2022
+
+      - image: '/images/portfolio/sigstore.png'
+        link: https://blog.sigstore.dev/signing-and-securing-confidential-kubernetes-clusters-in-the-cloud-with-sigstore-aceac3034e70/
+        name: |
+          Case study as an early adopter of Sigstore.
+        description: |
+          As an early adopter of Sigstore, Edgeless Systems provided me with the
+          time to contribute a case study on how to use Sigstore to secure the
+          releases and measurements of Constellation.
+        tags:
+          - Blog
+          - Supply Chain Security
+        authors:
+          - August 2022
+
+      - image: '/images/portfolio/kcd_berlin_2022.png'
+        link: https://www.youtube.com/watch?v=PhleEbcWkuM
+        name: |
+          Share my Confidential Computing journey at KCD Berlin 2022.
+        description: |
+          After joining Edgeless Systems 6 months earlier, I shared my journey
+          of learning about Confidential Computing with the Kubernetes and cloud
+          native community at KCD Berlin 2022.
+
+          [Slides](https://drive.google.com/file/d/1cnvNg2HWS13wgrbW3a65Y6FPNzfourib/view)
+        tags:
+          - Talk
+          - Confidential Computing
+        authors:
+          - June 2022
