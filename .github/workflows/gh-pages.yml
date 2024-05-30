@@ -38,6 +38,8 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+      - name: Fetch goinvaders
+        run: ./fetch_goinvaders.sh
       - name: Build with Hugo
         env:
           # For maximum backward compatibility with Hugo modules
