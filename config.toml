@@ -1,0 +1,59 @@
+baseURL = "https://datosh.github.io/"
+languageCode = "en-us"
+title = "DaTosh Blog"
+theme = "github.com/lxndrblz/anatole"
+summarylength = 10
+
+[markup]
+  [markup.highlight]
+    style = 'tango'
+
+[params]
+title = "DaTosh Blog"
+author = "DaTosh"
+# description = "Blog"
+profilePicture = "images/Profile.jpg"
+contentratio = 0.75
+doNotLoadAnimations = true
+
+[[params.socialIcons]]
+icon = "fab fa-github"
+title = "GitHub"
+url = "https://github.com/datosh"
+
+[[params.socialIcons]]
+icon = "fab fa-twitter"
+title = "twitter"
+url = "https://twitter.com/datosh18"
+
+[[params.socialIcons]]
+icon = "fab fa-linkedin"
+title = "Linkedin"
+url = "https://www.linkedin.com/in/fabian-kammel-7781b7173/"
+
+[menu]
+
+  [[menu.main]]
+  name = "Home"
+  identifier = "home"
+  weight = 100
+  url = "/"
+
+  [[menu.main]]
+  name = "Posts"
+  weight = 200
+  identifier = "posts"
+  url = "/post/"
+
+  [[menu.main]]
+  name = "goinvaders"
+  weight = 300
+  identifier = "goinvaders"
+  url = "/goinvaders/game.html"
+
+[module]
+  # uncomment line below for temporary local development of module
+  # replacements = "github.com/lxndrblz/anatole -> ../../anatole"
+  [[module.imports]]
+    path = "github.com/lxndrblz/anatole"
+    disable = false
