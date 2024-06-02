@@ -2,9 +2,8 @@
 title: "Control VirtualBox VMs via Batch"
 date: 2021-12-28
 Description: ""
+thumbnail: "images/thumbnails/virtual_box_batch.png"
 Tags: ["virtual box", "windows", "batch"]
-Categories: []
-DisableComments: false
 ---
 
 VirtualBox GUI is slow for repetitive tasks such as starting & stopping virtual

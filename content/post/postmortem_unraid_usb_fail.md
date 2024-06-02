@@ -2,10 +2,8 @@
 title: "Postmortem: unRAID Flash Device Failure"
 date: 2022-01-23T16:43:44Z
 Description: ""
+thumbnail: "images/thumbnails/postmortem_unraid.png"
 Tags: []
-Categories: []
-DisableComments: false
-Draft: false
 ---
 
 **Status:** Complete, action items in progress.
@@ -29,13 +27,13 @@ I reinstalled unRAID onto new flash device. Activation of unRAID trial
 license or requesting replacement key
 [without internet access was impossible](https://forums.unraid.net/topic/55382-no-internet-no-unraid/).
 Since unRAID does not support WiFi, direct usage of mobile data plan was not
-possible.  
+possible.
 In the end, I used Windows
 [Internet Connection Sharing (ICS)](https://en.wikipedia.org/wiki/Internet_Connection_Sharing)
 feature and mobile data plan to get wired home network temporarily back online,
 so unRAID key could be requested for new flash device.
 [Assigned disks in unRAID array from memory](https://wiki.unraid.net/Manual/Changing_The_Flash_Device#What_to_do_if_you_have_no_backup_and_do_not_know_your_disk_assignments)
-to boot pfSense VM, and home network back online.  
+to boot pfSense VM, and home network back online.
 Original unRAID configuration was lost, and still needs to be re-created
 from memory to get all internal services back online.
 
@@ -67,7 +65,7 @@ configuration.
 ### Where we got lucky
 
 * Lucky to find Windows mobile data share feature.
-* Remembered disk assignments in unRAID arrays. 
+* Remembered disk assignments in unRAID arrays.
 
 ## Timeline
 
@@ -103,5 +101,4 @@ machine so unRAID license can be moved.
 This is based
 [Google’s Postmortem Philosophy](https://sre.google/sre-book/postmortem-culture/)
 and their
-[Example Postmortem](https://sre.google/sre-book/example-postmortem/)
-.
+[Example Postmortem](https://sre.google/sre-book/example-postmortem/).

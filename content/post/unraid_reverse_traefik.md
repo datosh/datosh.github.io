@@ -2,9 +2,8 @@
 title: "Traefik 2 as Docker Reverse Proxy on unRAID"
 date: 2021-01-23
 Description: "Setting up Traefik 2.x as Reverse Proxy for Docker Containers on unRAID 6.8.x"
+thumbnail: "images/thumbnails/unraid_reverse_traefik.png"
 Tags: ["docker", "traefik", "unraid", "reverse proxy"]
-Categories: []
-DisableComments: false
 ---
 
 Hosting multiple containers on unRAID, and keeping track of their port mappings
@@ -83,15 +82,15 @@ http:
 ## Launch Traefik Container
 
 Now we can launch the actual Traefik container. Go to the `Docker` tab
-in unRAID and `ADD CONTAINER`.  
+in unRAID and `ADD CONTAINER`.
 We need to fill in the following configuration:
 
-Name: `traefik`  
-Repository: `traefik:latest`  
-Network Type: `bridge`  
+Name: `traefik`
+Repository: `traefik:latest`
+Network Type: `bridge`
 
 Add a **port** mapping from `80 → 80`, so that Traefik can listen for incoming
-HTTP traffic.  
+HTTP traffic.
 
 Add a **path** where we mount our `/mnt/user/appdata/traefik` to `/etc/traefik`
 so that Traefik can actually read our configuration.

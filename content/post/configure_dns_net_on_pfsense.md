@@ -2,9 +2,8 @@
 title: "Configure DNS:NET as ISP on pfSense Router"
 date: 2022-01-05
 Description: ""
+thumbnail: "images/thumbnails/dns_net_pfsense.png"
 Tags: ["pfsense", "dns:net", "vlan", "router"]
-Categories: []
-DisableComments: false
 ---
 
 Since DNS:NET provides support only for a limited number of supported
@@ -44,4 +43,4 @@ accessed using their
 Go back to **`Interface -> Assignments`** and select **PPPOE0(em0.37)**
 for your WAN Network Port.
 
-Save & Apply! :) 
+Save & Apply! :)
