@@ -10,7 +10,7 @@ toc: true
 Everything started with a simple question: "Why does my laptop get hot watching YouTube?",
 and led to a rabbit hole of hardware acceleration, Chrome flags, and Intel iGPU monitors.
 
-> Alright 44° isn't that hot, but it's the principle of the thing!
+> Alright 44°C isn't that hot, but it's the principle of the thing!
 
 ## What is Hardware Acceleration?
 
