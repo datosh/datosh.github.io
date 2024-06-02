@@ -9,7 +9,7 @@ Tags: []
 **Status:** Complete, action items in progress.
 
 **Summary:** [unRAID's OS](https://unraid.net/)
-Flash Device failed undeteced for 14 days, preventing server
+Flash Device failed undetected for 14 days, preventing server
 to successfully reboot, taking all internal services down, including
 [pfSense](https://www.pfsense.org/)
 VM which prevented home network from accessing internet.
@@ -17,7 +17,7 @@ VM which prevented home network from accessing internet.
 **Impact:** 2 hours of limited internet access (mobile data plan).
 Internal services still offline, due to broken configuration.
 
-**Root Cause:** Flash device failed undeteced. No backup & limited internet
+**Root Cause:** Flash device failed undetected. No backup & limited internet
 access delayed mitigation.
 
 **Trigger:** Failing reboot of unRAID server.
@@ -93,7 +93,7 @@ machine so unRAID license can be moved.
 * 16:41 OUTAGE ENDS - Server & pfSense booted and configured
 
 2022-01-xx
-* xx:xx Full unRAID configuration manully restored
+* xx:xx Full unRAID configuration manually restored
 * xx:xx docker containers manually restarted
 
 ---

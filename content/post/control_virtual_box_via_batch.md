@@ -24,7 +24,7 @@ One script for each virtual machine to start it:
 "%ProgramFiles%\Oracle\VirtualBox\VBoxManage.exe" startvm "Mars" --type headless
 ```
 
-You can use `--type gui` for the default behaviour of showing a GUI window
+You can use `--type gui` for the default behavior of showing a GUI window
 for the VM, instead.
 
 ## Stop All

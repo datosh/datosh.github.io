@@ -8,7 +8,7 @@ toc: true
 ---
 
 Everything started with a simple question: "Why does my laptop get hot watching YouTube?",
-and led to a rabbit hole of hardware acceleration, Chrome flags, and Intel iGPUs monitors.
+and led to a rabbit hole of hardware acceleration, Chrome flags, and Intel iGPU monitors.
 
 > Alright 44° isn't that hot, but it's the principle of the thing!
 
@@ -21,8 +21,8 @@ like [SSE][WikipediaSSE] for vector operations, to specialized instructions like
 
 My system features an 11th Gen Intel i7-11800H, which includes
 [Intel QuickSync][WikipediaQuickSync]: "a dedicated video encoding and decoding hardware core".
-On Linux, this funcionality is exposed via [LibVA](https://github.com/intel/libva)
-an implementaion of the [Video-Acceleration-API (VAAPI)](https://en.wikipedia.org/wiki/Video_Acceleration_API).
+On Linux, this functionality is exposed via [LibVA](https://github.com/intel/libva)
+an implementation of the [Video-Acceleration-API (VAAPI)](https://en.wikipedia.org/wiki/Video_Acceleration_API).
 
 With this hardware prowess available, my laptop should be more than fine to handle a YouTube video, right?!
 
@@ -74,9 +74,9 @@ Adding the flags `--enable-features=VaapiVideoEncoder,VaapiVideoDecodeLinuxGL` o
 
 ## Power Consumption
 
-What did we actuauly gain from all this? Batterie life!
+What did we actually gain from all this? Battery life!
 
-To actually qunatify the difference, I measured the power consumption of my laptop
+To actually quantify the difference, I measured the power consumption of my laptop
 using [powerstat](https://manpages.ubuntu.com/manpages/bionic/man8/powerstat.8.html),
 while watching a YouTube video (1440p 60fps) in Chrome and Firefox (as a reference).
 

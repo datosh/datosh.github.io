@@ -1,0 +1,22 @@
+# de requires additional dictionary to be installed
+# https://www.npmjs.com/package/cspell-dict-de-de
+language: en, de
+files:
+  - '**/*.md'
+allowCompoundWords: true
+caseSensitive: false
+words:
+  - brrrrrr
+  - datosh
+  - traefik
+  - unRAID
+  - VAAPI
+  - runningvms
+  - acpipowerbutton
+  - Merkury
+  - controlvm
+  - startvm
+  - PPPOE
+  - dnsnet
+  - pfsense
+  - lxndrblz

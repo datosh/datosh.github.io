@@ -41,7 +41,7 @@ unRAID server at `http://192.168.1.10:8085`.**
 
 ## Prepare Traefik Configuration
 
-In order to configure Trafik we will be using a mix of dynamic configuration
+In order to configure Traefik we will be using a mix of dynamic configuration
 (via Docker labels), and static configuration (via configuration files).
 
 Place the following configuration files in your `appdata` share.
@@ -99,7 +99,7 @@ Add another **path** where we mount our Docker socket `/var/run/docker.sock`
 to `/var/run/docker.sock`. **Read-only** is sufficient here. This is required
 so Traefik can listed for new containers and read their labels, which is used
 for the dynamic configuration part. We are using this exact mechanism to expose
-the Treafik dashboard now.
+the Traefik dashboard now.
 
 Add a **label**
 * **key** = `traefik.http.routers.api.entrypoints`
