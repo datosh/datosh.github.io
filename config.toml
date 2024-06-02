@@ -47,7 +47,7 @@ url = "https://www.linkedin.com/in/fabian-kammel-7781b7173/"
   url = "/post/"
 
   [[menu.main]]
-  name = "Talks & Projects"
+  name = "Talks"
   weight = 300
   identifier = "portfolio"
   url = "/portfolio/"

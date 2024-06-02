@@ -1,8 +1,35 @@
 portfolioitems:
-  - title: Talks & Projects
+  - title: Things I've spoken about
     portfolioitem:
 
+      - image: '/images/portfolio/devopscon_2023.webp'
+        link: https://drive.google.com/file/d/1Bc8WQ-aaZ3iMgOf9smNRxNxiZNJblbaE/view
+        linktext: 'View the slides'
+        name: |
+          3h Workshop: Advanced CI Security Powered by the Open Source Community
+        description: |
+          In this workshop, we will learn how to secure your CI/CD pipeline
+          using open source tools and best practices. We will cover how to: \
+          • Understand how attackers think (Threat Modelling) \
+          • Sign and verify git commits \
+          • Scan for vulnerabilities in containers and binaries \
+          • Generate SBOMs to make security decisions \
+          • Sign your build artifacts \
+          • Demonstrate how clients verify artifacts
+
+          [Accompanying blog post on control-plane.io](https://control-plane.io/posts/dev-ops-con-munich-2023-workshop/)
+        tags:
+          - Talk
+          - Supply Chain Security
+          - CI/CD Security
+          - Git Commit Signing
+        venue: 'DevOpsCon Munich 2023'
+        authors:
+          - December 2023
+
       - image: '/images/portfolio/kubecon_amsterdam_2023.png'
+        link: https://www.youtube.com/watch?v=J3pS-XBdNpU
+        linktext: 'Watch the recording'
         name: |
           Hacking & Defending Kubernetes Clusters: We'll Do It LIVE!!
         description: |
@@ -23,16 +50,17 @@ portfolioitems:
           demonstrated attacks and controls to threat model, security test and
           defend your own Kubernetes Clusters.
 
-          + [Slides](https://drive.google.com/file/d/1Za-PMlsmOhgyVfUmfsiSZ-DNM7Hle3GU/view)
-          + [Recording](https://www.youtube.com/watch?v=J3pS-XBdNpU)
+          [Slides](https://drive.google.com/file/d/1Za-PMlsmOhgyVfUmfsiSZ-DNM7Hle3GU/view)
         tags:
           - Talk
           - Kubernetes Security
+        venue: 'KubeCon Europe'
         authors:
           - April 2023
 
       - image: '/images/portfolio/berlin_meetup_2022.jpg'
         link: https://www.youtube.com/watch?v=PDSJTrj9LpA&t=5106
+        linktext: 'Watch the recording'
         name: |
           Level-up your security game as a K8s developer!
         description: |
@@ -50,11 +78,13 @@ portfolioitems:
           - Git Commit Signing
           - Container Image Security
           - Supply Chain Security
+        venue: 'Kubernetes & Cloud Native Berlin Meetup'
         authors:
           - December 2022
 
       - image: '/images/portfolio/sigstorecon_2022.png'
         link: https://www.youtube.com/watch?v=mJczpE-sXgo
+        linktext: 'Watch the recording'
         name: |
           Verifiable Build Environments in the Cloud: Powered by Sigstore and Enclaves
         description: |
@@ -77,11 +107,13 @@ portfolioitems:
           - Talk
           - Confidential Computing
           - Supply Chain Security
+        venue: 'SigstoreCon'
         authors:
           - October 2022
 
       - image: '/images/portfolio/sigstore.png'
         link: https://blog.sigstore.dev/signing-and-securing-confidential-kubernetes-clusters-in-the-cloud-with-sigstore-aceac3034e70/
+        linktext: 'Read the case study'
         name: |
           Case study as an early adopter of Sigstore.
         description: |
@@ -96,6 +128,7 @@ portfolioitems:
 
       - image: '/images/portfolio/kcd_berlin_2022.png'
         link: https://www.youtube.com/watch?v=PhleEbcWkuM
+        linktext: 'Watch the recording'
         name: |
           Share my Confidential Computing journey at KCD Berlin 2022.
         description: |
@@ -107,5 +140,6 @@ portfolioitems:
         tags:
           - Talk
           - Confidential Computing
+        venue: 'KCD Berlin'
         authors:
           - June 2022
