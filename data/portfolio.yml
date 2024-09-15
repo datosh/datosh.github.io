@@ -2,9 +2,58 @@ portfolioitems:
   - title: Things I've spoken about
     portfolioitem:
 
+      - image: '/images/portfolio/bsides-krakow.webp'
+        link: https://drive.google.com/file/d/1L0OmTlKBCRm2dh8pyFhVoCggS-UcNrWB/view
+        linktext: 'Get the slides'
+        name: |
+          Learning from Open Source: A Developer-First Approach to Security
+        description: |
+          Everyone is all too familiar with the stereotypical sticky-note with
+          a password attached to a monitor, but we see equivalent security risks
+          in our jobs, everyday! From sharing production secrets through insecure
+          channels, to disregarding TLS server certificate validation. These are
+          symptoms of a larger issue - **'Security at the expense of usability comes
+          at the expense of security'**. In this talk we will delve into the heart
+          of this issue and show why adopting a developer-first approach is paramount
+          when designing a secure system.
+
+          Code for the demo is hosted at [https://github.com/datosh/devx](https://github.com/datosh/devx)
+        tags:
+          - Talk
+          - Developer Experience
+          - Let's Encrypt
+          - Sigstore
+        venue: 'BSides Krakow 2024'
+        authors:
+          - September 2024
+
+      - image: '/images/portfolio/bsides-krakow.webp'
+        link: https://drive.google.com/file/d/1Dt41W9XGrLBzO-C73QeOllVu6K0vAtJH/view
+        linktext: 'Get the slides'
+        name: |
+          Demystifying Confidential Computing: A Practical Introduction for Cloud Native Engineers
+        description: |
+          Confidential computing stands at the forefront of modern security paradigms,
+          offering unprecedented levels of data protection in cloud environments.
+          As cloud-native architectures become increasingly prevalent, understanding
+          and leveraging confidential virtual machines (CVMs) is paramount for engineers
+          tasked with safeguarding sensitive data. This talk aims to demystify confidential
+          computing and provide cloud-native engineers with a practical introduction to
+          integrating confidential VMs into their cloud infrastructures.
+
+          Code for the demo is hosted at [https://github.com/datosh/intro-to-cc](https://github.com/datosh/intro-to-cc)
+        tags:
+          - Talk
+          - Confidential Computing
+          - AMD SEV-SNP
+          - GCP
+        venue: 'BSides Krakow 2024'
+        authors:
+          - September 2024
+
       - image: '/images/portfolio/devopscon_2023.webp'
         link: https://drive.google.com/file/d/1Bc8WQ-aaZ3iMgOf9smNRxNxiZNJblbaE/view
-        linktext: 'View the slides'
+        linktext: 'Get the slides'
         name: |
           3h Workshop: Advanced CI Security Powered by the Open Source Community
         description: |
