@@ -2,6 +2,29 @@ portfolioitems:
   - title: Things I've spoken about
     portfolioitem:
 
+      - image: '/images/portfolio/OSS-EU-24.webp'
+        link: https://drive.google.com/file/d/19lHSLkRUIwfTfEQBjryQXlxmvX3icKB5/view
+        linktext: 'Get the slides'
+        name: |
+          VSCorode: Inside your IDE, Inside your Git Repository \w [Kevin Ward](https://wakeward.uk/)
+        description: |
+          VSCode is one of the most popular IDEs with a flourishing community of
+          extensions for data manipulation, theming, programmatic language features
+          and additional debugging functionality. There is a great deal of trust placed
+          in these extensions so what would happen if an extension turned against you?
+
+          Code for the demo is hosted at [https://github.com/controlplaneio/research-vscode](https://github.com/controlplaneio/research-vscode)
+
+          There is also a two part blog post series [[1]](https://control-plane.io/posts/abusing-vscode-from-malicious-extensions-to-stolen-credentials-part-1/) [[2]](https://control-plane.io/posts/abusing-vscode-from-malicious-extensions-to-stolen-credentials-part-2/) that details our research and findings.
+        tags:
+          - Talk
+          - VSCode
+          - Supply Chain Security
+          - IDE Security
+        venue: 'Open Source Summit Europe 2024'
+        authors:
+          - September 2024
+
       - image: '/images/portfolio/bsides-krakow.webp'
         link: https://drive.google.com/file/d/1L0OmTlKBCRm2dh8pyFhVoCggS-UcNrWB/view
         linktext: 'Get the slides'
