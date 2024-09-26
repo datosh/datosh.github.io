@@ -2,6 +2,62 @@ portfolioitems:
   - title: Things I've spoken about
     portfolioitem:
 
+      - image: '/images/portfolio/all-systems-go.png'
+        link: https://drive.google.com/file/d/1C1Eg9tTrUeUcL0afI1R5HLEA7f3vPnBE/view
+        linktext: 'Get the slides'
+        name: |
+          Removing Cloud Providers From the Zero Trust Equation
+        description: |
+          SPIFFE is a framework to generate identities for software systems in
+          dynamic and heterogeneous environments. SPIFFE Verifiable Identity
+          Documents (SVIDs) enable us to be explicit about the trust we place
+          in systems. However, the degree of trust we can place in SVIDs relies
+          heavily on the soundness of the data gathering and verification process
+          during node attestation.
+
+          This presentation introduces a novel approach to enhance the trust in
+          SVIDs by leveraging confidential computing technologies, specifically
+          Confidential Virtual Machines (CVMs) such as AMD SEV-SNP or Intel TDX.
+          These technologies enable us to track platform information directly
+          in hardware, including firmware, boot loader, and kernel images,
+          which are then signed with a key rooted inside the CPU itself.
+          By incorporating hardware-protected platform information directly
+          into the SVID generation process, we can significantly enhance the
+          confidence placed in the resulting identity documents.
+        tags:
+          - Talk
+          - Confidential Computing
+          - SPIFFE/SPIRE
+          - Zero Trust
+        venue: 'All Systems Go 2024'
+        authors:
+          - September 2024
+
+      - image: '/images/portfolio/BED-CON-24.png'
+        link: https://drive.google.com/file/d/1CsXdpl4wo_hK8tgnwrnfbizq5WX1fL8E/view
+        linktext: 'Get the slides'
+        name: |
+          From Offense to Defense: Live Exploitation of GitHub Action Vulnerabilities
+        description: |
+          In this interactive session, we delve into the realm of GitHub Actions,
+          exploring both the vulnerabilities that attackers exploit and the
+          defensive strategies developers can employ. We'll demonstrate real-world
+          attacks and their countermeasures, showcasing practical methods to secure
+          your CI/CD workflows. Join us as we uncover the intricacies of GitHub
+          Actions, where we explore the following attacks (and how to protect against them):\
+          • Fake git commits and meta data \
+          • Take over a GitHub action to distribute malicious code \
+          • Manipulate GitHub repository settings \
+          • Backdoor a GitHub release
+        tags:
+          - Talk
+          - GitHub Actions
+          - CI/CD Security
+          - Supply Chain Security
+        venue: 'Berlin Expert Days 2024'
+        authors:
+          - September 2024
+
       - image: '/images/portfolio/OSS-EU-24.webp'
         link: https://drive.google.com/file/d/19lHSLkRUIwfTfEQBjryQXlxmvX3icKB5/view
         linktext: 'Get the slides'
