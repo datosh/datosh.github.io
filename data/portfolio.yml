@@ -3,8 +3,8 @@ portfolioitems:
     portfolioitem:
 
       - image: '/images/portfolio/all-systems-go.png'
-        link: https://drive.google.com/file/d/1C1Eg9tTrUeUcL0afI1R5HLEA7f3vPnBE/view
-        linktext: 'Get the slides'
+        link: https://media.ccc.de/v/all-systems-go-2024-253-removing-cloud-providers-from-the-zero-trust-equation
+        linktext: 'Watch the recording'
         name: |
           Removing Cloud Providers From the Zero Trust Equation
         description: |
@@ -24,6 +24,8 @@ portfolioitems:
           By incorporating hardware-protected platform information directly
           into the SVID generation process, we can significantly enhance the
           confidence placed in the resulting identity documents.
+
+          [Get the slides](https://drive.google.com/file/d/1C1Eg9tTrUeUcL0afI1R5HLEA7f3vPnBE/view)
         tags:
           - Talk
           - Confidential Computing
