@@ -9,7 +9,7 @@ Draft: false
 
 # Haunted Graveyards in Consulting
 
-Popularized by Google[[1]](https://abseil.io/resources/swe-book/html/ch22.html#no_haunted_graveyards)[[2]](https://www.usenix.org/sites/default/files/conference/protected-files/srecon17americas_slides_reese.pdf)[[3]](https://abseil.io/fast/52), **Haunted Graveyards** are pieces of code that, while providing a business value, are [so ancient, obtuse, or complex that no one dares enter](https://abseil.io/resources/swe-book/html/ch22.html#no_haunted_graveyards) them.
+Popularized by Google[[1]](https://abseil.io/resources/swe-book/html/ch22.html#no_haunted_graveyards)[[2]](https://www.usenix.org/sites/default/files/conference/protected-files/srecon17americas_slides_reese.pdf), **Haunted Graveyards** are pieces of code that, while providing a business value, are [so ancient, obtuse, or complex that no one dares enter](https://abseil.io/resources/swe-book/html/ch22.html#no_haunted_graveyards) them.
 
 Every organization has them: From one-off integration software for that one customer with deep enough pockets, to code that was hammered out too quickly to make the KPIs happy. The reasons for their existence are manifold, but the consequences are always the same: **They pose an existential risk to organizations.**
 
@@ -21,7 +21,7 @@ For consultants, this challenge is amplified. Often brought in for their experti
 
 ### What is driving this phenomenon?
 
-1. **Disregarding Team Skills:** Naturally, everyone wants use the skills they have honed over the years. Latest design patterns and language features are exciting to use and (sometimes) more ergonomic than the "old way of doing things". However, this becomes a problem when the resulting implementation and the team's ability to maintain it do not align.
+1. **Disregarding Team Skills:** Naturally, everyone wants to use the skills they have honed over the years. Latest design patterns and language features are exciting to use and (sometimes) more ergonomic than the "old way of doing things". However, this becomes a problem when the resulting implementation and the team's ability to maintain it do not align.
 1. **No Sense of Ownership:** Even though consultants are usually the main author of a piece of code, they are rarely the owner. Neglecting to transfer ownership actively & effectively during an engagement will leave their owners unsure how to maintain it.
 1. **Unclear Design Decisions:** The team understands what was built, but not *why* it was built in a particular way. Unclear trade-offs and failing to motivate design decisions will leave the new owners wondering why performance has degraded only a few PRs later.
 
