@@ -1,10 +1,10 @@
 ---
 title: "Getting started with open source: Making my first contribution to Hugo."
-date: 2024-12-15
+date: 2024-12-17
 Description: ""
-thumbnail: "images/thumbnails/help_me_help_myself.png"
+thumbnail: "images/thumbnails/contribute_to_hugo.png"
 Tags: ["hugo", "open source", "wasm", "MIME"]
-draft: true
+draft: false
 ---
 
 Lots of people ask for advice on how to get started in open source.
