@@ -53,10 +53,21 @@ url = "https://www.linkedin.com/in/fabian-kammel-7781b7173/"
   url = "/portfolio/"
 
   [[menu.main]]
-  name = "goinvaders"
+  name = "Side Projects"
   weight = 400
-  identifier = "goinvaders"
+  identifier = "sideprojects"
+
+  [[menu.main]]
+  name = "GoInvaders"
+  parent = "sideprojects"
+  weight = 410
   url = "/goinvaders/game.html"
+
+  [[menu.main]]
+  name = "Pin GH Actions"
+  parent = "sideprojects"
+  weight = 420
+  url = "https://pin-gh-actions.kammel.dev/"
 
 [module]
   # uncomment line below for temporary local development of module
