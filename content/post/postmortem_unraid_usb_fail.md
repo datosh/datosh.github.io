@@ -99,6 +99,6 @@ machine so unRAID license can be moved.
 ---
 
 This is based
-[Google’s Postmortem Philosophy](https://sre.google/sre-book/postmortem-culture/)
+[Google's Postmortem Philosophy](https://sre.google/sre-book/postmortem-culture/)
 and their
 [Example Postmortem](https://sre.google/sre-book/example-postmortem/).
