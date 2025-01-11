@@ -31,33 +31,28 @@ With only a single of these conditions met, the code is at risk of becoming a ha
 
 To prevent creating haunted graveyards, consultants can adopt these best practices:
 
-<!-- Match the skill level -->
 ### 1. **Contextual Simplicity Over Universal Elegance**
 Consultants often default to implementing solutions using the most elegant or efficient techniques. However, if these techniques require specialized skills the team lacks, you risk alienating the maintainers.
 - Prioritize **simplicity** and readability over cleverness.
 - The solution should **match the team's skill level** and best practices.
 
-<!-- Transfer knowledge -->
 ### 2. **Active Knowledge Transfer**
 Leaving behind documentation is necessary but insufficient. Active efforts to transfer knowledge are critical:
 - Make sure reviews are not just rubber stamps, but opportunities for learning. This is a great attack point to *gradually* introduce more advanced concepts to the team, and **upskill them during your engagement**.
 - Ensure the team can make changes and validate them independently before you leave.
 
-<!-- Long-term ownership -->
 ### 3. **Build with Long-Term Ownership in Mind**
 Design your work with the team's long-term ownership in mind:
 - Use patterns and **technologies the team is already comfortable with**, unless there is a compelling reason to introduce new ones.
 - Write code that is **self-documenting**. A clear error message is worth a thousand pages of documentation.
 - Provide a **transition period** where you're available for follow-up questions or reviews.
 
-<!-- Collaboration -->
 ### 4. **Collaborate Closely**
 Especially in the early design phase of a project or feature, ensure that the team participates in key design decisions. This achieves multiple important goals:
 - Reduce the cost of change by **catching misunderstandings early** (shift-left).
 - Fosters a **sense of ownership** and reduces the likelihood of your work being perceived as a "black box".
 - Establish a **shared understanding** and context that is vital in code reviews.
 
-<!-- Feedback -->
 ### 5. **Feedback Loops and Checkpoints**
 Schedule regular checkpoints to verify the team's understanding of your contributions. Actively solicit feedback to identify areas where they feel less confident and adjust accordingly.
 
