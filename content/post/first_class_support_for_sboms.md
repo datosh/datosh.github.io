@@ -2,7 +2,7 @@
 title: "Bringing first-class support to SBOMs and attestations for Constellation containers"
 date: 2022-10-27
 Description: ""
-thumbnail: "images/thumbnails/ComfyUI_00242_.png"
+thumbnail: "images/thumbnails/first_class_support_for_sboms.png"
 Tags: ["SBOM", "Software Bill Of Material", "Confidential Computing", "Constellation", "Sigstore"]
 toc: false
 ---
