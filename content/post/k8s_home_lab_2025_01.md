@@ -175,6 +175,7 @@ helm upgrade nfs-provisioner nfs-provisioner/nfs-subdir-external-provisioner \
 
 Finally, let's test our setup with a simple deployment:
 
+`pvc.yaml`
 ```yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -189,6 +190,7 @@ spec:
       storage: 5Gi
 ```
 
+`pod.yaml`
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -222,3 +224,22 @@ here, but I did not expect a speed-up. If you have any insights, please [let me 
 | K8s NFS PV      | 1424 MB/s | 151 MB/s |
 
 I'm happy with the results, and we can move on to the next part.
+
+## Troubleshooting
+
+Remember that I said we need to install the NFS client on all nodes... well in
+case you forgot to do that, you might see the following error:
+
+```sh
+Events:
+  Type     Reason       Age               From               Message
+  ----     ------       ----              ----               -------
+  Normal   Scheduled    21s               default-scheduler  Successfully assigned default/nfs-provisioner-nfs-subdir-external-provisioner-5b97f88d88z7gm7 to worker
+  Warning  FailedMount  5s (x6 over 21s)  kubelet            MountVolume.SetUp failed for volume "pv-nfs-provisioner-nfs-subdir-external-provisioner" : mount failed: exit status 32
+Mounting command: mount
+Mounting arguments: -t nfs -o nfsvers=4.1 192.168.1.5:/mnt/nfs-server /var/lib/kubelet/pods/70a8024a-b2d2-4330-852f-83a15d0005ee/volumes/kubernetes.io~nfs/pv-nfs-provisioner-nfs-subdir-external-provisioner
+Output: mount: /var/lib/kubelet/pods/70a8024a-b2d2-4330-852f-83a15d0005ee/volumes/kubernetes.io~nfs/pv-nfs-provisioner-nfs-subdir-external-provisioner: bad option; for several filesystems (e.g. nfs, cifs) you might need a /sbin/mount.<type> helper program.
+       dmesg(1) may have more information after failed mount system call.
+```
+
+Don't ask me how I know this...
