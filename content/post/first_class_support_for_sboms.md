@@ -2,12 +2,12 @@
 title: "Bringing first-class support to SBOMs and attestations for Constellation containers"
 date: 2022-10-27
 Description: ""
-thumbnail: "images/thumbnails/chrome_linux.png"
+thumbnail: "images/thumbnails/ComfyUI_00242_.png"
 Tags: ["SBOM", "Software Bill Of Material", "Confidential Computing", "Constellation", "Sigstore"]
 toc: false
 ---
 
-In a previous post (TODO: LINK), we explored how to generate a Software Bill of Materials (SBOM) and subsequently scan them for vulnerabilities (TODO: LINK). In this post, we show you how SBOMs can be signed and then stored in the same container registry as the scanned image. This improves security & discoverability!
+In a [previous post](https://datosh.github.io/post/sboms_for_confidential_kubernetes/), we explored how to generate a Software Bill of Materials (SBOM) and subsequently [scan them for vulnerabilities](https://datosh.github.io/post/zero_vulnerability_posture/). In this post, we show you how SBOMs can be signed and then stored in the same container registry as the scanned image. This improves security & discoverability!
 
 ### Why should I sign my SBOM?
 

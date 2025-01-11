@@ -2,7 +2,7 @@
 title: "Verify cosign signatures in go using sigstore/sigstore"
 date: 2022-07-26
 Description: ""
-thumbnail: "images/thumbnails/chrome_linux.png"
+thumbnail: "images/thumbnails/verify_cosign_signatures_in_go.png"
 Tags: ["Sigstore", "Cosign", "Golang", "Go"]
 toc: false
 ---

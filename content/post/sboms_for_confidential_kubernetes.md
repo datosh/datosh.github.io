@@ -2,7 +2,7 @@
 title: "Generating SBOMs for Confidential Kubernetes is easier than you think!"
 date: 2022-10-03
 Description: ""
-thumbnail: "images/thumbnails/chrome_linux.png"
+thumbnail: "images/thumbnails/sboms_for_confidential_kubernetes.png"
 Tags: [Software Bill Of Material, Confidential Computing, Confidential Kubernetes, SBOM]
 toc: false
 ---

@@ -2,7 +2,7 @@
 title: "Gitsign in Remote Environments"
 date: 2022-11-02
 Description: ""
-thumbnail: "images/thumbnails/chrome_linux.png"
+thumbnail: "images/thumbnails/gitsign_in_remote_environments.png"
 Tags: ["git", "gitsign", "supply-chain-security", "OIDC", "sigstore"]
 toc: false
 ---

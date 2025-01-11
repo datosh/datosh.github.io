@@ -2,7 +2,7 @@
 title: "What can Confidential Computing do for the Kubernetes community?"
 date: 2022-07-12
 Description: ""
-thumbnail: "images/thumbnails/chrome_linux.png"
+thumbnail: "images/thumbnails/what_can_cc_do_for_k8s.png"
 Tags: ["Kubernetes", "Constellation", "Edgeless Systems"]
 toc: false
 ---
