@@ -95,5 +95,6 @@ Then we configure our kubeapi-server to support OIDC authentication backed by Ka
 
 ## Conclusion
 
-I hope you are as excited as I am to get started. I will publish one part every week,
-and keep this list running, so stay tuned!
+I hope you are as excited as I am to get started. I will publish one part every week, so stay tuned!
+
+Anything you want to see in this guide as a future part? [Let me know](https://www.linkedin.com/in/fabian-kammel-7781b7173/)!

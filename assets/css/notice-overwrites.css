@@ -1,0 +1,41 @@
+.html.theme--light .notice {
+    background-color: #eee;
+    color: #464646;
+}
+
+.html.theme--dark .notice.warning {
+    --title-background-color: #bf616a;
+}
+
+.html.theme--light .notice.warning {
+    --title-background-color: #bf616a;
+}
+
+.html.theme--dark .notice.info {
+    --title-background-color: #d08770;
+}
+
+.html.theme--light .notice.info {
+    --title-background-color: #d08770;
+}
+
+.html.theme--dark .notice.note {
+    --title-background-color: #5e81ac;
+}
+
+.html.theme--light .notice.note {
+    --title-background-color: #5e81ac;
+}
+
+.html.theme--dark .notice.tip {
+    --title-background-color: #a3be8c;
+}
+
+.html.theme--light .notice.tip {
+    --title-background-color: #a3be8c;
+}
+
+.html.theme--dark .notice {
+    background-color: #2e3440;
+    color: #eee;
+}

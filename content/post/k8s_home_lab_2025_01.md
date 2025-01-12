@@ -19,40 +19,38 @@ The options we have are:
     role-oriented, protocol-aware configuration mechanism
 
 Even though Gateway is the most powerful option, we will start with an Ingress
-based solution, as we only require basic HTTP and HTTPs routing, for now.
+based solution, as we only require basic HTTP(s) routing, for now.
+
+Let's get started! (or skip to the [TL;DR](#tldr) for the full deployment commands)
 
 ## K8s Ingress
 
-As with many things in the Kubernetes ecosystem, Ingress consists of two parts:
+As with many features in the Kubernetes ecosystem, Ingress consists of two parts:
 
 1. The **Ingress resource**, which is an abstraction that describes a collection
     of rules for routing external HTTP(s) traffic to internal services.
 1. The **Ingress controller**, which is the actual implementation that watches
-    for new or changes Ingress resources and dynamically updates the configuration
+    for new or changed **Ingress resources** and dynamically updates the configuration
     of a network proxy.
 
-As with
-[networking](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
-and
-[storage](https://kubernetes-csi.github.io/docs/drivers.html),
-K8s maintans a list of
+K8s maintans a list of available
 [ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers).
 
 ## ingress-nginx
 
-We will go with nginx based solution maintained by the k8s project.
+We will go with the nginx based solution, maintained by the k8s project.
 
-> Warning: Both, [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) and [nginx ingress](https://docs.nginx.com/nginx-ingress-controller/) exist. We are using the former!
+{{< notice warning >}}
+Both, [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) and [nginx ingress](https://docs.nginx.com/nginx-ingress-controller/) exist as different projects. We are using the former!
+{{< /notice >}}
 
 ### Installation
-
-{{< figure src="../../images/thumbnails/k8s_home_lab_2025_01.png" title="An elephant at sunset" >}}
 
 Let's follow the offical [quick start](https://kubernetes.github.io/ingress-nginx/deploy/#quick-start),
 and see where it takes us.
 
-```console
-$ helm upgrade --install \
+```bash
+helm upgrade --install \
     ingress-nginx ingress-nginx \
     --repo https://kubernetes.github.io/ingress-nginx \
     --namespace ingress-nginx --create-namespace
@@ -64,70 +62,72 @@ We should see the pods coming up in the `ingress-nginx` namespace:
 kubectl get pods --namespace=ingress-nginx
 ```
 
-Next, we could do a quick sanity check to see the controller is working:
+Next, we will do a quick sanity check to see the controller is working:
 
 ```bash
 kubectl create deployment demo --image=httpd --port=80
 kubectl expose deployment demo
 kubectl create ingress demo-localhost --class=nginx \
   --rule="demo.localdev.me/*=demo:80"
-kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
+kubectl port-forward --namespace=ingress-nginx \
+    service/ingress-nginx-controller 8080:80
 ```
 
-Simply visit `http://demo.localdev.me:8080` in your browser, will do nothing, as
-you probably don't happen to have that particular DNS record configured. Let's
-use curl instead, as we will tear this down in a second.
+Simply visiting [http://demo.localdev.me:8080](http://demo.localdev.me:8080)
+in your browser, will do nothing, as you probably don't happen to have that
+particular DNS record configured. Let's use curl instead:
 
 ```bash
 curl --resolve demo.localdev.me:8080:127.0.0.1 http://demo.localdev.me:8080
 ```
 
 Cool, we have a working ingress controller! Still this is not very useful, as
-we want external traffic to hit our services.
+we want **external traffic** to hit our services.
+
+### Exposing the Ingress Controller
+
+So without the port forward - where do we direct our traffic to? Let's check
+the resources created by the helm chart:
 
 ```console
-$ kubectl get svc --field-selector spec.type=LoadBalancer -A
+$ kubectl get svc --field-selector spec.type=LoadBalancer -n ingress-nginx
 
-NAMESPACE       NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
-ingress-nginx   ingress-nginx-controller   LoadBalancer   10.101.171.70   <pending>     80:32621/TCP,443:30097/TCP   1h
+NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+ingress-nginx-controller   LoadBalancer   10.101.171.70   <pending>     80:32621/TCP,443:30097/TCP   1h
 ```
 
-## MetalLB
-
-In this part we will enable traffic to actually hit our services, but as
-pointed out by [others](https://www.bsmithio.com/post/baremetal-k8s/) and
-[the ingress-nginx documentation](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/),
-ingress on bare metal clusters is not as straightforward as on cloud providers.
-
-To understand why, let's have a look at the network objects in a Kubernetes cluster,
-we are here for the learning experience after all, no?
-
-## Networking Objects in Kubernetes
-
-## Potential Solutions
-
-### Node Ports
-
-### MetalLB
-
-[MetalLB is composed by two components](https://metallb.universe.tf/troubleshooting/#components-responsibility):
-
-+ The controller is in charge of assigning IPs to the services
-+ The speakers are in charge of announcing the services via L2 or BGP
-
-https://metallb.universe.tf/concepts/layer2/#load-balancing-behavior
-In layer 2 mode, all traffic for a service IP goes to one node. From there, kube-proxy spreads the traffic to all the service’s pods.
-
-In that sense, layer 2 does not implement a load balancer. Rather, it implements a failover mechanism so that a different node can take over should the current leader node fail for some reason.
-
-## Ingress Controller
+In a cloud environment, the `EXTERNAL-IP` would be populated with the public IP of
+a load balancer, assigned by the cloud provider. So who provides this IP in a
+bare metal setup?
 
 ## MetalLB
+
+Kubernetes does not offer an implementation of network load balancers for
+bare-metal clusters. Luckily, we can deploy our own!
+
+MetalLB is a load-balancer implementation for bare metal Kubernetes clusters,
+using standard routing protocols, and consists of
+[two components](https://metallb.universe.tf/troubleshooting/#components-responsibility):
+
++ The **controller** is in charge of assigning IPs to the services
++ The **speakers** are in charge of announcing the services via layer 2 or BGP
+
+We will make use of the layer 2 mode, as it is the simplest to set up.
+Keep in mind though, in layer 2 mode,
+[all traffic for a service IP goes to one node](https://metallb.universe.tf/concepts/layer2/#load-balancing-behavior), and kube-proxy spreads the traffic to the respective
+service's pods. This means the total throughput is limited to the bandwidth of
+the node that receives the traffic! As we only have a single node, this is not
+a big deal right now.
+
+### Installation
+
+
 
 ## Conclusion
 
 Resources:
 + [The Kubernetes Networking Guide](https://www.tkng.io)
++ [Bare Metal K8s Guide](https://www.bsmithio.com/post/baremetal-k8s/)
 
 ## TL;DR
 
