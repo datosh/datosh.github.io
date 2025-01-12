@@ -6,7 +6,23 @@ summarylength = 10
 
 [markup]
   [markup.highlight]
-    style = 'tango'
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ''
+    hl_inline = false
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    noHl = false
+    style = 'nord'
+    tabWidth = 4
+    wrapperClass = 'highlight'
+
+[params.mermaid]
+enable = true
 
 [params]
 title = "DaTosh Blog"
@@ -16,6 +32,7 @@ profilePicture = "images/Profile.jpg"
 contentratio = 0.75
 doNotLoadAnimations = true
 copyright = "2020-{{ YEAR }}"
+
 
 [[params.socialIcons]]
 icon = "fab fa-github"

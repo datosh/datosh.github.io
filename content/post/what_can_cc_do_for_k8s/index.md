@@ -17,7 +17,7 @@ This piece will present you with an overview, so you know which tools are availa
 
 The goal of Confidential Computing is to reduce the Trusted Compute Base (**TCB**) by creating a Trusted Execution Environment (**TEE**). This is achieved through a combination of **memory isolation** (encryption & integrity protection) and **remote attestation**, enforced by the CPU and its special instructions available on latest hardware generations. These new features complete the trifecta of **encryption at rest**, **encryption in transit**, and now also **encryption in use**.
 
-![](./overview.webp)
+{{< figure src="overview.webp" title="CC enables encryption in use and verifiability" >}}
 
 In the past we've used TEEs such as Hardware Security Modules (**HSMs**), Trusted Platform Modules (**TPMs**) or smartcards, but these were expensive, limited in hardware resources, hard to program, or a mix of these.
 
@@ -35,7 +35,7 @@ Both [Intel TDX](https://www.intel.com/content/www/us/en/developer/tools/trust-d
 
 Using these allows us to remove both the Hypervisor & Cloud Service Provider from the Trusted Compute Base.
 
-![](./snp.webp)
+{{< figure src="snp.webp" caption="[**Trusted compute base of an AMD-SEV SNP CVM**](https://www.amd.com/system/files/TechDocs/SEV-SNP-strengthening-vm-isolation-with-integrity-protection-and-more.pdf)" >}}
 
 A Kubernetes cluster built using CVMs protects us from the cloud provider that cannot gain access to our K8s nodes anymore. Additionally, it also protects us from any malware affecting the cloud provider's network or cloud management software!
 
@@ -43,7 +43,7 @@ A Kubernetes cluster built using CVMs protects us from the cloud provider that c
 
 [Intel SGX](https://www.intel.com/content/www/us/en/developer/tools/software-guard-extensions/overview.html) enables our application to request the creation of an Enclave directly from the Hardware. Both data & code can be encrypted and are only ever decrypted in the protected Enclave. This allows us to carry out secure computations in a fully isolated environment.
 
-![](./sgx.webp)
+{{< figure src="sgx.webp" title="Creation of Intel SGX Enclave" >}}
 
 [Supply chain attacks](https://en.wikipedia.org/wiki/Supply_chain_attack) have increased over the last couple of years. The most popular attack was on [SolarWind's build system](https://choice.npr.org/index.html?origin=https%3A%2F%2Fwww.npr.org%2F2021%2F04%2F16%2F985439655%2Fa-worst-nightmare-cyberattack-the-untold-story-of-the-solarwinds-hack), but also [crypto miners in NPM packages](https://blog.sonatype.com/newly-found-npm-malware-mines-cryptocurrency-on-windows-linux-macos-devices) have received their fair share of news coverage.
 

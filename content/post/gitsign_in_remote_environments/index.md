@@ -15,7 +15,7 @@ to finally set up [gitsign](https://github.com/sigstore/gitsign) for my dev envi
 
 I am mostly working with [VSCode](https://code.visualstudio.com/) using their amazing [SSH remote extension](https://code.visualstudio.com/docs/remote/ssh). After following Priya's configuration example, the browser opened on my local machine, but the OIDC redirect flow failed and I got greeted with:
 
-![](connection_refused.webp)
+{{< figure src="connection_refused.webp" title="Chrome: connection refused." >}}
 
 This makes sense! The browser has no connection to my remote machines to complete the OIDC flow.
 
@@ -24,8 +24,8 @@ Two configurations were necessary to solve this problem:
 ### Create a static redirect URL
 By default, gitsign will use a random port to create the redirect URL. Compare the callback generated for two subsequent calls to gitsign:
 
-+ http://localhost:39807/auth/callback?code=…
-+ http://localhost:34275/auth/callback?code=…
++ `http://localhost:39807/auth/callback?code=…`
++ `http://localhost:34275/auth/callback?code=…`
 
 We can force the usage of a static port by setting the redirectURL config parameter:
 
@@ -43,7 +43,7 @@ When working with cloud machines you could use SSH tunnels to create a route.
 
 ### Final git config
 
-```config
+```ini
 commit.gpgsign=true
 tag.gpgsign=true
 gpg.x509.program=gitsign

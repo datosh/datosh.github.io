@@ -1,245 +1,148 @@
 ---
-title: "Kubernetes Home Lab in 2025: Part1 - Persistent Storage"
+title: "Kubernetes Home Lab in 2025: Part 1 - Ingress"
 date: 2025-01-11
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_01.png"
-Tags: ["k8s", "home lab", "kubernetes", "storage"]
+Tags: ["k8s", "home lab", "kubernetes", "ingress"]
 Draft: true
 ---
 
-Stateless applications are nice, but at some point you will probably want
-some of your data to survive a pod restart. In this part we will setup a basic
-NFS server to provide persistent storage for our cluster. Then, we make it available
-in our cluster using
-[NFS Subdirectory External Provisioner](https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/).
+First things first, we need to get traffic into our cluster.
 
-As mentioned in the [introduction](/post/k8s_home_lab_2025/), we could have used
-[Longhorn](https://longhorn.io/) for this, but I wanted to keep it simple for now.
-Also, there is the [NFS CSI driver](https://github.com/kubernetes-csi/csi-driver-nfs),
-in case [you want to go that route](https://serverfault.com/questions/1159882/why-the-nfs-csi-driver-is-recommended-over-the-nfs-in-tree-driver).
+The options we have are:
++ [Node Ports](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
+    are built into K8s, but ugly for end-users as they run on non-default high port numbers
++ [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+    enable us to route HTTP(s) traffic based on the request's host and path
++ [Gateway API](https://kubernetes.io/docs/concepts/services-networking/gateway/)
+    is the new way to make network services available by using an extensible,
+    role-oriented, protocol-aware configuration mechanism
 
-## NFS Server - Disks
+Even though Gateway is the most powerful option, we will start with an Ingress
+based solution, as we only require basic HTTP and HTTPs routing, for now.
 
-Before we get started with the actual NFS server setup, let's have a look at the
-disks we have available.
+## K8s Ingress
+
+As with many things in the Kubernetes ecosystem, Ingress consists of two parts:
+
+1. The **Ingress resource**, which is an abstraction that describes a collection
+    of rules for routing external HTTP(s) traffic to internal services.
+1. The **Ingress controller**, which is the actual implementation that watches
+    for new or changes Ingress resources and dynamically updates the configuration
+    of a network proxy.
+
+As with
+[networking](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
+and
+[storage](https://kubernetes-csi.github.io/docs/drivers.html),
+K8s maintans a list of
+[ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers).
+
+## ingress-nginx
+
+We will go with nginx based solution maintained by the k8s project.
+
+> Warning: Both, [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) and [nginx ingress](https://docs.nginx.com/nginx-ingress-controller/) exist. We are using the former!
+
+### Installation
+
+{{< figure src="../../images/thumbnails/k8s_home_lab_2025_01.png" title="An elephant at sunset" >}}
+
+Let's follow the offical [quick start](https://kubernetes.github.io/ingress-nginx/deploy/#quick-start),
+and see where it takes us.
+
+```console
+$ helm upgrade --install \
+    ingress-nginx ingress-nginx \
+    --repo https://kubernetes.github.io/ingress-nginx \
+    --namespace ingress-nginx --create-namespace
+```
+
+We should see the pods coming up in the `ingress-nginx` namespace:
 
 ```bash
-$ lsblk
-NAME             MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINTS
-sda                8:0   0  931.5G  0 disk
-sdb                8:16  0  931.5G  0 disk
+kubectl get pods --namespace=ingress-nginx
 ```
 
-These are two 1 TB HDD disks, `WDC WD10EZRZ-00H` to be precise.
-
-Let's do some basic tests to see how our disks perform. Why? Because we can!
-But also, it is helpful to have a rough idea of the performance characteristics of your system,
-in case you need to debug some performance issues later on. Is it the database? Or my disks? Or the NFS?
-
-For the test we will use
-[fio](https://fio.readthedocs.io/en/latest/fio_doc.html),
-and carry out 4 tests:
-+ **sequential** read & write
-+ **random** read & write
-
-Here is the fio configuration file `fio.conf`:
-
-```ini
-[global]
-ioengine=libaio
-direct=1
-bs=1M
-size=1G
-runtime=60
-time_based
-group_reporting
-
-[seq-write]
-rw=write
-filename=/mnt/sda1/seq-write
-
-[seq-read]
-rw=read
-filename=/mnt/sda1/seq-write
-
-[rand-write]
-rw=randwrite
-filename=/mnt/sda1/rand-write
-
-[rand-read]
-rw=randread
-filename=/mnt/sda1/rand-write
-```
-
-Note: Make sure to adjust the `filename` to your mount point.
-
-We can run the tests with:
+Next, we could do a quick sanity check to see the controller is working:
 
 ```bash
-fio fio.conf
+kubectl create deployment demo --image=httpd --port=80
+kubectl expose deployment demo
+kubectl create ingress demo-localhost --class=nginx \
+  --rule="demo.localdev.me/*=demo:80"
+kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
 ```
 
-### 1 TB XFS
-
-Let's format and mount our first disk and run the test:
+Simply visit `http://demo.localdev.me:8080` in your browser, will do nothing, as
+you probably don't happen to have that particular DNS record configured. Let's
+use curl instead, as we will tear this down in a second.
 
 ```bash
-sudo mkfs.xfs /dev/sda
-sudo mount /dev/sda /mnt/sda1
-fio fio.conf
+curl --resolve demo.localdev.me:8080:127.0.0.1 http://demo.localdev.me:8080
 ```
 
-Which presented me with the following results:
+Cool, we have a working ingress controller! Still this is not very useful, as
+we want external traffic to hit our services.
+
+```console
+$ kubectl get svc --field-selector spec.type=LoadBalancer -A
+
+NAMESPACE       NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+ingress-nginx   ingress-nginx-controller   LoadBalancer   10.101.171.70   <pending>     80:32621/TCP,443:30097/TCP   1h
+```
+
+## MetalLB
+
+In this part we will enable traffic to actually hit our services, but as
+pointed out by [others](https://www.bsmithio.com/post/baremetal-k8s/) and
+[the ingress-nginx documentation](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/),
+ingress on bare metal clusters is not as straightforward as on cloud providers.
+
+To understand why, let's have a look at the network objects in a Kubernetes cluster,
+we are here for the learning experience after all, no?
+
+## Networking Objects in Kubernetes
+
+## Potential Solutions
+
+### Node Ports
+
+### MetalLB
+
+[MetalLB is composed by two components](https://metallb.universe.tf/troubleshooting/#components-responsibility):
+
++ The controller is in charge of assigning IPs to the services
++ The speakers are in charge of announcing the services via L2 or BGP
+
+https://metallb.universe.tf/concepts/layer2/#load-balancing-behavior
+In layer 2 mode, all traffic for a service IP goes to one node. From there, kube-proxy spreads the traffic to all the service’s pods.
+
+In that sense, layer 2 does not implement a load balancer. Rather, it implements a failover mechanism so that a different node can take over should the current leader node fail for some reason.
+
+## Ingress Controller
+
+## MetalLB
+
+## Conclusion
+
+Resources:
++ [The Kubernetes Networking Guide](https://www.tkng.io)
+
+## TL;DR
+
+Reserve the following IP range in your DHCP server `192.168.1.8-192.168.1.10`,
+and run the following:
 
 ```bash
-Run status group 0 (all jobs):
-   READ: bw=90.7MiB/s (95.1MB/s), 90.7MiB/s-90.7MiB/s (95.1MB/s-95.1MB/s), io=5445MiB (5709MB), run=60036-60036msec
-  WRITE: bw=68.4MiB/s (71.7MB/s), 68.4MiB/s-68.4MiB/s (71.7MB/s-71.7MB/s), io=4105MiB (4304MB), run=60023-60023msec
+TODO: deployment
 ```
 
-### RAID0 2x1 TB XFS
-
-Now, let's create a RAID0 array with both disks and run the test again:
-
-```sh
-sudo mdadm --create /dev/md0 --level=0 --raid-devices=2 /dev/sda /dev/sdb
-# Persist the RAID configuration
-sudo mdadm --detail --scan | sudo tee /etc/mdadm/mdadm.conf
-sudo mkfs.xfs /dev/md0
-sudo mount /dev/md0 /mnt/sda1
-fio fio.conf
-```
-
-Which gave me the following results:
+If you want to test this setup point a DNS record, in our case `k8s.kammel.dev`,
+to `192.168.1.8` and run:
 
 ```bash
-Run status group 0 (all jobs):
-   READ: bw=103MiB/s (108MB/s), 103MiB/s-103MiB/s (108MB/s-108MB/s), io=6205MiB (6506MB), run=60005-60005msec
-  WRITE: bw=114MiB/s (120MB/s), 114MiB/s-114MiB/s (120MB/s-120MB/s), io=6845MiB (7178MB), run=60005-60005msec
+TODO: deploy test app
+
+curl -kivL -H 'Host: k8s.kammel.dev' 'https://192.168.1.8'
 ```
-
-As RAID0 is a striping configuration, we would expect the write performance to improve.
-
-This should be good enough for our NFS server.
-
-## NFS Server - Configuration
-
-Now that we have our disks ready, let's install the NFS server:
-
-```bash
-sudo mkdir /mnt/nfs-server
-sudo mount /dev/md0 /mnt/nfs-server
-sudo chmod 777 /mnt/nfs-server
-# This ensures that any Kubernetes pod, regardless of its user ID,
-# can access the directory without permission issues.
-# nobody:nogroup is a standard unprivileged user/group for NFS exports.
-sudo chown nobody:nogroup /mnt/nfs-server
-echo "/mnt/nfs-server *(rw,sync,no_subtree_check,no_root_squash)" | sudo tee -a /etc/exports
-    sudo exportfs -a
-sudo systemctl restart nfs-kernel-server
-```
-
-Make note of the IP address of the NFS server, in my case `192.168.1.5`, and
-the mount path `/mnt/nfs-server`, as we will need it later.
-
-## NFS Subdirectory External Provisioner
-
-First, we need to install the required packages on **all** our nodes:
-
-```bash
-sudo apt update
-sudo apt install nfs-common
-```
-To do a quick sanity check, we can mount the NFS share on each node in turn:
-
-```bash
-sudo mkdir /mnt/nfs
-sudo mount -t nfs 192.168.1.5:/mnt/nfs-server /mnt/nfs
-sudo umount /mnt/nfs
-```
-
-Now, let's install the NFS Subdirectory External Provisioner:
-
-```bash
-helm repo add nfs-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
-helm repo update
-helm upgrade nfs-provisioner nfs-provisioner/nfs-subdir-external-provisioner \
-  --install \
-  --reuse-values \
-  --set nfs.server=192.168.1.5 \
-  --set nfs.path=/mnt/nfs-server \
-  --set storageClass.defaultClass=true
-```
-
-## Test Deployment
-
-Finally, let's test our setup with a simple deployment:
-
-`pvc.yaml`
-```yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nfs-dynamic-pvc
-spec:
-  storageClassName: nfs-client
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-```
-
-`pod.yaml`
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nfs-dynamic-test-pod
-spec:
-  containers:
-  - name: test-container
-    image: ubuntu
-    command: ["sleep", "3600"]
-    volumeMounts:
-    - mountPath: "/mnt/test"
-      name: nfs-storage
-  volumes:
-  - name: nfs-storage
-    persistentVolumeClaim:
-      claimName: nfs-dynamic-pvc
-```
-
-This also allows us to `kubectl exec` into the pod and re-run the fio test!
-
-## Results & Conclusion
-
-I have no idea what magic the NFS Subdirectory External Provisioner is working
-here, but I did not expect a speed-up. If you have any insights, please [let me know](https://www.linkedin.com/in/fabian-kammel-7781b7173/).
-
-| Test            | Read      | Write    |
-|-----------------|-----------|----------|
-| 1TB XFS         | 90   MB/s | 68  MB/s |
-| 2X1TB RAID0 XFS | 103  MB/s | 114 MB/s |
-| K8s NFS PV      | 1424 MB/s | 151 MB/s |
-
-I'm happy with the results, and we can move on to the next part.
-
-## Troubleshooting
-
-Remember that I said we need to install the NFS client on all nodes... well in
-case you forgot to do that, you might see the following error:
-
-```sh
-Events:
-  Type     Reason       Age               From               Message
-  ----     ------       ----              ----               -------
-  Normal   Scheduled    21s               default-scheduler  Successfully assigned default/nfs-provisioner-nfs-subdir-external-provisioner-5b97f88d88z7gm7 to worker
-  Warning  FailedMount  5s (x6 over 21s)  kubelet            MountVolume.SetUp failed for volume "pv-nfs-provisioner-nfs-subdir-external-provisioner" : mount failed: exit status 32
-Mounting command: mount
-Mounting arguments: -t nfs -o nfsvers=4.1 192.168.1.5:/mnt/nfs-server /var/lib/kubelet/pods/70a8024a-b2d2-4330-852f-83a15d0005ee/volumes/kubernetes.io~nfs/pv-nfs-provisioner-nfs-subdir-external-provisioner
-Output: mount: /var/lib/kubelet/pods/70a8024a-b2d2-4330-852f-83a15d0005ee/volumes/kubernetes.io~nfs/pv-nfs-provisioner-nfs-subdir-external-provisioner: bad option; for several filesystems (e.g. nfs, cifs) you might need a /sbin/mount.<type> helper program.
-       dmesg(1) may have more information after failed mount system call.
-```
-
-Don't ask me how I know this...

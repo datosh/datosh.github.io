@@ -61,35 +61,35 @@ This guide will be split into multiple parts, each focusing on a different featu
 
 I will update this list as I go and link to the respective parts.
 
-### Part1: Persistent Storage
+### Part 1 - Ingress
 
-First, we will have some fun with [fio](https://fio.readthedocs.io/en/latest/fio_doc.html)
-and RAID configurations to build a basic NFS server to provide persistent storage
-for our cluster. Then we make it available in our cluster using
-[NFS Subdirectory External Provisioner](https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/).
-
-Probably the least 2025 thing to do, but we can upgrade to [Longhorn](https://longhorn.io/), later.
-
-### Part2: Ingress
-
-This setup will cover how to install
+First, we will cover how to install
 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) as our ingress
 controller, just to recognize that we also need [MetalLB](https://metallb.universe.tf/)
 in the absence of a cloud provider in order to implement Layer 2 load balancing.
 
-### Part3: Cert-Manager
+### Part 2 - Cert-Manager
 
 Next, since we want to have HTTPS everywhere, we will install
 [cert-manager](https://cert-manager.io/docs/) and hook it up to our Cloudflare
 account to automatically provision certificates for our services.
 
-### Part4: Kanidm
+### Part 3 - Persistent Storage
+
+Then, we will have some fun with [fio](https://fio.readthedocs.io/en/latest/fio_doc.html)
+and RAID configurations to build a basic NFS server to provide persistent storage
+for our cluster. Then we make it available in our cluster using
+[NFS Subdirectory External Provisioner](https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/).
+
+Probably the least 2025 thing to do, but we can upgrade to [Longhorn](https://longhorn.io/), later, if we need to.
+
+### Part 4 - Kanidm
 
 At this point we have a working cluster, so we can start to deploy interesting applications.
 We will install [Kanidm](https://kanidm.com/) as our identity provider for password-less authentication.
 Then we configure our kubeapi-server to support OIDC authentication backed by Kanidm. This will be a fun one!
 
-### PartX: TBD
+### Part X - TBD
 
 ...
 

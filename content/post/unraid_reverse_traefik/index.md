@@ -113,8 +113,9 @@ And a final **label**
 * **key** = `traefik.http.routers.api.rule`
 * **value** = Host(\`traefik.home\`)
 
-Your container configuration should look like
-[this](https://i.imgur.com/206isoD.png)
+## Final configuration in unRAID
+
+{{< figure src="traefik_unraid.png" title="Container configuration in unRAID." >}}
 
 After creating the container you are now able to access unRAID at
 [http://unraid.home](http://unraid.home), and the
