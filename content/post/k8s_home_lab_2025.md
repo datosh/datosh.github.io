@@ -17,22 +17,29 @@ and a few weeks later, I kinda have to face it: I need a new home lab.
 So why a home lab exactly? Well, I have a few reasons:
 
 1. It's fun
-2. I could run stuff in the cloud, but I have hardware lying around, bought with the best intentions, so I might as well use it.
-3. Cloud providers, well, provide a lot of stuff, so their customers don't have to think about it, and I kinda want to think about it when learning.
-4. Same goes for things like [minikube](https://minikube.sigs.k8s.io/docs/start/), [kind](https://kind.sigs.k8s.io/), ... they have plugins for things like ingress, storage, ... and that makes them easy to use, but not the best training platform.
+1. I could run stuff in the cloud, but I have hardware lying around,
+    bought with the best intentions, so I might as well use it.
+1. Cloud providers, well, provide a lot of stuff, so their customers don't
+    have to think about it, and I kinda want to think about it when learning.
+1. Same goes for things like [minikube](https://minikube.sigs.k8s.io/docs/start/),
+    [kind](https://kind.sigs.k8s.io/), ... they have plugins for features such as
+    ingress, storage, ... and that makes them easy to use, but not the best learning platform.
 
 ## Goals
 
-+ Feature parity with a small cloud provider, what do I mean by that? I want things to work out of the box:
++ Feature parity with a small cloud provider, what do I mean by that?
+    I want things to work out of the box:
     + Ingress
     + Storage
     + Monitoring & Logging
+    + Identity & Access Management (IAM)
     + ... (let's see how many parts this guide will have)
-+ HTTPs everywhere, I want to have a valid certificate and a proper domain for every service I deploy, none of that self-signed stuff.
++ HTTPs everywhere, I want to have a valid certificate and a proper domain for
+    every service I deploy, none of that self-signed crap.
 
 ## Non-Goals
 
-+ High availability, no users, no SLOs - hurray!
++ High availability: no users, no SLOs - hurray!
 + Security, as in so far that I don't have to stress about someone taking over
 my cloud account, if I mess up. I still want to follow best practices and
 tinker with modern tools (we'll be authenticating with WebAuthn to our K8s cluster later!)
@@ -44,16 +51,21 @@ I'm happy to copy & paste a few commands here and there.
 
 If you want to follow along you would need to have or setup the following:
 
-+ A **domain name**, for me that's `kammel.dev`, which is hosted by [Cloudflare](https://www.cloudflare.com/)
++ A **domain name**, for me that's `kammel.dev`, which is hosted by
+    [Cloudflare](https://www.cloudflare.com/)
 + The ability to configure a **DHCP & DNS** in your home network
-+ A [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) cluster, I'm using:
++ A [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+    cluster, I'm using:
     + 1 control plane node (2GB RAM)
     + 1 worker node (4GB RAM)
     + Ubuntu Server 24.04 LTS
-    + [Weave Net](https://www.weave.works/docs/net/latest/overview/) as the CNI, though, you can [choose any](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
+    + [Weave Net](https://www.weave.works/docs/net/latest/overview/) as the CNI,
+    though, you can [choose any](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy)
 + A machine to setup our NFS server. I'm using a box with 2x1TB HDDs attached.
 
-These things will be out of scope for this guide. [Let me know](https://www.linkedin.com/in/fabian-kammel-7781b7173/), if you are interested in a part 0 for any of these topics.
+These things will be out of scope for this guide.
+[Let me know](https://www.linkedin.com/in/fabian-kammel-7781b7173/),
+if you are interested in a part 0 for any of these topics.
 
 ## Table of Contents
 
@@ -66,7 +78,7 @@ I will update this list as I go and link to the respective parts.
 First, we will cover how to install
 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) as our ingress
 controller, just to recognize that we also need [MetalLB](https://metallb.universe.tf/)
-in the absence of a cloud provider in order to implement Layer 2 load balancing.
+in the absence of a cloud provider.
 
 ### Part 2 - Cert-Manager
 
@@ -78,14 +90,15 @@ account to automatically provision certificates for our services.
 
 Then, we will have some fun with [fio](https://fio.readthedocs.io/en/latest/fio_doc.html)
 and RAID configurations to build a basic NFS server to provide persistent storage
-for our cluster. Then we make it available in our cluster using
+for our cluster. Finally, we make it available in our cluster using
 [NFS Subdirectory External Provisioner](https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/).
 
-Probably the least 2025 thing to do, but we can upgrade to [Longhorn](https://longhorn.io/), later, if we need to.
+Probably the least 2025 thing to do, but we can upgrade to
+[Longhorn](https://longhorn.io/) later, if we need to.
 
-### Part 4 - Kanidm
+### Part 4 - Identity & Access Management
 
-At this point we have a working cluster, so we can start to deploy interesting applications.
+At this point we have the basic features of our cluster, so we can start to deploy interesting applications.
 We will install [Kanidm](https://kanidm.com/) as our identity provider for password-less authentication.
 Then we configure our kubeapi-server to support OIDC authentication backed by Kanidm. This will be a fun one!
 
