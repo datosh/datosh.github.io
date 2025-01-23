@@ -92,13 +92,13 @@ This reduced my power consumption by 15%! 🎉🎉🎉
 
 Use the following flags to enable VAAPI hardware acceleration in Chrome:
 
-```
+```bash
 --enable-features=VaapiVideoEncoder,VaapiVideoDecodeLinuxGL
 ```
 
 These if you are on **Wayland**:
 
-```
+```bash
 --enable-features=VaapiVideoEncoder,VaapiVideoDecodeLinuxGL,UseOzonePlatform --ozone-platform=wayland
 ```
 
