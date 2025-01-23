@@ -1,0 +1,82 @@
+/* Professional typography improvements */
+.content article {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* Better heading hierarchy */
+.content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.content h2 {
+    font-size: 2rem;
+    margin-top: 3rem;
+}
+
+/* Professional code blocks */
+pre {
+    position: relative;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Copy button styling */
+.copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    background: var(--link-color);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-button i {
+    font-size: 1rem;
+    color: white;
+}
+
+/* Show button on hover */
+pre:hover .copy-button {
+    opacity: 1;
+}
+
+/* Button hover effect */
+.copy-button:hover {
+    background: var(--link-hover-color);
+}
+
+/* Button active effect */
+.copy-button:active {
+    transform: scale(0.98);
+}
+
+/* Better link styling */
+.content a {
+    border-bottom: 2px solid var(--link-color);
+    transition: border-color 0.3s ease;
+}
+
+.content a:hover {
+    border-color: var(--link-hover-color);
+}
+
+/* Professional blockquotes */
+blockquote {
+    border-left: 4px solid var(--link-color);
+    margin: 2rem 0;
+    padding: 1rem 2rem;
+    background: var(--blockquote-background);
+    border-radius: 0 8px 8px 0;
+}

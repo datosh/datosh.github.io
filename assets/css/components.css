@@ -1,0 +1,73 @@
+.info-box {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  background-color: #2e3440;
+  color: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.info-box__header {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-box__header i {
+  font-size: 1.1em;
+}
+
+.info-box__content {
+  padding: 1rem;
+}
+
+/* Box Types - Dark Theme */
+.info-box--info .info-box__header {
+  background-color: #d08770;
+  color: #fff;
+}
+
+.info-box--warn .info-box__header {
+  background-color: #bf616a;
+  color: #fff;
+}
+
+.info-box--note .info-box__header {
+  background-color: #5e81ac;
+  color: #fff;
+}
+
+.info-box--tip .info-box__header {
+  background-color: #a3be8c;
+  color: #fff;
+}
+
+/* Light theme overrides */
+.html.theme--light .info-box {
+  background-color: #eee;
+  color: #464646;
+}
+
+/* Box Types - Light Theme */
+.html.theme--light .info-box--info .info-box__header {
+  background-color: #d08770;
+  color: #fff;
+}
+
+.html.theme--light .info-box--warn .info-box__header {
+  background-color: #bf616a;
+  color: #fff;
+}
+
+.html.theme--light .info-box--note .info-box__header {
+  background-color: #5e81ac;
+  color: #fff;
+}
+
+.html.theme--light .info-box--tip .info-box__header {
+  background-color: #a3be8c;
+  color: #fff;
+}

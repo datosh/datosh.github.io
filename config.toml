@@ -27,13 +27,20 @@ enable = true
 [params]
 title = "DaTosh Blog"
 author = "DaTosh"
-# description = "Blog"
+description = "Software Engineering, Security, and Cloud Native Technologies"
 profilePicture = "images/Profile.jpg"
 contentratio = 0.75
 doNotLoadAnimations = true
 copyright = "2020-{{ YEAR }}"
-customCss = ["css/notice-overwrites.css"]
+readMore = true
+customCss = [
+    "css/custom.css",
+    "css/components.css",
+]
+customJs = ["js/copy-code.js"]
 
+# Add these for better SEO
+keywords = ["software engineering", "kubernetes", "cloud native", "security", "golang"]
 
 [[params.socialIcons]]
 icon = "fab fa-github"
@@ -88,11 +95,6 @@ url = "https://www.linkedin.com/in/fabian-kammel-7781b7173/"
   url = "https://pin-gh-actions.kammel.dev/"
 
 [module]
-  [[module.imports]]
-    path = "github.com/martignoni/hugo-notice"
-
-  # uncomment line below for temporary local development of module
-  # replacements = "github.com/lxndrblz/anatole -> ../../anatole"
   [[module.imports]]
     path = "github.com/lxndrblz/anatole"
     disable = false

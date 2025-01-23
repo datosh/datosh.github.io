@@ -1,0 +1,12 @@
+{{- $type := .Get 0 | default "info" -}}
+{{- $icon := cond (eq $type "warn") "exclamation-triangle" (cond (eq $type "tip") "lightbulb" (cond (eq $type "note") "pencil-alt" "info-circle")) -}}
+{{- $title := humanize $type -}}
+<div class="info-box info-box--{{ $type }}">
+  <div class="info-box__header">
+    <i class="fas fa-{{ $icon }}"></i>
+    <span>{{ $title }}</span>
+  </div>
+  <div class="info-box__content">
+    {{ .Inner | markdownify }}
+  </div>
+</div>

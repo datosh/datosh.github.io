@@ -7,8 +7,6 @@ Tags: ["consulting", "software engineering", "code quality"]
 Draft: false
 ---
 
-# Haunted Graveyards in Consulting
-
 Popularized by Google[[1]](https://abseil.io/resources/swe-book/html/ch22.html#no_haunted_graveyards)[[2]](https://www.usenix.org/sites/default/files/conference/protected-files/srecon17americas_slides_reese.pdf), **Haunted Graveyards** are pieces of code that, while providing a business value, are [so ancient, obtuse, or complex that no one dares enter](https://abseil.io/resources/swe-book/html/ch22.html#no_haunted_graveyards) them.
 
 Every organization has them: From one-off integration software for that one customer with deep enough pockets, to code that was hammered out too quickly to make the KPIs happy. The reasons for their existence are manifold, but the consequences are always the same: **They pose an existential risk to organizations.**

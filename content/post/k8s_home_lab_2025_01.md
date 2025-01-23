@@ -41,9 +41,9 @@ K8s maintans a list of available
 
 We will go with the nginx based solution, maintained by the k8s project.
 
-{{< notice warning >}}
+{{< info >}}
 Both, [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) and [nginx ingress](https://docs.nginx.com/nginx-ingress-controller/) exist as different projects. We are using the former!
-{{< /notice >}}
+{{< /info >}}
 
 ### Installation
 
@@ -148,10 +148,10 @@ spec:
   - 192.168.1.8-192.168.1.10
 ```
 
-{{< notice warning >}}
+{{< info "note" >}}
 Make sure to reserve the IP range in your DHCP server, so it does not assign
 the same IPs to other devices in your network!
-{{< /notice >}}
+{{< /info >}}
 
 As well as, that is supposed to run in Layer 2 mode:
 
@@ -172,6 +172,7 @@ load balancer service:
 ```bash
 TODO
 ```
+
 ## Testing the Setup
 
 Our demo app is still running, so this time we can use the assigned IP to test
