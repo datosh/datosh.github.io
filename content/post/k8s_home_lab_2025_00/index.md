@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Home Lab in 2025: Part 0 - Bootstraping the Cluster"
+title: "Kubernetes Home Lab in 2025: Part 0 - Bootstrapping the Cluster"
 date: 2025-02-05
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_00.png"
@@ -7,11 +7,11 @@ Tags: ["k8s", "home lab", "kubernetes", "libvirt", "kubeadm", "terraform"]
 Draft: true
 ---
 
-Frist things first, we need some nodes that make up our cluster.
+First things first, we need some nodes that make up our cluster.
 
 I will be using [libvirt](https://libvirt.org/) to manage my VMs, as I wanted
-an exuse to try out the [dmacvicar/libvirt](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs)
-Terraform provider. I'm excited to see how this rather bare bones approach will
+an excuse to try out the [dmacvicar/libvirt](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs)
+Terraform provider. I'm excited to see how this rather bare-bones approach will
 compare to using solutions like [unRAID](https://unraid.net/),
 [Proxmox](https://www.proxmox.com/) or [Vagrant](https://www.vagrantup.com/).
 
@@ -21,12 +21,12 @@ Libvirt is a toolkit to manage virtualization platforms. Libvirt itself is a
 hypervisor agnostic API that allows you to manage virtual machines on
 different hypervisors like KVM or QEMU.
 
-Its lingo might not be familiar to everyone, so let's quickly go over
+Its terminology might not be familiar to everyone, so let's quickly go over
 the most important concepts:
 
 + **Domain**: A domain is a virtual machine.
 + **Volume**: A volume is used to store a virtual machine image.
-+ **Storage Pool**: A storage pool is a container of mutliple volumes, every volume
++ **Storage Pool**: A storage pool is a container of multiple volumes, every volume
     has to be part of a storage pool.
 
 ## Setting up libvirt
@@ -40,7 +40,7 @@ sudo systemctl enable --now libvirtd
 ```
 
 I do like to have `virt-manager` as a GUI to quickly discover information about
-my VMs, storage pools and networks. Rest assured, we will make all the changes using
+my VMs, storage pools and networks. Rest assured, all changes will be made using
 Terraform!
 
 You can even run `virt-manager` locally on your machine and connect
@@ -89,11 +89,11 @@ network:
 ```
 
 {{< info note >}}
-Make sure to replace `enp7s0` with the name of your network interface. You can
+Ensure to replace `enp7s0` with the name of your network interface. You can
 find out the name of your interface by running `ip a`.
 {{< /info >}}
 
-After applying the configuration with `sudo netplan apply`, we can check that the
+After applying the configuration with `sudo netplan apply`, check that the
 bridge is up and running:
 
 ```console
@@ -130,7 +130,7 @@ provider "libvirt" {
 ```
 
 {{< info note >}}
-Make sure to replace the URI with the IP address of your libvirt host and the
+Replace the URI with the IP address of your libvirt host and the
 path to your SSH key, which of course has to be authorized on the remote host,
 `ssh-copy-id` is your friend here.
 {{< /info >}}
@@ -141,9 +141,9 @@ Let's pull in the required dependencies:
 terraform init
 ```
 
-Next, we can lay the foundation for our VMs.
+Next, we lay the foundation for our VMs.
 
-Our network configuration will use the bridge we created earlier:
+Our network configuration uses the bridge we created earlier:
 
 ```tf
 resource "libvirt_network" "kube_network" {
@@ -318,12 +318,12 @@ resource "libvirt_cloudinit_disk" "worker" {
 A few things to note about the VM definitions:
 1. I set a static MAC address for the network interfaces, and then set up
     [static DHCP mappings](https://docs.opnsense.org/manual/dhcp.html) on my router,
-    so that the machines have a predictable IP address. Nothing bad will happen if
-    you don't do this, make sure to check the assigned IP addresses in the Terraform
-    output or Virtual Machine Manager.
-1. Somehow the `qemu-guest-agent` doesn't start automatically, so I added a
+    so that the machines have a predictable IP address. If you don't do this,
+    nothing bad will happen. Just ensure you check the assigned IP addresses
+    in the Terraform output or Virtual Machine Manager.
+1. The `qemu-guest-agent` doesn't start automatically, so I added a
     `runcmd` to restart the service.
-1. Make sure to replace the SSH key with your own.
+1. Replace the authorized SSH key with your own.
 
 Now we can apply the configuration:
 
@@ -333,12 +333,12 @@ terraform apply
 
 ## Bootstrapping the cluster
 
-The next steps will be by the book, we will use `kubeadm` to bootstrap the
-cluster, as per the official
-[Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/).
+The next steps follow the official
+[Kubernetes documentation](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
+as we bootstrap the cluster with `kubeadm`.
 
-As we need to run most of the commands on both systems we can use the following
-script:
+In order to prepare the nodes and install the necessary packages, we run the following
+script on both nodes:
 
 ```bash
 #!/bin/bash
@@ -405,13 +405,13 @@ sudo systemctl enable kubelet.service
 sudo kubeadm config images pull
 ```
 
-After running the script on both nodes, we can initialize the control plane:
+Then we can initialize the control plane:
 
 ```bash
 sudo kubeadm init
 ```
 
-And join the worker node, make sure to copy the actual token and hash from the
+And join the worker node. Ensure to copy the actual token and hash from the
 output of the previous command:
 
 ```bash
@@ -421,7 +421,7 @@ sudo kubeadm join \
     <control-plane-host>:<control-plane-port>
 ```
 
-Logging back into the control plane node, we can configure `kubectl`:
+Logging back into the control plane node, we configure `kubectl`:
 
 ```bash
 mkdir -p $HOME/.kube
@@ -429,7 +429,7 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-And finally, we can check the status of our cluster:
+And finally, we check the status of our cluster:
 
 ```console
 kubectl get nodes
@@ -438,5 +438,6 @@ kubectl get pod -A
 TODO: OUTPUT
 ```
 
-As with every first episode of a series, we end on a cliffhanger. In the next
-post we will set up a CNI to get to a healthy cluster.
+As with every first episode of a series, we end on a cliffhanger, and install
+the [Container Network Interface (CNI)](https://kubernetes.io/docs/concepts/cluster-administration/networking/)
+together with some GitOps magic in the next post. Stay tuned!

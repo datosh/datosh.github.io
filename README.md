@@ -4,6 +4,12 @@
 
 It comes with a [demo page](https://anatole-demo.netlify.app/) and respective [source code](https://github.com/lxndrblz/anatole/tree/master/exampleSite).
 
+### Proof read / Style check
+
+```
+Review the following blog post for any spelling or gramatical mistakes. Instead of fixing the issues in the text, provide a list of the suggested changes so I can apply them myself. Highlight the changes clearly and provide a brief explanation for each one. If you have any suggestions for improving the style or structure of the text, feel free to include them as well.
+```
+
 ### Generate cover images
 
 ComfyUI SDXL with Positive Prompt:
