@@ -43,19 +43,19 @@ customJs = ["js/copy-code.js"]
 keywords = ["software engineering", "kubernetes", "cloud native", "security", "golang"]
 
 [[params.socialIcons]]
+icon = "fab fa-linkedin"
+title = "Linkedin"
+url = "https://www.linkedin.com/in/fabian-kammel-7781b7173/"
+
+[[params.socialIcons]]
 icon = "fab fa-github"
 title = "GitHub"
 url = "https://github.com/datosh"
 
 [[params.socialIcons]]
-icon = "fab fa-x-twitter"
-title = "twitter"
-url = "https://twitter.com/datosh18"
-
-[[params.socialIcons]]
-icon = "fab fa-linkedin"
-title = "Linkedin"
-url = "https://www.linkedin.com/in/fabian-kammel-7781b7173/"
+icon = "fab fa-bluesky"
+title = "Bluesky"
+url = "https://bsky.app/profile/datosh18.bsky.social"
 
 [menu]
 

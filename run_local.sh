@@ -1,2 +1,2 @@
 #!/bin/sh
-hugo server --bind 0.0.0.0 --buildDrafts
+hugo server --bind 0.0.0.0 --buildDrafts --buildFuture

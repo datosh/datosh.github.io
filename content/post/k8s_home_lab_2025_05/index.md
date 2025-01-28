@@ -1,8 +1,8 @@
 ---
-title: "Kubernetes Home Lab in 2025: Part 3 - Persistent Storage"
-date: 2025-01-11
+title: "Kubernetes Home Lab in 2025: Part 5 - Persistent Storage"
+date: 2025-03-12
 Description: ""
-thumbnail: "images/thumbnails/k8s_home_lab_2025_03.png"
+thumbnail: "images/thumbnails/k8s_home_lab_2025_05.png"
 Tags: ["k8s", "home lab", "kubernetes", "storage"]
 Draft: true
 ---
@@ -126,6 +126,9 @@ This should be good enough for our NFS server.
 
 Now that we have our disks ready, let's install the NFS server:
 
+TODO: Write to /etc/fstab to persist md0 mount
+TODO: update initram fs
+
 ```bash
 sudo mkdir /mnt/nfs-server
 sudo mount /dev/md0 /mnt/nfs-server
@@ -222,6 +225,8 @@ here, but I did not expect a speed-up. If you have any insights, please [let me 
 | 1TB XFS         | 90   MB/s | 68  MB/s |
 | 2X1TB RAID0 XFS | 103  MB/s | 114 MB/s |
 | K8s NFS PV      | 1424 MB/s | 151 MB/s |
+
+TODO: redo the nfs test with the correct mount now
 
 I'm happy with the results, and we can move on to the next part.
 

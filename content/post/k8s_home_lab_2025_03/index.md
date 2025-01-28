@@ -1,15 +1,13 @@
 ---
-title: "Kubernetes Home Lab in 2025: Part 1 - Ingress"
-date: 2025-01-11
+title: "Kubernetes Home Lab in 2025: Part 3 - Ingress"
+date: 2025-02-26
 Description: ""
-thumbnail: "images/thumbnails/k8s_home_lab_2025_01.png"
+thumbnail: "images/thumbnails/k8s_home_lab_2025_03.png"
 Tags: ["k8s", "home lab", "kubernetes", "ingress"]
 Draft: true
 ---
 
-First things first, we need to get traffic into our cluster.
-
-We can pick from a few options:
+To get traffic into our cluster, we can pick from a few options:
 + [Node Ports](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
     are built into K8s, but annoying for end-users as they run on high port numbers
 + [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
