@@ -94,6 +94,12 @@ url = "https://bsky.app/profile/datosh18.bsky.social"
   weight = 420
   url = "https://pin-gh-actions.kammel.dev/"
 
+  [[menu.main]]
+  name = "ElvenXCEL"
+  parent = "sideprojects"
+  weight = 430
+  url = "https://elvenxcel.app"
+
 [module]
   [[module.imports]]
     path = "github.com/lxndrblz/anatole"
