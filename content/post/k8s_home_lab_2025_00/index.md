@@ -432,12 +432,23 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 And finally, we check the status of our cluster:
 
 ```console
-kubectl get nodes
-TODO: OUTPUT
-kubectl get pod -A
-TODO: OUTPUT
+$ kubectl get nodes
+NAME               STATUS     ROLES           AGE   VERSION
+control-plane-01   NotReady   control-plane   24s   v1.32.1
+worker-01          NotReady   <none>          10s   v1.32.1
+
+$ kubectl get pod -A
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+kube-system   coredns-668d6bf9bc-4rmg6                   0/1     Pending   0          41s
+kube-system   coredns-668d6bf9bc-9zjks                   0/1     Pending   0          41s
+kube-system   etcd-control-plane-01                      1/1     Running   0          47s
+kube-system   kube-apiserver-control-plane-01            1/1     Running   0          47s
+kube-system   kube-controller-manager-control-plane-01   1/1     Running   0          47s
+kube-system   kube-proxy-jftn5                           1/1     Running   0          41s
+kube-system   kube-proxy-lf2q7                           1/1     Running   0          36s
+kube-system   kube-scheduler-control-plane-01            1/1     Running   0          47s
 ```
 
 As with every first episode of a series, we end on a cliffhanger, and install
-the [Container Network Interface (CNI)](https://kubernetes.io/docs/concepts/cluster-administration/networking/)
+the [Cluster Networking](https://kubernetes.io/docs/concepts/cluster-administration/networking/)
 together with some GitOps magic in the next post. Stay tuned!
