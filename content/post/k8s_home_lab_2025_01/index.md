@@ -14,7 +14,7 @@ Today, we will fix that, and a bit more.
 ## Local Access
 
 First, let's make sure we can access the cluster from our local machine.
-I like to keep my SSH configs modular. Let's create a new file:
+I like to keep my SSH configs modular. So we create a new file:
 
 ```bash
 Host control-plane-01
@@ -68,10 +68,10 @@ Then, we install Cilium:
 helm install cilium cilium/cilium --version 1.16.5 --namespace kube-system
 ```
 
-Cilium also provides a CLI tool that we can use to verify the installation.
+Cilium also provides a CLI that we can use to verify the installation. Download
+the binary and install it:
 
 ```bash
-# Install Cilium CLI
 curl -LO https://github.com/cilium/cilium-cli/releases/download/v0.16.23/cilium-linux-amd64.tar.gz
 tar xzf cilium-linux-amd64.tar.gz
 sudo install cilium /usr/local/bin/cilium
@@ -112,15 +112,16 @@ declaratively manage our Kubernetes cluster, by storing the desired state in
 a Git repository. Flux will then observe both the repository and the cluster,
 and keep the desired and actual state in sync.
 
-### GitHub
+### GitHub Prerequisites
 
 As we will be using GitHub to store our desired state, we need both a repository
 and an access token, that Flux can use to obtain the desired state from the given
-repository.
+repository. Create a new repository for your home lab, or reuse an existing one.
+We configure Flux to use a specific subdirectory in a repository, so no dedicated
+repository is needed.
 
-0. Create a new repository for your home lab, or reuse an existing one.
-    We can configure Flux to use a specific subdirectory in an existing repository,
-    so no dedicated repository is needed.
+Then, we create a fine-grained personal access token, the following way:
+
 1. Go to the [Fine-grained personal access tokens](https://github.com/settings/personal-access-tokens) page.
 1. Click on "Generate new token", and give it a name.
 1. For "Repository Access" choose "Only select repositories", and select the
@@ -131,18 +132,19 @@ repository that you want to use for your home lab.
     * Metadata: Read-only
 1. Click on "Generate token", and store the token in a secure location.
 
+Doesn't it feel good to apply least privilege? Just me? Ok.
+
 {{< info note >}}
 You can always regenerate the token from the
 [fine-grained personal access tokens](https://github.com/settings/personal-access-tokens)
 page, if you think it has been compromised or it has expired.
 {{< /info >}}
 
-Doesn't it feel good to apply least privilege? Just me? Ok.
 
 ### Install Flux CLI
 
 As with most things these days, Flux comes as a statically linked binary,
-so we can just download it and install it. If you prefer using a package manager,
+so we can easily download and install it. If you prefer using a package manager,
 [check out the Flux documentation](https://fluxcd.io/flux/installation/#install-the-flux-cli).
 
 ```bash
@@ -197,10 +199,10 @@ cluster.
 ```console
 $ kubectl get pod -n flux-system
 NAME                                       READY   STATUS    RESTARTS   AGE
-helm-controller-5bb6849c4f-zr4jm           1/1     Running   0          5m13s
-kustomize-controller-68597c4488-rp7z7      1/1     Running   0          5m13s
-notification-controller-7d6f99878b-bwvvf   1/1     Running   0          5m13s
-source-controller-666dc49455-9drcc         1/1     Running   0          5m13s
+helm-controller-5bb6849c4f-zr4jm           1/1     Running   0          1m13s
+kustomize-controller-68597c4488-rp7z7      1/1     Running   0          1m13s
+notification-controller-7d6f99878b-bwvvf   1/1     Running   0          1m13s
+source-controller-666dc49455-9drcc         1/1     Running   0          1m13s
 ```
 
 As we will learn in the next chapters, these controllers will watch for changes
@@ -221,3 +223,22 @@ the same way it manages all cluster state.
 
 Now that we have Flux in our cluster, we can rectify our previous shortcut of
 installing Cilium manually.
+
+
+```bash
+flux create source helm cilium \
+    --url https://helm.cilium.io/ \
+    --export \
+    > flux/cilium/repository.yaml
+```
+
+```bash
+flux create helmrelease cilium \
+    --interval 5m \
+    --source Helmrepository/cilium \
+    --chart cilium \
+    --chart-version 1.16.5 \
+    --namespace kube-system \
+    --export \
+    > flux/cilium/release.yaml
+```

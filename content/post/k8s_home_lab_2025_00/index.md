@@ -14,20 +14,24 @@ an excuse to try out the [dmacvicar/libvirt](https://registry.terraform.io/provi
 Terraform provider. I'm excited to see how this rather bare-bones approach will
 compare to using solutions like [unRAID](https://unraid.net/),
 [Proxmox](https://www.proxmox.com/) or [Vagrant](https://www.vagrantup.com/).
+Still, this chapter is rather self-contained, so if you decide to go
+with any other infrastructure provider, you should be able to pick up from the
+next chapter.
 
 ## Primer on libvirt
 
 Libvirt is a toolkit to manage virtualization platforms. Libvirt itself is a
-hypervisor agnostic API that allows you to manage virtual machines on
-different hypervisors like KVM or QEMU.
+hypervisor agnostic API that allows you to manage virtual machines on different
+hypervisors like [KVM](https://en.wikipedia.org/wiki/Kernel-based_Virtual_Machine)
+or [QEMU](https://www.qemu.org/).
 
 Its terminology might not be familiar to everyone, so let's quickly go over
 the most important concepts:
 
 + **Domain**: A domain is a virtual machine.
 + **Volume**: A volume is used to store a virtual machine image.
-+ **Storage Pool**: A storage pool is a container of multiple volumes, every volume
-    has to be part of a storage pool.
++ **Storage Pool**: A storage pool is a container of multiple volumes. Every
+    volume has to be part of a storage pool.
 
 ## Setting up libvirt
 
@@ -71,8 +75,8 @@ settings in your BIOS/UEFI and make sure they are enabled!
 
 ## Setting up a network bridge
 
-As I want to easily access the VMs from my home network, I will create a bridge
-interface on my host system. We will declare the additional interface in our
+As we want to easily access the VMs from our home network, we will create a bridge
+interface on our host system. We will declare the additional interface in our
 netplan configuration.
 
 ```yaml
@@ -131,7 +135,7 @@ provider "libvirt" {
 
 {{< info note >}}
 Replace the URI with the IP address of your libvirt host and the
-path to your SSH key, which of course has to be authorized on the remote host,
+path to your SSH key, which of course has to be authorized on the remote host.
 `ssh-copy-id` is your friend here.
 {{< /info >}}
 
@@ -171,8 +175,10 @@ resource "libvirt_volume" "ubuntu_server" {
 }
 ```
 
+{{< info note >}}
 Make sure you have a decent connection to the internet and your remote host, as
 the image is actually pulled through your local machine and copied to the remote host.
+{{< /info >}}
 
 Finally, we can create our control plane node:
 
@@ -193,7 +199,6 @@ resource "libvirt_domain" "control_plane" {
 
   network_interface {
     network_id = libvirt_network.kube_network.id
-    # Automatically maps to 192.168.1.16
     mac = "52:54:00:01:01:01"
     hostname = "control-plane-01"
     wait_for_lease = true
@@ -264,7 +269,6 @@ resource "libvirt_domain" "worker" {
 
   network_interface {
     network_id = libvirt_network.kube_network.id
-    # Automatically maps to 192.168.1.17
     mac = "52:54:00:01:02:01"
     hostname = "worker-01"
     wait_for_lease = true
@@ -405,7 +409,7 @@ sudo systemctl enable kubelet.service
 sudo kubeadm config images pull
 ```
 
-Then we can initialize the control plane:
+Then we can initialize the control plane node:
 
 ```bash
 sudo kubeadm init

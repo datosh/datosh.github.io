@@ -1,26 +1,5 @@
-/* Professional typography improvements */
-.content article {
-    font-size: 1.1rem;
-    line-height: 1.7;
-}
-
-/* Better heading hierarchy */
-.content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-}
-
-.content h2 {
-    font-size: 2rem;
-    margin-top: 3rem;
-}
-
-/* Professional code blocks */
-pre {
-    position: relative;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+body {
+    font-size: 1.8rem;
 }
 
 /* Copy button styling */
@@ -43,7 +22,7 @@ pre {
 }
 
 .copy-button i {
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: white;
 }
 
@@ -62,21 +41,22 @@ pre:hover .copy-button {
     transform: scale(0.98);
 }
 
-/* Better link styling */
-.content a {
-    border-bottom: 2px solid var(--link-color);
-    transition: border-color 0.3s ease;
+/* Professional code blocks */
+pre {
+    position: relative;
+    padding: 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.content a:hover {
-    border-color: var(--link-hover-color);
-}
+/* Inline code styling */
+code:not(pre code) {
+    background-color: #3b4252;
+    color: white;
 
-/* Professional blockquotes */
-blockquote {
-    border-left: 4px solid var(--link-color);
-    margin: 2rem 0;
-    padding: 1rem 2rem;
-    background: var(--blockquote-background);
-    border-radius: 0 8px 8px 0;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border: 1px solid #e5e7eb;
+    border-color: #374151;
 }
