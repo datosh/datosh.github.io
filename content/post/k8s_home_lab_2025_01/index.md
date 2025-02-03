@@ -115,22 +115,22 @@ and keep the desired and actual state in sync.
 ### GitHub Prerequisites
 
 As we will be using GitHub to store our desired state, we need both a repository
-and an access token, that Flux can use to obtain the desired state from the given
-repository. Create a new repository for your home lab, or reuse an existing one.
-We configure Flux to use a specific subdirectory in a repository, so no dedicated
-repository is needed.
+and an access token that Flux can use to obtain the desired state from the given
+repository. We configure Flux to use a specific subdirectory in a repository,
+so no dedicated repository is needed. I keep all my home labs in a single monorepo,
+but you can also create a dedicated repository for yours!
 
 Then, we create a fine-grained personal access token, the following way:
 
-1. Go to the [Fine-grained personal access tokens](https://github.com/settings/personal-access-tokens) page.
-1. Click on "Generate new token", and give it a name.
-1. For "Repository Access" choose "Only select repositories", and select the
-repository that you want to use for your home lab.
-1. Set the "Repository permissions" as:
+1. We go to the [Fine-grained personal access tokens](https://github.com/settings/personal-access-tokens) page.
+1. We click on "Generate new token", and give it a name.
+1. For "Repository Access" we choose "Only select repositories", and select the
+repository that we want to use for our home lab.
+1. We set the "Repository permissions" as:
     * Administration: Read-only
     * Contents: Read and write
     * Metadata: Read-only
-1. Click on "Generate token", and store the token in a secure location.
+1. Finally, we click on "Generate token", and store the token in a secure location.
 
 Doesn't it feel good to apply least privilege? Just me? Ok.
 
@@ -158,7 +158,7 @@ rm flux flux_2.4.0_linux_amd64.tar.gz
 
 Now we can link Flux to our GitHub repository, I will be using the subdirectory
 `k8s/flux` in my repository `home`. Adjust the values to your own repository and
-preferences.
+preferences, and enter your GitHub personal access token when prompted:
 
 ```console
 $ flux bootstrap github \
@@ -205,8 +205,8 @@ notification-controller-7d6f99878b-bwvvf   1/1     Running   0          1m13s
 source-controller-666dc49455-9drcc         1/1     Running   0          1m13s
 ```
 
-As we will learn in the next chapters, these controllers will watch for changes
-in their respective resources, and will apply the desired state to the cluster.
+Each [controller](https://fluxcd.io/flux/components/) comes with it's own
+custom resource definitions (CRDs), which we will explore in the next sections.
 
 We can also see that Flux has pushed two commits to our repository:
 
@@ -217,20 +217,30 @@ We can also see that Flux has pushed two commits to our repository:
 >}}
 
 If we inspect the commits, we can see that Flux manages it's own resources in the
-the same way it manages all cluster state.
+the same way it manages all cluster state. Amazing! The inception continues.
 
 ### Putting the chicken back in the egg
 
 Now that we have Flux in our cluster, we can rectify our previous shortcut of
 installing Cilium manually.
 
+Flux comes with a handy `flux create` command that we can use to create
+a lot of the boilerplate for us. Let's starts by defining the source for the
+Cilium Helm chart:
 
 ```bash
+mkdir -p k8s/flux/cilium
 flux create source helm cilium \
     --url https://helm.cilium.io/ \
     --export \
-    > flux/cilium/repository.yaml
+    > k8s/flux/cilium/repository.yaml
 ```
+
+The `--export` flag will export the resource to a YAML file, instead of applying
+it to the cluster!
+
+Next, we create a resource that represents the installation of a Helm chart, the
+HelmRelease:
 
 ```bash
 flux create helmrelease cilium \
@@ -240,5 +250,55 @@ flux create helmrelease cilium \
     --chart-version 1.16.5 \
     --namespace kube-system \
     --export \
-    > flux/cilium/release.yaml
+    > k8s/flux/cilium/release.yaml
 ```
+
+If you compare this to the `helm install` command we ran earlier, you can see that
+we are using the same chart and arguments. When we apply this resource to the
+cluster, Flux will recognize that this is already installed, and assume control
+over it, instead of installing it again.
+
+Once we commit the changes to the repository, we should see additional Flux resources
+being created:
+
+```console
+$ flux get helmreleases -n kube-system --watch
+NAME    REVISION   READY   MESSAGE
+cilium             False   waiting to be reconciled
+cilium             False   HelmChart 'kube-system/kube-system-cilium' is not ready: latest generation of object has not been reconciled
+cilium             False   Unknown Running 'upgrade' action with timeout of 5m0s
+cilium  1.16.5     False   Unknown Running 'upgrade' action with timeout of 5m0s
+cilium  1.16.5     True    Helm upgrade succeeded for release kube-system/cilium.v2 with chart cilium@1.16.5
+```
+
+Let's check that everything is in order:
+
+```console
+$ helm history cilium -n kube-system
+REVISION        UPDATED                         STATUS          CHART           APP VERSION     DESCRIPTION
+1               Thu Jan 30 23:11:54 2025        superseded      cilium-1.16.5   1.16.5          Install complete
+2               Mon Jan 30 23:25:43 2025        deployed        cilium-1.16.5   1.16.5          Upgrade complete
+```
+
+We can see that Flux correctly picked up on the fact that we already had
+Cilium installed and pushed a new version of the Helm chart, instead of installing
+it again.
+
+### Bonus: Nudging Flux
+
+As you may have noticed, there are different `interval` values defined for each
+resource, which controls how frequently Flux checks remote locations for changes.
+For the less patient among us, we can make use of `flux reconcile` to give Flux
+a little nudge. Make sure to include the `--with-source` flag, so that Flux knows
+to fetch the latest state from the repository as well. For example, if make changes
+to the Cilium Helm chart, we can reconcile the HelmRelease resource like this:
+
+```console
+flux reconcile helmrelease cilium --with-source
+```
+
+## Conclusion
+
+In this post, we have installed both Cilium and Flux in our cluster, and have
+solved a not so trivial dependency between the two. In the next post, we will
+improve our GitOps story by adding automated dependency upgrades. Stay tuned!
