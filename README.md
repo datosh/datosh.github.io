@@ -27,3 +27,13 @@ Exclude any words, text, symbols, or icons. No frames or borders. Avoid overly c
 ```
 
 Output dimensions `1536` x `640`.
+
+
+## Promo Posts
+
+### Home Lab 00
+
+```
+Come join me on a journey building out a #Kubernetes #homelab. This will be an environment to study for my #Kubestronaut certifications. In this first post we will bootstrap a #kubeadm cluster using Infrastructure as Code (IaC) based on #libvirt and #kvm.
+TODO: LINK
+```
