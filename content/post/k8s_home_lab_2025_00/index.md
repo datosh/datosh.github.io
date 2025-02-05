@@ -4,7 +4,7 @@ date: 2025-02-05
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_00.png"
 Tags: ["k8s", "home lab", "kubernetes", "libvirt", "kubeadm", "terraform"]
-Draft: true
+Draft: false
 ---
 
 First things first, we need some nodes that make up our cluster.

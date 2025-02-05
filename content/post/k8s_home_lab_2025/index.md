@@ -4,7 +4,7 @@ date: 2025-02-04
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025.png"
 Tags: ["k8s", "home lab", "kubernetes"]
-Draft: true
+Draft: false
 ---
 
 The year was 2024, Cyber Monday was rolling by and my manager pointed out that
