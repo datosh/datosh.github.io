@@ -17,11 +17,11 @@ and a few weeks later, I kinda have to face it: I need a new home lab.
 So why a home lab exactly? Well, I have a few reasons:
 
 1. It's fun.
-1. Haven't we all a pile of hardware lying around, bought with the best intentions?
+1. Haven't we all have a pile of hardware lying around, bought with the best intentions?
     Let's actually use it for something!
 1. Cloud providers, well, provide a lot of stuff, so their customers don't
     have to think about it, and I kinda want to think about it when learning.
-    Same goes for the likes of [minikube](https://minikube.sigs.k8s.io/docs/start/) amd
+    Same goes for the likes of [minikube](https://minikube.sigs.k8s.io/docs/start/) and
     [kind](https://kind.sigs.k8s.io/). They have easy to use plugins for features such as
     ingress and storage. That makes them easy to use, but not the best for learning.
 
@@ -34,7 +34,7 @@ So why a home lab exactly? Well, I have a few reasons:
 1. Everything defined as code. I want to be able to tear down and rebuild my
     cluster with a few commands, enabling us to try things without fear of breaking
     stuff. If we do, we just rebuild it.
-1. HTTPs everywhere, I want to have a valid certificate and a proper domain for
+1. HTTPS everywhere, I want to have a valid certificate and a proper domain for
     every service I deploy, none of that self-signed crap.
 
 ## Non-Goals
@@ -53,6 +53,8 @@ If you want to follow along you would need to have or set up the following:
 
 1. A **domain name**, for me that's `kammel.dev`, which is hosted by
     [Cloudflare](https://www.cloudflare.com/).
+1. A **GitHub account**, to host our GitOps repository. Other git providers
+    are possible, but I won't cover them in this series.
 1. The ability to configure **DHCP & DNS** in your home network, I'm running
     [opnsense](https://opnsense.org/), but really any router with these features
     should do.
