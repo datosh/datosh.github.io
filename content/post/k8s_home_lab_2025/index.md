@@ -73,30 +73,40 @@ I will update this list as I go and link to the respective parts.
     codify our [libvirt](https://libvirt.org/) provided virtual machines,
     provision them with [cloudinit](https://cloudinit.readthedocs.io/en/latest/),
     and bootstrap Kubernetes with [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/).
-+ [Part 1 - CNI & GitOps](/post/k8s_home_lab_2025_01/)
+<!-- + [Part 1 - CNI & GitOps](/post/k8s_home_lab_2025_01/) -->
++ Part 1 - CNI & GitOps
     will answer the age old question: What came first? The CNI or GitOps?
     We will install [Cilium](https://cilium.io/) as our CNI, then we install
     [Flux](https://fluxcd.io/) to manage our cluster configuration, and finally
     "put the chicken back into the egg", by transferring the responsibility of
     managing the Cilium deployment back to Flux.
-+ [Part 2 - Automated Dependency Updates](/post/k8s_home_lab_2025_02/)
+<!-- + [Part 2 - Automated Dependency Updates](/post/k8s_home_lab_2025_02/) -->
++ Part 2 - Automated Dependency Updates
     will dive into the benefits of version pinning, and cover how to install
     and configure [Renovate](https://www.mend.io/renovate/) to automate the boring
     task of staying up to date.
-+ [Part 3 - Ingress](/post/k8s_home_lab_2025_03/) will cover how to install
+<!-- + [Part 3 - Ingress](/post/k8s_home_lab_2025_03/) -->
++ Part 3 - Ingress
+    will cover how to install
     [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) as our ingress
     controller, just to recognize that we also need [MetalLB](https://metallb.universe.tf/)
     in the absence of a cloud provider.
-+ [Part 4 - Cert-Manager](/post/k8s_home_lab_2025_04/) will cover how to install
+<!-- + [Part 4 - Cert-Manager](/post/k8s_home_lab_2025_04/) -->
++ Part 4 - Cert-Manager
+    will cover how to install
     [cert-manager](https://cert-manager.io/docs/) and hook it up to our Cloudflare
     account to automatically provision certificates for our services.
-+ [Part 5 - Persistent Storage](/post/k8s_home_lab_2025_05/) will enable stateful
+<!-- + [Part 5 - Persistent Storage](/post/k8s_home_lab_2025_05/) -->
++ Part 5 - Persistent Storage
+    will enable stateful
     applications. We will have some fun with [fio](https://fio.readthedocs.io/en/latest/fio_doc.html)
     and RAID configurations to build a basic
     [NFS server](https://documentation.ubuntu.com/server/how-to/networking/install-nfs/)
     to provide persistent storage for our cluster. Finally, we make it available in our cluster using
     [NFS Subdirectory External Provisioner](https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/).
-+ [Part 6 - Identity & Access Management](/post/k8s_home_lab_2025_06/) will install
+<!-- + [Part 6 - Identity & Access Management](/post/k8s_home_lab_2025_06/) -->
++ Part 6 - Identity & Access Management
+    will install
     [Kanidm](https://kanidm.com/) as our identity provider for password-less authentication.
     Then we configure our kube-apiserver to support OIDC authentication backed by
     Kanidm. This will be a fun one!
