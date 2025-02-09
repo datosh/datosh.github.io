@@ -4,7 +4,7 @@ date: 2025-02-12
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_01.png"
 Tags: ["k8s", "home lab", "kubernetes", "libvirt", "kubeadm", "terraform"]
-Draft: true
+Draft: false
 ---
 
 [Last time](/post/k8s_home_lab_2025_00), we left our Cluster in a semi-happy state:
@@ -265,7 +265,7 @@ being created:
 $ flux get helmreleases -n kube-system --watch
 NAME    REVISION   READY   MESSAGE
 cilium             False   waiting to be reconciled
-cilium             False   HelmChart 'kube-system/kube-system-cilium' is not ready: latest generation of object has not been reconciled
+cilium             False   HelmChart 'kube-system/kube-system-cilium' is not ready: ...
 cilium             False   Unknown Running 'upgrade' action with timeout of 5m0s
 cilium  1.16.5     False   Unknown Running 'upgrade' action with timeout of 5m0s
 cilium  1.16.5     True    Helm upgrade succeeded for release kube-system/cilium.v2 with chart cilium@1.16.5
@@ -290,7 +290,7 @@ As you may have noticed, there are different `interval` values defined for each
 resource, which controls how frequently Flux checks remote locations for changes.
 For the less patient among us, we can make use of `flux reconcile` to give Flux
 a little nudge. Make sure to include the `--with-source` flag, so that Flux knows
-to fetch the latest state from the repository as well. For example, if make changes
+to fetch the latest state from the repository as well. For example, if we made changes
 to the Cilium Helm chart, we can reconcile the HelmRelease resource like this:
 
 ```console

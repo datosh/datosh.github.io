@@ -37,3 +37,12 @@ Output dimensions `1536` x `640`.
 Come join me on a journey building out a #Kubernetes #homelab. This will be an environment to study for my #Kubestronaut certifications. In this first post we will bootstrap a #kubeadm cluster using Infrastructure as Code (IaC) based on #libvirt and #kvm.
 TODO: LINK
 ```
+
+### Home Lab 01
+
+```
+The #kubernetes #homelab saga continues. In this weeks post we will answer the age old
+question: "Which came first the #CNI or #GitOps?" by analysing the dependencies
+between #Flux and #Cilium.
+TODO: LINK
+```
