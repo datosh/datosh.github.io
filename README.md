@@ -40,6 +40,7 @@ TODO: LINK
 
 ### Home Lab 01
 
+
 ```
 The #kubernetes #homelab saga continues. In this weeks post we will answer the age old
 question: "Which came first the #CNI or #GitOps?" by analysing the dependencies
