@@ -455,4 +455,4 @@ kube-system   kube-scheduler-control-plane-01            1/1     Running   0    
 
 As with every first episode of a series, we end on a cliffhanger, and install
 the [Cluster Networking](https://kubernetes.io/docs/concepts/cluster-administration/networking/)
-together with some GitOps magic in the next post. Stay tuned!
+together with some GitOps magic in [the next post](/post/k8s_home_lab_2025_01/). Stay tuned!

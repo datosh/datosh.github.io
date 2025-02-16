@@ -73,15 +73,13 @@ I will update this list as I go and link to the respective parts.
     codify our [libvirt](https://libvirt.org/) provided virtual machines,
     provision them with [cloudinit](https://cloudinit.readthedocs.io/en/latest/),
     and bootstrap Kubernetes with [kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/).
-<!-- + [Part 1 - CNI & GitOps](/post/k8s_home_lab_2025_01/) -->
-+ Part 1 - CNI & GitOps
++ [Part 1 - CNI & GitOps](/post/k8s_home_lab_2025_01/)
     will answer the age old question: What came first? The CNI or GitOps?
     We will install [Cilium](https://cilium.io/) as our CNI, then we install
     [Flux](https://fluxcd.io/) to manage our cluster configuration, and finally
     "put the chicken back into the egg", by transferring the responsibility of
     managing the Cilium deployment back to Flux.
-<!-- + [Part 2 - Automated Dependency Updates](/post/k8s_home_lab_2025_02/) -->
-+ Part 2 - Automated Dependency Updates
++ [Part 2 - Automated Dependency Updates](/post/k8s_home_lab_2025_02/)
     will dive into the benefits of version pinning, and cover how to install
     and configure [Renovate](https://www.mend.io/renovate/) to automate the boring
     task of staying up to date.

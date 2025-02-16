@@ -300,5 +300,6 @@ flux reconcile helmrelease cilium --with-source
 ## Conclusion
 
 In this post, we have installed both Cilium and Flux in our cluster, and have
-solved a not so trivial dependency between the two. In the next post, we will
+solved a not so trivial dependency between the two.
+[In the next post](/post/k8s_home_lab_2025_02/), we will
 improve our GitOps story by adding automated dependency upgrades. Stay tuned!
