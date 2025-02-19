@@ -4,7 +4,7 @@ date: 2025-02-19
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_02.png"
 Tags: ["k8s", "home lab", "kubernetes", "renovate", "flux", "helm", "GitHub"]
-Draft: true
+Draft: false
 ---
 
 [Last time](/post/k8s_home_lab_2025_01/), we set up Cilium and Flux to enable
