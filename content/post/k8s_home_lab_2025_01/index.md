@@ -49,10 +49,10 @@ worker-01          NotReady   <none>          5m7s    v1.32.1
 
 Looks good! Let's move on to the networking part.
 
-## Cillium
+## Cilium
 
 Cilium is one of the many [CNI plugins](https://kubernetes.io/docs/concepts/cluster-administration/addons/#networking-and-network-policy) available for Kubernetes. Besides adding networking
-capabilties to our cluster it comes with many security and observability features.
+capabilities to our cluster it comes with many security and observability features.
 We will keep the installation and configuration basic for now, but we will revisit this
 later to explore and add more features!
 

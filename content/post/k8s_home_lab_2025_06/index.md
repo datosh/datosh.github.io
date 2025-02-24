@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Home Lab in 2025: Part 6 - Identiy & Access Management"
+title: "Kubernetes Home Lab in 2025: Part 6 - Identity & Access Management"
 date: 2025-03-19
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_06.png"

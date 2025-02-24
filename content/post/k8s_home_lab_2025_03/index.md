@@ -45,7 +45,7 @@ Both, [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) and [nginx in
 
 ### Installation
 
-Let's follow the offical [quick start](https://kubernetes.github.io/ingress-nginx/deploy/#quick-start),
+Let's follow the official [quick start](https://kubernetes.github.io/ingress-nginx/deploy/#quick-start),
 and see where it takes us.
 
 ```bash
@@ -82,7 +82,7 @@ curl --resolve k8s.kammel.dev:8080:127.0.0.1 http://k8s.kammel.dev:8080
 ```
 
 Cool, we have a working ingress controller! Still this is not very useful, as
-we want **external traffic** to hit our services, even in the absense of manual
+we want **external traffic** to hit our services, even in the absence of manual
 port forwarding.
 
 ### Exposing the Ingress Controller
