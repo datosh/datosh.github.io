@@ -168,5 +168,6 @@ In this post, we added automated dependency updates to our Kubernetes home lab.
 We use Renovate to automate pull requests to update the dependencies of our projects,
 and Flux to apply the changes to our cluster.
 
-In the next post, we will deploy a Kubernetes Ingress Controller, to enable
+In the [next post](/post/k8s_home_lab_2025_03/),
+we will deploy a Kubernetes Ingress Controller, to enable
 external access to our applications.

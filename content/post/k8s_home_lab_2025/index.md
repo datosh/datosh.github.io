@@ -83,8 +83,7 @@ I will update this list as I go and link to the respective parts.
     will dive into the benefits of version pinning, and cover how to install
     and configure [Renovate](https://www.mend.io/renovate/) to automate the boring
     task of staying up to date.
-<!-- + [Part 3 - Ingress](/post/k8s_home_lab_2025_03/) -->
-+ Part 3 - Ingress
++ [Part 3 - Ingress](/post/k8s_home_lab_2025_03/)
     will cover how to install
     [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) as our ingress
     controller, just to recognize that we also need [MetalLB](https://metallb.universe.tf/)

@@ -4,102 +4,116 @@ date: 2025-02-26
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_03.png"
 Tags: ["k8s", "home lab", "kubernetes", "ingress"]
-Draft: true
+Draft: false
 ---
+
+[Last time](/post/k8s_home_lab_2025_02/), we added automated dependency updates
+to our cluster. In this post, we will get traffic into our cluster, by setting
+up an Ingress controller and a load balancer.
+
+## Networking Options
 
 To get traffic into our cluster, we can pick from a few options:
 + [Node Ports](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
     are built into K8s, but annoying for end-users as they run on high port numbers
 + [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
-    enables us to route HTTP(s) traffic based on the request's host and path
+    enables us to route HTTP traffic based on the request's host and path
 + [Gateway API](https://kubernetes.io/docs/concepts/services-networking/gateway/)
     is the new way to make network services available by using an extensible,
     role-oriented, protocol-aware configuration mechanism
 
-Even though Gateway is the most powerful option, we will start with an Ingress
-based solution, as we only require basic HTTP(s) routing for now.
-
-Let's get started! (or skip to the [TL;DR](#tldr) for the full deployment commands)
+Even though Gateway is the most powerful option, we will start with an Ingress-based
+solution, as we only require basic HTTP routing for now.
 
 ## K8s Ingress
 
 As with many features in the Kubernetes ecosystem, Ingress consists of two parts:
 
 1. The **Ingress resource**, which is an abstraction that describes a collection
-    of rules for routing external HTTP(s) traffic to internal services. You can
-    think of it as our proxy configuration.
+    of rules for routing external HTTP traffic to internal services. You can
+    think of it as a snippet of our proxy configuration.
 1. The **Ingress controller**, which is the actual routing implementation. It watches
     for new or changed **Ingress resources** and dynamically updates its own
     routing configuration.
 
-K8s maintans a list of available
-[ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers).
+K8s maintains a list of available
+[Ingress controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers).
 
-## ingress-nginx
+### ingress-nginx
 
-We will go with the nginx based solution, maintained by the k8s project.
+We will go with the nginx-based solution, which is maintained by the k8s project.
 
-{{< info >}}
-Both, [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) and [nginx ingress](https://docs.nginx.com/nginx-ingress-controller/) exist as different projects. We are using the former!
+{{< info warn >}}
+Both [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) and
+[nginx ingress](https://docs.nginx.com/nginx-ingress-controller/) exist as
+**different projects**. We are using the former!
 {{< /info >}}
 
-### Installation
+## Installation
 
 Let's follow the official [quick start](https://kubernetes.github.io/ingress-nginx/deploy/#quick-start),
 and see where it takes us.
 
-```bash
-helm upgrade --install \
-    ingress-nginx ingress-nginx \
-    --repo https://kubernetes.github.io/ingress-nginx \
-    --namespace ingress-nginx --create-namespace
+It asks us to install the ingress-nginx helm chart. Just like last time, we can
+manually write out or use `flux create` to generate the required definitions:
+
+```yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+spec:
+  interval: 5m0s
+  url: https://kubernetes.github.io/ingress-nginx
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+spec:
+  chart:
+    spec:
+      chart: ingress-nginx
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: ingress-nginx
+      version: 4.12.0
+  interval: 5m0s
 ```
 
-We should see the pods coming up in the `ingress-nginx` namespace:
-
-```bash
-kubectl get pods --namespace=ingress-nginx
-```
-
-Next, we will do a quick sanity check to see the controller is working:
-
-```bash
-kubectl create deployment demo --image=httpd --port=80
-kubectl expose deployment demo
-kubectl create ingress demo-localhost --class=nginx \
-  --rule="k8s.kammel.dev/*=demo:80"
-kubectl port-forward --namespace=ingress-nginx \
-    service/ingress-nginx-controller 8080:80
-```
-
-Simply visiting [http://k8s.kammel.dev:8080](http://k8s.kammel.dev:8080)
-in your browser, will do nothing, as you probably don't happen to have that
-particular DNS record configured. Let's use curl instead, so we can mock the
-DNS resolution:
-
-```bash
-curl --resolve k8s.kammel.dev:8080:127.0.0.1 http://k8s.kammel.dev:8080
-```
-
-Cool, we have a working ingress controller! Still this is not very useful, as
-we want **external traffic** to hit our services, even in the absence of manual
-port forwarding.
-
-### Exposing the Ingress Controller
-
-So without the port forward - where do we direct our traffic to? Let's check
-the resources created by the helm chart:
+Once committed and pushed, we see that resources appear in the `ingress-nginx` namespace:
 
 ```console
-$ kubectl get svc --field-selector spec.type=LoadBalancer -n ingress-nginx
+$ kubectl get all -n ingress-nginx
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/ingress-nginx-controller-cd9d6bbd7-n2rgb   1/1     Running   0          19m
 
-NAME                       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
-ingress-nginx-controller   LoadBalancer   10.101.171.70   <pending>     80:32621/TCP,443:30097/TCP   1h
+NAME                                         TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+service/ingress-nginx-controller             LoadBalancer   10.111.36.214    <pending>     80:30795/TCP,443:30240/TCP   19m
+service/ingress-nginx-controller-admission   ClusterIP      10.106.207.160   <none>        443/TCP                      19m
+
+NAME                                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/ingress-nginx-controller   1/1     1            1           19m
+
+NAME                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/ingress-nginx-controller-cd9d6bbd7   1         1         1       19m
 ```
 
-In a cloud environment, the `EXTERNAL-IP` would be populated with the public IP of
-a load balancer, assigned by the cloud provider. So who provides this IP in our
-home lab?
+We see that the pod is running fine, but the service for `ingress-nginx-controller`
+still shows `<pending>` for the `EXTERNAL-IP`. In a cloud environment, the
+`EXTERNAL-IP` would be populated with the public IP of a load balancer,
+assigned by the cloud provider.
+
+So who provides this IP in our home lab?
 
 ## MetalLB
 
@@ -123,95 +137,206 @@ a big deal right now.
 
 ### Installation
 
-Again, the [quick start](https://metallb.universe.tf/installation/#installation-with-helm),
-provides us with the basic commands to deploy MetalLB using helm:
+Again, the [quick start](https://metallb.universe.tf/installation/#installation-with-helm)
+asks us to install the metallb helm chart, so we create the corresponding Flux
+definitions:
 
-```bash
-helm repo add metallb https://metallb.github.io/metallb
-helm install metallb metallb/metallb
+```yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metallb
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: metallb
+  namespace: metallb
+spec:
+  interval: 5m0s
+  url: https://metallb.github.io/metallb
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: metallb
+  namespace: metallb
+spec:
+  chart:
+    spec:
+      chart: metallb
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: metallb
+      version: 0.14.9
+  interval: 5m0s
+  values:
+    controller:
+      logLevel: info
+    speaker:
+      logLevel: info
+```
+
+Once committed and pushed, we see the metallb controller and speakers are running:
+
+```console
+$ kubectl get pods -n metallb
+NAME                                  READY   STATUS    RESTARTS   AGE
+metallb-controller-8474b54bc4-gh78x   1/1     Running   0          56s
+metallb-speaker-fz75d                 4/4     Running   0          56s
+metallb-speaker-ghgp5                 4/4     Running   0          56s
 ```
 
 As the documentation points out,
-[MetalLB remains idle until configured](https://metallb.universe.tf/configuration/).
-So we need to tell MetalLB which IP addresses it is allowed to assign:
+[MetalLB remains idle until configured](https://metallb.universe.tf/configuration/),
+so we need to tell MetalLB which IP addresses it is allowed to assign. Let's
+add the required definitions to our repository:
 
 ```yaml
+---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: homelab
-  namespace: default
+  name: first-pool
+  namespace: metallb
 spec:
   addresses:
-  - 192.168.1.8-192.168.1.10
+  - 192.168.1.18-192.168.1.19
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: advert
+  namespace: metallb
+spec:
+  ipAddressPools:
+  - first-pool
 ```
 
 {{< info "note" >}}
 Make sure to reserve the IP range in your DHCP server, so it does not assign
-the same IPs to other devices in your network!
+the same IPs to other devices on your network!
 {{< /info >}}
 
-As well as, that is supposed to run in Layer 2 mode:
-
-```yaml
-apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
-metadata:
-  name: homelab
-  namespace: default
-spec:
-  ipAddressPools:
-  - homelab
-```
-
-Once we apply these configurations, MetalLB should assign an IP to our
+Once we apply these configurations, MetalLB assigns an external IP to our pending
 load balancer service:
 
-```bash
-TODO
+```console
+$ kubectl get svc -n ingress-nginx
+NAME                                 TYPE           CLUSTER-IP       EXTERNAL-IP    PORT(S)                      AGE
+ingress-nginx-controller             LoadBalancer   10.111.36.214    192.168.1.18   80:30795/TCP,443:30240/TCP   33m
+ingress-nginx-controller-admission   ClusterIP      10.106.207.160   <none>         443/TCP                      33m
 ```
 
-## Testing the Setup
+## Verifying the Setup
 
-Our demo app is still running, so this time we can use the assigned IP to test
-the setup (still using curl because we don't have TLS, yet, and HSTS is a thing,
-but more about this in part 2):
+Even though everything looks in order, it doesn't hurt to double check everything
+is working as expected. Let's add the following resources to our git repository,
+for a quick sanity check:
 
-```bash
-kubectl create deployment demo --image=httpd --port=80
-kubectl expose deployment demo
-kubectl create ingress demo-localhost --class=nginx \
-  --rule="k8s.kammel.dev/*=demo:80"
-
-curl -kivL -H 'Host: k8s.kammel.dev' 'https://192.168.1.8'
+```yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-test
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kuard
+  namespace: ingress-test
+spec:
+  selector:
+    matchLabels:
+      app: kuard
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kuard
+    spec:
+      containers:
+      - image: gcr.io/kuar-demo/kuard-amd64:1
+        imagePullPolicy: Always
+        name: kuard
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kuard
+  namespace: ingress-test
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: kuard
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kuard
+  namespace: ingress-test
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: test.kammel.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: kuard
+            port:
+              number: 80
 ```
+
+Simply visiting [http://test.kammel.dev](http://test.kammel.dev)
+in your browser will do nothing, as you probably don't happen to have that
+particular DNS record configured. Let's use `curl` instead, so we can mock the
+DNS resolution:
+
+```console
+$ curl -H 'Host: test.kammel.dev' 'http://192.168.1.18'
+<!doctype html>
+
+<html lang="en">
+<head>
+...
+```
+
+{{< info "note" >}}
+Ensure you replace `192.168.1.18` with the external IP address assigned to the
+load balancer service used by ingress-nginx.
+{{< /info >}}
+
+Cool, we have a working Ingress controller!
 
 ## Conclusion
 
-This guide shows just one way to set up an Ingress controller and a Load Balancer
-for a home lab environment. There are many other options available, and you should
-both
+This part implements just one way to set up an Ingress controller and a Load Balancer
+for a home lab environment. There are many other options available, and both the
 [metal considerations](https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#using-a-self-provisioned-edge)
 in the ingress-nginx docs, as well as the
 [Kubernetes Networking Guide](https://www.tkng.io) are worth a read!
 
-Also a big shoutout to
+Also, a big shoutout to
 [Brendan Smith's](https://www.bsmithio.com/post/baremetal-k8s/) guide, which
 I used as an introduction to this topic!
 
-## TL;DR
-
-Reserve the following IP range in your DHCP server `192.168.1.8-192.168.1.10`,
-and run the following:
-
-```bash
-TODO: deployment
-```
-
-If you want to test this setup run:
-
-```bash
-TODO: deploy test app
-
-curl -kivL -H 'Host: k8s.kammel.dev' 'https://192.168.1.8'
-```
+Next time, we will add automatic TLS certificates to our setup and graduate our
+test app to HTTPS.
