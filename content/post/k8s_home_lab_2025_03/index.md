@@ -22,8 +22,8 @@ To get traffic into our cluster, we can pick from a few options:
     is the new way to make network services available by using an extensible,
     role-oriented, protocol-aware configuration mechanism
 
-Even though Gateway is the most powerful option, we will start with an Ingress-based
-solution, as we only require basic HTTP routing for now.
+Even though Gateway is the most powerful option, we will start with an
+Ingress-based solution, as we only require basic HTTP routing for now.
 
 ## K8s Ingress
 
