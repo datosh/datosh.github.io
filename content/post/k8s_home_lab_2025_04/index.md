@@ -7,14 +7,49 @@ Tags: ["k8s", "home lab", "kubernetes", "ingress"]
 Draft: true
 ---
 
-Having a `*.dev` domain comes with the blessing (or curse?) of having
-HSTS preloaded in most modern browsers. This means that you can't just
-create a self-signed certificate and expect it to work. You need a valid
-certificate from a trusted CA.
+[Last time](/post/k8s_home_lab_2025_03/),
+we added ingress-nginx to our cluster, so that external traffic can
+hit our services. In this post, we will secure that traffic using TLS.
 
-https://security.googleblog.com/2017/09/broadening-hsts-to-secure-more-of-web.html
+Since I am using a `*.dev` domain, it comes with the blessing (or curse?)
+of having [HSTS](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security)
+preloaded in
+[most modern browsers](https://caniuse.com/stricttransportsecurity),
+but even without that enforcement we want to protect all communication using TLS.
+There is no reason not to do it in 2025. It's free, it's easy, and it's fully automated.
 
+## HTTP Strict Transport Security (HSTS)
 
+HSTS is a security feature that tells browsers to only access your site using HTTPS.
+[This mechanism works by sites sending a `Strict-Transport-Security` HTTP response header containing the site's policy](https://hstspreload.org/).
+In addition, Chrome maintains a list of domains for which HSTS is enforced.
+This means even before the initial response containing the `Strict-Transport-Security`
+header is sent, the browser will redirect to the HTTPS version of the site.
+
+Some top level domains (TLDs), such as
+[.dev](https://security.googleblog.com/2017/09/broadening-hsts-to-secure-more-of-web.html),
+went one step further and added the full TLD to the HSTS preload list, therefore
+requiring everyone to use HTTPS when purchasing one of these domains.
+
+{{< info note >}}
+This feature is only supported in browsers, i.e., if you are using curl or your
+favorite networking library you are still required to properly enforce security
+settings.
+{{< /info >}}
+
+## Let's Encrypt
+
+Let's Encrypt is a free, automated, and open certificate authority (CA).
+
+So how do we automate this process in Kubernetes?
+
+## Cert-Manager
+
+Cert-Manager is a tool that automatically manages TLS certificates for your cluster.
+
+Let's hook it up to cloudflare!
+
+## Cloudflare
 
 ### Cloudflare - Create API Token
 
@@ -37,3 +72,10 @@ follow these steps:
     ![](./cloudflare_custom_token.png)
 
 5. Click on **Continue to Summary** and then **Create Token**
+
+## Deployment
+
+
+## Testing
+
+## Conclusion

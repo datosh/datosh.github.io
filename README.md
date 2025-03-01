@@ -47,3 +47,12 @@ question: "Which came first the #CNI or #GitOps?" by analysing the dependencies
 between #Flux and #Cilium.
 TODO: LINK
 ```
+
+### Home Lab 03
+
+```
+I just published the next post in the #kubernetes #homelab series, on my journey
+to #kubestronaut. In this post we will get traffic into our cluster, by setting
+up an #nginx Ingress controller and #metallb.
+https://blog.kammel.dev/post/k8s_home_lab_2025_03/
+```
