@@ -78,6 +78,12 @@ url = "https://bsky.app/profile/datosh18.bsky.social"
   url = "/portfolio/"
 
   [[menu.main]]
+  name = "RSS"
+  weight = 350
+  identifier = "RSS"
+  url = "/index.xml"
+
+  [[menu.main]]
   name = "Side Projects"
   weight = 400
   identifier = "sideprojects"
