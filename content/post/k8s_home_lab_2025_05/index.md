@@ -4,7 +4,7 @@ date: 2025-03-19
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_05.png"
 Tags: ["k8s", "home lab", "kubernetes", "storage"]
-Draft: true
+Draft: false
 ---
 
 Up until this point, we have only persisted data in K8s' `etcd` database.
