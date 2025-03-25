@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes Home Lab in 2025: Part 4 - Cert-Manager"
-date: 2025-03-05
+date: 2025-03-12
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_04.png"
 Tags: ["k8s", "home lab", "kubernetes", "ingress"]

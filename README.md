@@ -56,3 +56,12 @@ to #kubestronaut. In this post we will get traffic into our cluster, by setting
 up an #nginx Ingress controller and #metallb.
 https://blog.kammel.dev/post/k8s_home_lab_2025_03/
 ```
+
+### Home Lab 04
+
+```
+After a one week hiatus, we are back on track with the #kubernetes #homelab series.
+In this post we will secure our cluster by setting up #cert-manager and connecting
+it to #cloudflare and #letsencrypt, for automatic TLS certificate generation.
+https://blog.kammel.dev/post/k8s_home_lab_2025_04/
+```
