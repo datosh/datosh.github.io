@@ -94,25 +94,37 @@ Let's take a look at the configuration:
 
 ```json
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-      "config:base",
-      ":preserveSemverRanges"
-    ],
-    "addLabels": [
-      "dependencies"
-    ],
-    "includePaths": [
-      "k8s/flux/**"
-    ],
-    "packageRules": [
-      {
-        "description": "Automerge patch and minor updates for Helm charts",
-        "matchDatasources": ["helm"],
-        "groupName": "helm-charts"
-      }
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":preserveSemverRanges"
+  ],
+  "addLabels": [
+    "dependencies"
+  ],
+  "includePaths": [
+    "k8s-dev/flux/**"
+  ],
+  "flux": {
+    "fileMatch": [
+      "\\.yaml$"
     ]
-  }
+  },
+  "helm-values": {
+    "fileMatch": [
+      "\\.yaml$"
+    ]
+  },
+  "packageRules": [
+    {
+      "description": "Automerge patch and minor updates for Helm charts",
+      "matchDatasources": [
+        "helm"
+      ],
+      "groupName": "helm-charts"
+    }
+  ]
+}
 ```
 
 [Extends](https://docs.renovatebot.com/config-presets/) enables us to build a
