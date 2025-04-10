@@ -28,7 +28,7 @@ a plethora of managed services, such as
 has a reputation for being complex and hard to maintain.
 
 In this post, we will explore
-[kandim](https://kanidm.github.io/kanidm/stable/introduction_to_kanidm.html)!
+[kanidm](https://kanidm.github.io/kanidm/stable/introduction_to_kanidm.html)!
 A modern implementation of an IAM system, designed to be secure by default,
 with support for modern authentication methods such as
 [WebAuthn](https://webauthn.io/)
@@ -46,7 +46,7 @@ them one by one.
 
 ### Domain Name
 
-Kandim will be a very powerful service in our network, managing access to many
+Kanidm will be a very powerful service in our network, managing access to many
 other services and systems. So we need to make sure that the connection to kanidm
 is secure, otherwise authenticatation tokens could be jeopardized. The same holds
 true for cookies and other session management tokens.
