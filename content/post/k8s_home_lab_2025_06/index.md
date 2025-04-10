@@ -4,7 +4,7 @@ date: 2025-04-10
 Description: ""
 thumbnail: "images/thumbnails/k8s_home_lab_2025_06.png"
 Tags: ["k8s", "home lab", "kubernetes", "iam", "oidc", "ldap", "kanidm"]
-Draft: true
+Draft: false
 ---
 
 A good Identity and Access Management (IAM) system is often
@@ -56,7 +56,7 @@ Kanidm provides great guidance on this, and help us to
 for our kanidm server.
 
 They recommend one of two approaches:
-1. For **maximum** security a dedicated domain that only hosts the kanidm server.
+1. For **maximum** security, a dedicated domain that only hosts the kanidm server.
 For me this would be something like `sso.kammel-auth.dev` and would enable us to
 setup strict security policies around the dedicated domain `kammel-auth.dev`.
 1. The second option is to use a direct subdomain, e.g., `sso.kammel.dev`, and
@@ -64,7 +64,7 @@ make sure that
 [strict security controls](https://kanidm.github.io/kanidm/stable/choosing_a_domain_name.html#subdomains-and-cross-origin-policy)
 are in place for all subdomains of `kammel.dev`.
 
-Since I am the only person with admin access to the domain, and I don't feel like
+Since I am the only person with admin access to `kammel.dev`, and I don't feel like
 buying a second domain: Let's go with option 2!
 
 ### TLS Connection
@@ -72,7 +72,7 @@ buying a second domain: Let's go with option 2!
 Next we need a direct TLS connection between clients and the kanidm server.
 This is a
 [strict requirement for kanidm](https://kanidm.github.io/kanidm/stable/preparing_for_your_deployment.html#tls),
-it does not provide any developer mode or even allows insecure HTTP configuration
+it does not provide any developer mode with insecure HTTP connections
 (not even if you pinky swear not to use it in production).
 
 By default, any TLS connection would be terminated at our nginx ingress
@@ -169,7 +169,7 @@ Now that we know the server is up and running, we need to
 `admin` is used to manage the kanidm configuration and `idm_admin` is used
 to manage accounts and groups. These two accounts should be considered
 "break-glass" accounts, i.e., we only use them to setup our personal user,
-grant them enough access, and then lock them away.
+grant us enough access, and then lock them away.
 
 Let's exec into the kanidm pod and run the following commands:
 
@@ -185,7 +185,7 @@ This will print the password for both accounts to the console.
 To interact with the kanidm server, we need to
 [install the client tools](https://kanidm.github.io/kanidm/stable/installing_client_tools.html).
 The client tools are available for most package managers, as a container or to
-build straight from Rust source. Which is actually what I did:
+build them straight from Rust source. Which is actually what I did:
 
 ```console
 $ sudo apt-get install libudev-dev libssl-dev libsystemd-dev pkg-config libpam0g-dev
@@ -261,7 +261,7 @@ Or run this command: kanidm person credential use-reset-token kWzBj-Zdkua-SxTaf-
 This token will expire at: 2025-04-08T22:41:46+02:00
 ```
 
-Following the link will take us to the kanidm web interface:
+The link will take us to the kanidm web interface:
 
 {{< figure
     src="kanidm_update_credentials.png"
@@ -287,9 +287,9 @@ Once we set the passkey and **saved the changes** we can log in with our passkey
 
 ## Kubernetes Integration
 
-Finally, we can integrate our kanidm server with Kubernetes. This will allow us
+Finally, we can integrate Kubernetes with our kanidm server. This will allow us
 to use our kanidm user to authenticate to the Kubernetes API server, and
-access the cluster using our passkey.
+therefore access the cluster using only our passkey.
 
 ### Kanidm Configuration
 
@@ -312,12 +312,15 @@ $ kanidm system oauth2 create-public ${OAUTH2_NAME} ${OAUTH2_NAME} http://localh
 Success
 $ kanidm system oauth2 add-redirect-url ${OAUTH2_NAME} http://localhost:8000
 Success
-# $ kanidm system oauth2 add-redirect-url ${OAUTH2_NAME} http://localhost:18000
 $ kanidm system oauth2 update-scope-map ${OAUTH2_NAME} ${GROUP_NAME} email openid profile groups
 Success
 $ kanidm system oauth2 enable-localhost-redirects ${OAUTH2_NAME}
 Success
 ```
+
+It also regisers the redirect URL and authorizes the `k8s_users` group for the
+k8s OAuth2 client. Finally, we need to explicitly enable localhost redirects,
+since kanidm will reduct to a local service where `kubectl` is listening.
 
 ### Kubectl Plugin
 
@@ -334,14 +337,19 @@ kubectl krew install oidc-login
 ### Kubernetes Configuration
 
 First, we need to tell K8s to trust the kanidm server, and the OAuth2 client
-we created. This is done by extending the `kube-apiserver` flags with (modify
-the file located at `/etc/kubernetes/manifests/kube-apiserver.yaml` on our
-control plane node):
+we created. This is done by extending the `kube-apiserver` flags with:
 
 ```
 --oidc-issuer-url=https://sso.kammel.dev/oauth2/openid/k8s
 --oidc-client-id=k8s
 ```
+
+{{< info note >}}
+Modify the file located at `/etc/kubernetes/manifests/kube-apiserver.yaml` on the
+control plane node to set these additional flags. The kube-apiserver will be restarted
+automatically by K8s, and the new flags will be applied.
+{{< /info >}}
+
 
 Next, we need to run the OIDC setup command to generate the required client config.
 
@@ -349,13 +357,57 @@ Next, we need to run the OIDC setup command to generate the required client conf
 $ kubectl oidc-login setup \
   --oidc-issuer-url=https://sso.kammel.dev/oauth2/openid/k8s \
   --oidc-client-id=k8s
-  ```
 
-And finally, attach a cluster role to our user:
+Authentication in progress...
+## Authenticated with the OpenID Connect Provider
+
+You got the token with the following claims:
+
+{
+  "iss": "https://sso.kammel.dev/oauth2/openid/k8s",
+  "sub": "7b89b6ea-1e8b-4aa8-98fb-a70cba498d16",
+  "aud": "k8s",
+  "exp": 1744304590,
+  "nbf": 1744303690,
+  "iat": 1744303690,
+  "nonce": "El0GmmOArKKBd63BZNECK-AstLjiP8DrvhXA3o5_o0g",
+  "azp": "k8s",
+  "name": "Fabian Kammel",
+  "preferred_username": "datosh@sso.kammel.dev",
+  "scopes": [
+    "openid"
+  ]
+}
+
+## Set up the kubeconfig
+
+You can run the following command to set up the kubeconfig:
+
+kubectl config set-credentials oidc \
+  --exec-api-version=client.authentication.k8s.io/v1 \
+  --exec-interactive-mode=Never \
+  --exec-command=kubectl \
+  --exec-arg=oidc-login \
+  --exec-arg=get-token \
+  --exec-arg="--oidc-issuer-url=https://sso.kammel.dev/oauth2/openid/k8s" \
+  --exec-arg="--oidc-client-id=k8s"
+```
+
+Run the `kubectl config` command as prompted.
+
+Then we attach a cluster role to our user:
 
 ```console
-$ kubectl create clusterrolebinding oidc-cluster-admin --clusterrole=cluster-admin --user='https://sso.kammel.dev/oauth2/openid/k8s#7b89b6ea-1e8b-4aa8-98fb-a70cba498d16'
+$ kubectl create clusterrolebinding oidc-cluster-admin \
+  --clusterrole=cluster-admin \
+  --user='https://sso.kammel.dev/oauth2/openid/k8s#7b89b6ea-1e8b-4aa8-98fb-a70cba498d16'
 ```
+
+{{< info note >}}
+That the value for the `--user` flag is constructed from the kanidm server URL,
+the well known path `/oauth2/openid`, the OAuth2 client name `k8s`, and the
+`sub` value from the token we received during the `kubectl oidc-login setup` command.
+{{< /info >}}
 
 Aaaaaannd....
 
@@ -371,24 +423,26 @@ Crap - something is wrong. Let's check the logs of the `kube-apiserver`:
 ```console
 $ kubectl logs -n kube-system -f kube-apiserver-control-plane-01
 ...
-E0410 16:39:20.300538       1 authentication.go:74] "Unable to authenticate the request" err="[invalid bearer token, oidc: verify token: oidc: id token signed with unsupported algorithm, expected [\"RS256\"] got \"ES256\"]"
+"Unable to authenticate the request" err="[invalid bearer token, oidc: verify token:
+oidc: id token signed with unsupported algorithm, expected [\"RS256\"] got \"ES256\"]"
 ```
 
 Aha! The kanidm server is using `ES256` as the signing algorithm, while
-K8s is expecting `RS256`. You expect these "issues" with kanidm, but I'd argue that
-this is actually a good thing. Kanidm enforces the use of modern signing algorithms,
-while the K8s default is the more widely used `RS256`.
+K8s is expecting `RS256`. You can expect to see these "issues" with kanidm, but I'd argue that
+this is actually a good thing. Kanidm enforces the use of modern (signing) algorithms,
+while the K8s default is to support most clients.
 
 We have two options here:
 1. Change the signing algorithm in kanidm to `RS256` (not recommended), but for completeness:
-  ```console
-  $ kanidm system oauth2 warning-enable-legacy-crypto ${OAUTH2_NAME}
-  Success
-  ```
-1. Change the K8s API server to accept `ES256` (recommended), again adding a flag to the kubeapi server manifest:
-  ```
-  --oidc-signing-algs=ES256
-  ```
+    ```console
+    $ kanidm system oauth2 warning-enable-legacy-crypto ${OAUTH2_NAME}
+    Success
+    ```
+1. Change the K8s API server to accept `ES256` (recommended), again adding a
+    flag to the `kube-apiserver` manifest:
+    ```bash
+    --oidc-signing-algs=ES256
+    ```
 
 Let's try again:
 
