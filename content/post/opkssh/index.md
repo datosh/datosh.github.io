@@ -115,7 +115,7 @@ The important parts are the `oauth2_allow_localhost_redirect: true` and the
 On the server, install the `opkssh` binary and configure ssh to use it, via the official install
 script:
 
-```
+```sh
 wget -qO- "https://raw.githubusercontent.com/openpubkey/opkssh/main/scripts/install-linux.sh" | sudo bash
 ```
 
