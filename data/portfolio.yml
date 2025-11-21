@@ -1,10 +1,38 @@
 portfolioitems:
   - title: Things I've spoken about
     portfolioitem:
+      - image: "/images/portfolio/kubecon_atlanta_2025.png"
+        link: https://drive.google.com/file/d/1zBML13nRtmJYiuReTBQiGXP2CzSiXIfH/view
+        linktext: "Get the slides"
+        name: |
+          Quantum-Resistant Kubernetes: Realities, Risks & (Versioning) Pitfalls
+        description: |
+          Post-Quantum Cryptography (PQC) is no longer theoretical. With Go 1.24+
+          enabling ML-KEM by default, Kubernetes v1.33+ inherits significant quantum
+          resistance for key exchange. This talk dives into the practical realities.
 
-      - image: '/images/portfolio/all-systems-go.png'
+          We'll briefly cover the current state of PQC standardization, such as ML-KEM
+          (FIPS-203) and then critically examine real-world implications: how K8s
+          "accidentally" already benefits from PQC key exchange, the subtle but critical
+          downgrade risks from mismatched Go versions (e.g., Go 1.23's
+          `X25519Kyber768Draft00` vs. 1.24's `X25519MLKEM768`), and the "tldr.fail"
+          issue where large PQC key shares can break TLS handshakes due to packet size
+          limits. We'll explore these challenges with evidence from the K8s ecosystem,
+          offering insights for maintainers and advanced users navigating the PQC transition.
+
+          [Get the slides](https://drive.google.com/file/d/1zBML13nRtmJYiuReTBQiGXP2CzSiXIfH/view)
+        tags:
+          - Talk
+          - Post Quantum Cryptography
+          - Kubernetes
+          - Golang
+        venue: "KubeCon North America: Atlanta"
+        authors:
+          - November 2025
+
+      - image: "/images/portfolio/all-systems-go.png"
         link: https://media.ccc.de/v/all-systems-go-2024-253-removing-cloud-providers-from-the-zero-trust-equation
-        linktext: 'Watch the recording'
+        linktext: "Watch the recording"
         name: |
           Removing Cloud Providers From the Zero Trust Equation
         description: |
@@ -31,13 +59,13 @@ portfolioitems:
           - Confidential Computing
           - SPIFFE/SPIRE
           - Zero Trust
-        venue: 'All Systems Go 2024'
+        venue: "All Systems Go 2024"
         authors:
           - September 2024
 
-      - image: '/images/portfolio/BED-CON-24.png'
+      - image: "/images/portfolio/BED-CON-24.png"
         link: https://drive.google.com/file/d/1CsXdpl4wo_hK8tgnwrnfbizq5WX1fL8E/view
-        linktext: 'Get the slides'
+        linktext: "Get the slides"
         name: |
           From Offense to Defense: Live Exploitation of GitHub Action Vulnerabilities
         description: |
@@ -56,13 +84,13 @@ portfolioitems:
           - GitHub Actions
           - CI/CD Security
           - Supply Chain Security
-        venue: 'Berlin Expert Days 2024'
+        venue: "Berlin Expert Days 2024"
         authors:
           - September 2024
 
-      - image: '/images/portfolio/OSS-EU-24.webp'
+      - image: "/images/portfolio/OSS-EU-24.webp"
         link: https://drive.google.com/file/d/19lHSLkRUIwfTfEQBjryQXlxmvX3icKB5/view
-        linktext: 'Get the slides'
+        linktext: "Get the slides"
         name: |
           VSCorode: Inside your IDE, Inside your Git Repository \w [Kevin Ward](https://wakeward.uk/)
         description: |
@@ -79,13 +107,13 @@ portfolioitems:
           - VSCode
           - Supply Chain Security
           - IDE Security
-        venue: 'Open Source Summit Europe 2024'
+        venue: "Open Source Summit Europe 2024"
         authors:
           - September 2024
 
-      - image: '/images/portfolio/bsides-krakow.webp'
+      - image: "/images/portfolio/bsides-krakow.webp"
         link: https://drive.google.com/file/d/1L0OmTlKBCRm2dh8pyFhVoCggS-UcNrWB/view
-        linktext: 'Get the slides'
+        linktext: "Get the slides"
         name: |
           Learning from Open Source: A Developer-First Approach to Security
         description: |
@@ -104,13 +132,13 @@ portfolioitems:
           - Developer Experience
           - Let's Encrypt
           - Sigstore
-        venue: 'BSides Krakow 2024'
+        venue: "BSides Krakow 2024"
         authors:
           - September 2024
 
-      - image: '/images/portfolio/bsides-krakow.webp'
+      - image: "/images/portfolio/bsides-krakow.webp"
         link: https://drive.google.com/file/d/1Dt41W9XGrLBzO-C73QeOllVu6K0vAtJH/view
-        linktext: 'Get the slides'
+        linktext: "Get the slides"
         name: |
           Demystifying Confidential Computing: A Practical Introduction for Cloud Native Engineers
         description: |
@@ -128,13 +156,13 @@ portfolioitems:
           - Confidential Computing
           - AMD SEV-SNP
           - GCP
-        venue: 'BSides Krakow 2024'
+        venue: "BSides Krakow 2024"
         authors:
           - September 2024
 
-      - image: '/images/portfolio/devopscon_2023.webp'
+      - image: "/images/portfolio/devopscon_2023.webp"
         link: https://drive.google.com/file/d/1Bc8WQ-aaZ3iMgOf9smNRxNxiZNJblbaE/view
-        linktext: 'Get the slides'
+        linktext: "Get the slides"
         name: |
           3h Workshop: Advanced CI Security Powered by the Open Source Community
         description: |
@@ -153,13 +181,13 @@ portfolioitems:
           - Supply Chain Security
           - CI/CD Security
           - Git Commit Signing
-        venue: 'DevOpsCon Munich 2023'
+        venue: "DevOpsCon Munich 2023"
         authors:
           - December 2023
 
-      - image: '/images/portfolio/kubecon_amsterdam_2023.png'
+      - image: "/images/portfolio/kubecon_amsterdam_2023.png"
         link: https://www.youtube.com/watch?v=J3pS-XBdNpU
-        linktext: 'Watch the recording'
+        linktext: "Watch the recording"
         name: |
           Hacking & Defending Kubernetes Clusters: We'll Do It LIVE!!
         description: |
@@ -184,13 +212,13 @@ portfolioitems:
         tags:
           - Talk
           - Kubernetes Security
-        venue: 'KubeCon Europe'
+        venue: "KubeCon Europe"
         authors:
           - April 2023
 
-      - image: '/images/portfolio/berlin_meetup_2022.jpg'
+      - image: "/images/portfolio/berlin_meetup_2022.jpg"
         link: https://www.youtube.com/watch?v=PDSJTrj9LpA&t=5106
-        linktext: 'Watch the recording'
+        linktext: "Watch the recording"
         name: |
           Level-up your security game as a K8s developer!
         description: |
@@ -208,13 +236,13 @@ portfolioitems:
           - Git Commit Signing
           - Container Image Security
           - Supply Chain Security
-        venue: 'Kubernetes & Cloud Native Berlin Meetup'
+        venue: "Kubernetes & Cloud Native Berlin Meetup"
         authors:
           - December 2022
 
-      - image: '/images/portfolio/sigstorecon_2022.png'
+      - image: "/images/portfolio/sigstorecon_2022.png"
         link: https://www.youtube.com/watch?v=mJczpE-sXgo
-        linktext: 'Watch the recording'
+        linktext: "Watch the recording"
         name: |
           Verifiable Build Environments in the Cloud: Powered by Sigstore and Enclaves
         description: |
@@ -237,13 +265,13 @@ portfolioitems:
           - Talk
           - Confidential Computing
           - Supply Chain Security
-        venue: 'SigstoreCon'
+        venue: "SigstoreCon"
         authors:
           - October 2022
 
-      - image: '/images/portfolio/sigstore.png'
+      - image: "/images/portfolio/sigstore.png"
         link: https://blog.sigstore.dev/signing-and-securing-confidential-kubernetes-clusters-in-the-cloud-with-sigstore-aceac3034e70/
-        linktext: 'Read the case study'
+        linktext: "Read the case study"
         name: |
           Case study as an early adopter of Sigstore.
         description: |
@@ -256,9 +284,9 @@ portfolioitems:
         authors:
           - August 2022
 
-      - image: '/images/portfolio/kcd_berlin_2022.png'
+      - image: "/images/portfolio/kcd_berlin_2022.png"
         link: https://www.youtube.com/watch?v=PhleEbcWkuM
-        linktext: 'Watch the recording'
+        linktext: "Watch the recording"
         name: |
           Share my Confidential Computing journey at KCD Berlin 2022.
         description: |
@@ -270,6 +298,6 @@ portfolioitems:
         tags:
           - Talk
           - Confidential Computing
-        venue: 'KCD Berlin'
+        venue: "KCD Berlin"
         authors:
           - June 2022
