@@ -2,8 +2,8 @@ portfolioitems:
   - title: Things I've spoken about
     portfolioitem:
       - image: "/images/portfolio/kubecon_atlanta_2025.png"
-        link: https://drive.google.com/file/d/1zBML13nRtmJYiuReTBQiGXP2CzSiXIfH/view
-        linktext: "Get the slides"
+        link: https://www.youtube.com/watch?v=3yOwAIpbuQ0
+        linktext: "Watch the recording"
         name: |
           Quantum-Resistant Kubernetes: Realities, Risks & (Versioning) Pitfalls
         description: |
