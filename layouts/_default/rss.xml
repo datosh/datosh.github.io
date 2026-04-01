@@ -18,8 +18,8 @@
     <description>{{ .Site.Params.description }}</description>
     <generator>Hugo -- gohugo.io</generator>
     {{ with .Site.LanguageCode }}<language>{{.}}</language>{{end}}
-    {{ with .Site.Params.Author }}<managingEditor>{{.}}{{ with $.Site.Author.email }} ({{.}}){{end}}</managingEditor>{{end}}
-    {{ with .Site.Params.Author }}<webMaster>{{.}}{{ with $.Site.Author.email }} ({{.}}){{end}}</webMaster>{{end}}
+    {{ with .Site.Params.Author }}<managingEditor>{{.}}</managingEditor>{{end}}
+    {{ with .Site.Params.Author }}<webMaster>{{.}}</webMaster>{{end}}
     {{ if not .Date.IsZero }}<lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
     {{- with .OutputFormats.Get "RSS" -}}
     {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
@@ -29,7 +29,7 @@
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
-      {{ with .Site.Params.Author }}<author>{{.}}{{ with $.Site.Author.email }} ({{.}}){{end}}</author>{{end}}
+      {{ with .Site.Params.Author }}<author>{{.}}</author>{{end}}
       <guid>{{ .Permalink }}</guid>
       <description>{{ .Content | html }}</description>
     </item>
