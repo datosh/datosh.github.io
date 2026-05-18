@@ -161,7 +161,7 @@ $ kubectl exec attacker -it -- curl ifconfig.me
 
 Cilium keeps a list of all the IPs and FQDNs it has seen and will make policy decisions based on these values.
 
-```
+```sh-session
 $ kubectl -n kube-system exec cilium-vvlqz -- cilium fqdn cache list
 Endpoint   Source       FQDN                                        TTL   ExpirationTime             IPs                       
 198        connection   34-160-111-145.default.pod.cluster.local.   0     2026-05-18T20:45:11.234Z   34.160.111.145            
