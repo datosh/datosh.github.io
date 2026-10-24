@@ -1,0 +1,41 @@
+<!doctype html>
+<html data-theme="light">
+<head><meta charset="utf-8"><title>PostList — preview</title>
+<style>body{margin:0;background:var(--surface)}</style><link rel="stylesheet" href="../../css/tokens.css"><link rel="stylesheet" href="../../css/bundle.css">
+<style>.ds-theme{position:fixed;right:12px;bottom:12px;z-index:99;font:500 13px/1 system-ui;padding:8px 12px;border-radius:980px;border:1px solid var(--hairline);background:var(--surface-raised);color:var(--ink);cursor:pointer}</style></head>
+<body>
+<div class="fk-page" id="root">
+<section class="fk-container" style="padding-top:32px;padding-bottom:32px">
+  <div class="fk-section-head"><h2 class="title-2">Latest posts</h2><a class="fk-arrow-link body-sm" href="#">All posts<svg class="fk-icon fk-icon--sm" aria-hidden="true"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m9 18 6-6-6-6" /> </svg></a></div>
+  <ul class="fk-postlist">
+  <li class="fk-postrow"><a href="#">
+    <div class="fk-postrow__text">
+      <p class="fk-postrow__date caption">11 October 2026 · 6 min read</p>
+      <h3 class="fk-postrow__title headline">The unreasonable effectiveness of VEX in NixOS</h3>
+      <p class="fk-postrow__desc body-sm">We explore why NixOS is uniquely positioned to implement a scalable process for vulnerability management.</p>
+    </div>
+    <img class="fk-postrow__thumb" src="../../assets/images/cover-nixos-vex.webp" alt="">
+  </a></li>
+  <li class="fk-postrow"><a href="#">
+    <div class="fk-postrow__text">
+      <p class="fk-postrow__date caption">18 May 2026 · 4 min read</p>
+      <h3 class="fk-postrow__title headline">Kubernetes&#x27; Default CoreDNS Configuration is insecure</h3>
+      <p class="fk-postrow__desc body-sm">Discover how a default CoreDNS configuration left over for backward compatibility can allow attackers to completely bypass Cilium network policies.</p>
+    </div>
+    <img class="fk-postrow__thumb" src="../../assets/images/cover-coredns-insecure.webp" alt="">
+  </a></li>
+  <li class="fk-postrow"><a href="#">
+    <div class="fk-postrow__text">
+      <p class="fk-postrow__date caption">12 February 2025 · 6 min read</p>
+      <h3 class="fk-postrow__title headline">Kubernetes Home Lab in 2025: Part 1 - CNI &amp; GitOps</h3>
+      <p class="fk-postrow__desc body-sm">Which came first, the CNI or GitOps? Untangling the bootstrap dependencies between Flux and Cilium.</p>
+    </div>
+    <img class="fk-postrow__thumb" src="../../assets/images/cover-k8s-home-lab-01.webp" alt="">
+  </a></li>
+  </ul>
+</section>
+</div>
+
+<button class="ds-theme" onclick="var d=document.documentElement;d.dataset.theme=d.dataset.theme==='dark'?'light':'dark'">Toggle theme</button>
+</body>
+</html>

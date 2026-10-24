@@ -1,0 +1,28 @@
+{{ define "main" }}
+<article>
+  <header class="fk-container fk-article-head">
+    <div class="fk-measure fk-measure--center">
+      <p class="fk-article-head__meta caption"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time><span aria-hidden="true">·</span><span>{{ .ReadingTime }} min read</span></p>
+      <h1 class="fk-article-head__title title-1">{{ .Title | markdownify }}</h1>
+      {{- with .Description }}
+      <p class="fk-article-head__lede lede">{{ . }}</p>
+      {{- end }}
+      {{- partial "tags.html" . }}
+    </div>
+    {{- with partial "thumbnail.html" . }}
+    <img class="fk-article-cover" src="{{ . }}" alt="">
+    {{- end }}
+  </header>
+  <div class="fk-container fk-article-body">
+    {{- if and .Params.toc (gt (len .Fragments.Headings) 0) }}
+    <nav class="fk-toc body-sm fk-measure fk-measure--center" aria-label="Table of contents">
+      <p class="fk-toc__label">Contents</p>
+      {{ replaceRE `</?nav[^>]*>` "" .TableOfContents | safeHTML }}
+    </nav>
+    {{- end }}
+    <div class="fk-prose body">
+      {{ .Content }}
+    </div>
+  </div>
+</article>
+{{ end }}

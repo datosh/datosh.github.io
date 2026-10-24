@@ -1,0 +1,42 @@
+{{ define "main" }}
+<section class="fk-container fk-hero">
+  <img class="fk-hero__portrait" src="{{ site.Params.profilePicture | relURL }}" alt="Portrait of {{ site.Params.name }}" width="96" height="96">
+  <h1 class="fk-hero__name display">{{ site.Params.name }}</h1>
+  <p class="fk-hero__lede lede">{{ site.Params.description }}</p>
+  <div class="fk-hero__social">
+    {{- partial "social-links" (dict "site" site) }}
+  </div>
+</section>
+
+{{- $posts := where site.RegularPages "Section" "post" }}
+<section class="fk-container fk-section">
+  <div class="fk-section-head">
+    <h2 class="title-2">Latest posts</h2>
+    <a class="fk-arrow-link body-sm" href="{{ "post/" | relURL }}">All posts{{ partial "icon" (dict "name" "chevron-right" "class" "fk-icon--sm") }}</a>
+  </div>
+  <div class="fk-grid fk-grid--2">
+    {{- range first 2 $posts }}
+    {{ partial "post-card.html" . }}
+    {{- end }}
+  </div>
+  <ul class="fk-postlist fk-section__more">
+    {{- range first 5 (after 2 $posts) }}
+    {{ partial "post-row.html" (dict "page" .) }}
+    {{- end }}
+  </ul>
+</section>
+
+<section class="fk-container fk-section">
+  <div class="fk-section-head">
+    <h2 class="title-2">Talks</h2>
+    <a class="fk-arrow-link body-sm" href="{{ "portfolio/" | relURL }}">All talks{{ partial "icon" (dict "name" "chevron-right" "class" "fk-icon--sm") }}</a>
+  </div>
+  <div class="fk-grid fk-grid--2">
+    {{- range first 1 hugo.Data.portfolio.portfolioitems }}
+    {{- range first 2 .portfolioitem }}
+    {{ partial "talk-card.html" (dict "talk" .) }}
+    {{- end }}
+    {{- end }}
+  </div>
+</section>
+{{ end }}

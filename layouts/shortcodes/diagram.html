@@ -1,0 +1,25 @@
+{{- /*
+  An inlined D2 diagram, so the page CSS can re-colour it per theme.
+  Usage: {{< diagram src="bootstrap.svg" alt="What the diagram shows" caption="One sentence" >}}
+  Render the .svg first with ./scripts/render-diagrams.sh.
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- $svg := .Page.Resources.Get $src -}}
+{{- if not $svg }}{{ errorf "diagram %q not found next to %s; run ./scripts/render-diagrams.sh" $src .Page.File.Path }}{{ end -}}
+{{- $alt := .Get "alt" -}}
+{{- if not $alt }}{{ errorf "diagram %q in %s needs an alt text" $src .Page.File.Path }}{{ end -}}
+{{- $caption := .Get "caption" -}}
+<figure class="fk-diagram fk-wide">
+  <div class="fk-diagram__canvas" role="img" aria-label="{{ $alt }}">
+    {{- replaceRE `^\s*<\?xml[^>]*\?>\s*` "" $svg.Content 1 | safeHTML -}}
+  </div>
+  <button class="fk-icon-btn fk-diagram__expand" type="button" aria-label="Show diagram full screen">{{ partial "icon" (dict "name" "maximize-2" "class" "fk-icon--sm") }}</button>
+  {{- with $caption }}
+  <figcaption class="caption">{{ . | markdownify }}</figcaption>
+  {{- end }}
+  {{- /* site.js moves the SVG in here while open, so the page CSS keeps re-colouring it. */}}
+  <dialog class="fk-diagram fk-diagram__dialog" aria-label="{{ $caption | default "Diagram" | markdownify | plainify }}">
+    <button class="fk-icon-btn fk-diagram__close" type="button" aria-label="Close full screen diagram">{{ partial "icon" "x" }}</button>
+    <div class="fk-diagram__dialog-canvas" role="img" aria-label="{{ $alt }}"></div>
+  </dialog>
+</figure>

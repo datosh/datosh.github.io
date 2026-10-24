@@ -1,0 +1,55 @@
+<!doctype html>
+<html data-theme="light">
+<head><meta charset="utf-8"><title>CodeBlock — preview</title>
+<style>body{margin:0;background:var(--surface)}</style><link rel="stylesheet" href="../../css/tokens.css"><link rel="stylesheet" href="../../css/bundle.css">
+<style>.ds-theme{position:fixed;right:12px;bottom:12px;z-index:99;font:500 13px/1 system-ui;padding:8px 12px;border-radius:980px;border:1px solid var(--hairline);background:var(--surface-raised);color:var(--ink);cursor:pointer}</style></head>
+<body>
+<div class="fk-page" id="root">
+<div class="fk-container" style="padding-top:24px;padding-bottom:24px">
+<div class="fk-prose body">
+  <figure class="fk-code">
+    <div class="fk-code__bar"><span class="fk-code__label code-label">main.go</span><button class="fk-code__copy" type="button" aria-label="Copy code"><svg class="fk-icon fk-icon--sm fk-ic-copy" aria-hidden="true"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /> </svg><svg class="fk-icon fk-icon--sm fk-ic-check" aria-hidden="true"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg></button></div>
+    <pre class="chroma code"><code><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">"fmt"</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line hl"><span class="cl">	<span class="s">"golang.org/x/text/width"</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Widen converts to full-width runes.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">width</span><span class="p">.</span><span class="nx">Widen</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">"hello, world"</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
+  </figure>
+  <figure class="fk-code">
+    <div class="fk-code__bar"><span class="fk-code__label code-label">console</span><button class="fk-code__copy" type="button" aria-label="Copy code"><svg class="fk-icon fk-icon--sm fk-ic-copy" aria-hidden="true"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /> </svg><svg class="fk-icon fk-icon--sm fk-ic-check" aria-hidden="true"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg></button></div>
+    <pre class="chroma code"><code><span class="line"><span class="cl"><span class="gp">$ </span>syft scan . -o cyclonedx-json &gt; sbom.cdx
+</span></span><span class="line"><span class="cl"><span class="gp">$ </span>grype sbom:sbom.cdx
+</span></span><span class="line"><span class="cl"><span class="go">NAME               INSTALLED  FIXED IN  TYPE       VULNERABILITY  SEVERITY</span>
+</span></span><span class="line"><span class="cl"><span class="go">golang.org/x/text  v0.38.0    0.39.0    go-module  GO-2026-5970   High</span>
+</span></span><span class="line"><span class="cl"><span class="go">golang.org/x/text  v0.38.0    0.41.0    go-module  GO-2026-6629   High</span></span></span></code></pre>
+  </figure>
+  <figure class="fk-code fk-code--bare">
+    <div class="fk-code__bar"><button class="fk-code__copy" type="button" aria-label="Copy code"><svg class="fk-icon fk-icon--sm fk-ic-copy" aria-hidden="true"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /> </svg><svg class="fk-icon fk-icon--sm fk-ic-check" aria-hidden="true"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 6 9 17l-5-5" /> </svg></button></div>
+    <pre class="chroma code"><code><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span> <span class="l">kustomize.toolkit.fluxcd.io/v1</span>
+</span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span> <span class="l">Kustomization</span>
+</span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">interval</span><span class="p">:</span> <span class="l">10m</span>
+</span></span><span class="line"><span class="cl gd">-  <span class="nt">prune</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl gi">+  <span class="nt">prune</span><span class="p">:</span> <span class="kc">true</span></span></span></code></pre>
+  </figure>
+</div>
+</div>
+</div>
+<script>document.querySelectorAll('.fk-code__copy').forEach(function(b){
+  var ck=b.querySelector('.fk-ic-check'); ck.style.display='none';
+  b.addEventListener('click',function(){
+    var cp=b.querySelector('.fk-ic-copy'); cp.style.display='none'; ck.style.display='block'; b.setAttribute('data-copied','');
+    try{var t=b.closest('.fk-code').querySelector('pre code').cloneNode(true);t.querySelectorAll('.gp').forEach(function(n){n.remove()});navigator.clipboard&&navigator.clipboard.writeText(t.textContent).catch(function(){})}catch(e){}
+    setTimeout(function(){cp.style.display='block';ck.style.display='none';b.removeAttribute('data-copied')},1500);
+  });
+});</script>
+<button class="ds-theme" onclick="var d=document.documentElement;d.dataset.theme=d.dataset.theme==='dark'?'light':'dark'">Toggle theme</button>
+</body>
+</html>

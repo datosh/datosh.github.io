@@ -1,0 +1,16 @@
+{{ define "main" }}
+{{- partial "page-head.html" . }}
+<section class="fk-container fk-section">
+  {{- if eq .Kind "taxonomy" }}
+  <ul class="fk-tags ui">
+    {{- range .Pages.ByTitle }}<li><a class="fk-tag" href="{{ .RelPermalink }}">{{ .Title | lower }}</a></li>{{ end -}}
+  </ul>
+  {{- else }}
+  <ul class="fk-postlist">
+    {{- range .RegularPages }}
+    {{ partial "post-row.html" (dict "page" . "h" 2) }}
+    {{- end }}
+  </ul>
+  {{- end }}
+</section>
+{{ end }}

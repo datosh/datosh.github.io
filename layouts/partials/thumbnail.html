@@ -1,0 +1,6 @@
+{{- /* The post's cover URL from front matter `thumbnail` (a path under static/), or nothing when it is missing. */ -}}
+{{- with .Params.thumbnail -}}
+  {{- if fileExists (path.Join "static" .) -}}
+    {{- . | relURL -}}
+  {{- end -}}
+{{- end -}}

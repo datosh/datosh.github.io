@@ -1,0 +1,12 @@
+{{ define "main" }}
+{{- partial "page-head.html" . }}
+<section class="fk-container fk-section">
+  <div class="fk-grid fk-grid--2">
+    {{- range hugo.Data.portfolio.portfolioitems }}
+    {{- range .portfolioitem }}
+    {{ partial "talk-card.html" (dict "talk" . "h" 2) }}
+    {{- end }}
+    {{- end }}
+  </div>
+</section>
+{{ end }}

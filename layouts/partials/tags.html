@@ -1,0 +1,5 @@
+{{- with .GetTerms "tags" }}
+<ul class="fk-tags ui">
+  {{- range . }}<li><a class="fk-tag" href="{{ .RelPermalink }}">{{ .Title | lower }}</a></li>{{ end -}}
+</ul>
+{{- end }}

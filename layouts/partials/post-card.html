@@ -1,0 +1,12 @@
+<a class="fk-card" href="{{ .RelPermalink }}">
+  {{- with partial "thumbnail.html" . }}
+  <img class="fk-card__media" src="{{ . }}" alt="">
+  {{- end }}
+  <div class="fk-card__body">
+    <p class="fk-card__meta caption">{{ partial "post-meta.html" . }}</p>
+    <h3 class="fk-card__title title-3">{{ .Title | markdownify }}</h3>
+    {{- with .Description }}
+    <p class="fk-card__desc body-sm">{{ . }}</p>
+    {{- end }}
+  </div>
+</a>

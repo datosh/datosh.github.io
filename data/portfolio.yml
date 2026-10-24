@@ -19,8 +19,7 @@ portfolioitems:
           issue where large PQC key shares can break TLS handshakes due to packet size
           limits. We'll explore these challenges with evidence from the K8s ecosystem,
           offering insights for maintainers and advanced users navigating the PQC transition.
-
-          [Get the slides](https://drive.google.com/file/d/1zBML13nRtmJYiuReTBQiGXP2CzSiXIfH/view)
+        slides: https://drive.google.com/file/d/1zBML13nRtmJYiuReTBQiGXP2CzSiXIfH/view
         tags:
           - Talk
           - Post Quantum Cryptography
@@ -52,8 +51,7 @@ portfolioitems:
           By incorporating hardware-protected platform information directly
           into the SVID generation process, we can significantly enhance the
           confidence placed in the resulting identity documents.
-
-          [Get the slides](https://drive.google.com/file/d/1C1Eg9tTrUeUcL0afI1R5HLEA7f3vPnBE/view)
+        slides: https://drive.google.com/file/d/1C1Eg9tTrUeUcL0afI1R5HLEA7f3vPnBE/view
         tags:
           - Talk
           - Confidential Computing
@@ -92,7 +90,8 @@ portfolioitems:
         link: https://drive.google.com/file/d/19lHSLkRUIwfTfEQBjryQXlxmvX3icKB5/view
         linktext: "Get the slides"
         name: |
-          VSCorode: Inside your IDE, Inside your Git Repository \w [Kevin Ward](https://wakeward.uk/)
+          VSCorode: Inside your IDE, Inside your Git Repository
+        with: "Kevin Ward"
         description: |
           VSCode is one of the most popular IDEs with a flourishing community of
           extensions for data manipulation, theming, programmatic language features
@@ -164,7 +163,7 @@ portfolioitems:
         link: https://drive.google.com/file/d/1Bc8WQ-aaZ3iMgOf9smNRxNxiZNJblbaE/view
         linktext: "Get the slides"
         name: |
-          3h Workshop: Advanced CI Security Powered by the Open Source Community
+          Advanced CI Security Powered by the Open Source Community
         description: |
           In this workshop, we will learn how to secure your CI/CD pipeline
           using open source tools and best practices. We will cover how to: \
@@ -177,7 +176,7 @@ portfolioitems:
 
           [Accompanying blog post on control-plane.io](https://control-plane.io/posts/dev-ops-con-munich-2023-workshop/)
         tags:
-          - Talk
+          - Workshop
           - Supply Chain Security
           - CI/CD Security
           - Git Commit Signing
@@ -207,8 +206,7 @@ portfolioitems:
           Fabian and James will explain how to use these resources, and the
           demonstrated attacks and controls to threat model, security test and
           defend your own Kubernetes Clusters.
-
-          [Slides](https://drive.google.com/file/d/1Za-PMlsmOhgyVfUmfsiSZ-DNM7Hle3GU/view)
+        slides: https://drive.google.com/file/d/1Za-PMlsmOhgyVfUmfsiSZ-DNM7Hle3GU/view
         tags:
           - Talk
           - Kubernetes Security
@@ -229,8 +227,7 @@ portfolioitems:
           We will heavily rely on the Sigstore ecosystem to sign without the hassle of
           key management. No subscriptions or server deployments are required, which
           will enable you to adopt these practices right away.
-
-          [Slides](https://docs.google.com/presentation/d/13gGldvn3lpp9MQnPrVzAi-eJPzKKrXjuwTbEOz0kTck/view)
+        slides: https://docs.google.com/presentation/d/13gGldvn3lpp9MQnPrVzAi-eJPzKKrXjuwTbEOz0kTck/view
         tags:
           - Talk
           - Git Commit Signing
@@ -259,8 +256,7 @@ portfolioitems:
           to build and sign in the cloud without malicious actors being able to
           steal signing keys or tamper with build processes. We will also show
           a live working demo of how such a system could be realized.
-
-          [Slides](https://drive.google.com/file/d/1nFwTPR5aE4JOdkaU5qYMyEOgrjLgoas9/view)
+        slides: https://drive.google.com/file/d/1nFwTPR5aE4JOdkaU5qYMyEOgrjLgoas9/view
         tags:
           - Talk
           - Confidential Computing
@@ -293,8 +289,7 @@ portfolioitems:
           After joining Edgeless Systems 6 months earlier, I shared my journey
           of learning about Confidential Computing with the Kubernetes and cloud
           native community at KCD Berlin 2022.
-
-          [Slides](https://drive.google.com/file/d/1cnvNg2HWS13wgrbW3a65Y6FPNzfourib/view)
+        slides: https://drive.google.com/file/d/1cnvNg2HWS13wgrbW3a65Y6FPNzfourib/view
         tags:
           - Talk
           - Confidential Computing

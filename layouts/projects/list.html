@@ -1,0 +1,16 @@
+{{ define "main" }}
+{{- partial "page-head.html" . }}
+<section class="fk-container fk-section">
+  <div class="fk-grid">
+    {{- range hugo.Data.projects }}
+    <a class="fk-card fk-project" href="{{ .url | relURL }}"{{ if hasPrefix .url "http" }} rel="noopener"{{ end }}>
+      <div class="fk-card__body">
+        <div class="fk-project__head"><h2 class="fk-card__title headline">{{ .name }}</h2>{{ partial "icon" "arrow-up-right" }}</div>
+        <p class="fk-card__desc body-sm">{{ .description }}</p>
+        <p class="fk-project__domain caption">{{ .domain }}</p>
+      </div>
+    </a>
+    {{- end }}
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,6 @@
+{{- /* GitHub, LinkedIn, Bluesky, then RSS. Context: dict "site" .Site "class" <icon class>. */ -}}
+{{- $class := .class | default "" -}}
+{{- range .site.Params.social }}
+<a class="fk-icon-btn" href="{{ .url }}" aria-label="{{ .name }}" rel="noopener">{{ partial "icon" (dict "name" .icon "class" $class) }}</a>
+{{- end }}
+<a class="fk-icon-btn" href="{{ "index.xml" | relURL }}" aria-label="RSS feed">{{ partial "icon" (dict "name" "rss" "class" $class) }}</a>

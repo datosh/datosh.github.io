@@ -1,8 +1,14 @@
 ## Hugo Theme
 
-[lxndrblz/anatole](https://github.com/lxndrblz/anatole).
+A small custom theme in `layouts/`, built from the design system in `design/`
+(start with `design/HANDOFF.md` and `design/BRAND.md`; preview components with `./design/scripts/preview.sh`).
 
-It comes with a [demo page](https://anatole-demo.netlify.app/) and respective [source code](https://github.com/lxndrblz/anatole/tree/master/exampleSite).
+### Diagrams
+
+Write D2 diagrams as `.d2` files next to a post's `index.md` and embed them with
+`{{< diagram src="name.svg" alt="…" caption="…" >}}`. Render them with
+`./scripts/render-diagrams.sh` (needs `d2`, e.g. `nix shell nixpkgs#d2`) and commit the `.svg` files;
+CI does not render diagrams.
 
 ### Proof read / Style check
 

@@ -1,7 +1,6 @@
 baseURL = "https://blog.kammel.dev/"
-languageCode = "en-us"
+locale = "en-us"
 title = "DaTosh Blog"
-theme = "github.com/lxndrblz/anatole"
 summarylength = 10
 
 [markup]
@@ -15,98 +14,54 @@ summarylength = 10
     lineNoStart = 1
     lineNos = false
     lineNumbersInTable = true
-    noClasses = true
+    noClasses = false
     noHl = false
-    style = 'nord'
     tabWidth = 4
     wrapperClass = 'highlight'
-
-[params.mermaid]
-enable = true
 
 [params]
 title = "DaTosh Blog"
 author = "DaTosh"
+name = "Fabian Kammel"
 description = "Software Engineering, Security, and Cloud Native Technologies"
 profilePicture = "images/Profile.jpg"
-contentratio = 0.75
-doNotLoadAnimations = true
-copyright = "2020-{{ YEAR }}"
-readMore = true
-customCss = [
-    "css/custom.css",
-    "css/components.css",
-]
-customJs = ["js/copy-code.js"]
+copyrightStart = 2020
 
 # Add these for better SEO
 keywords = ["software engineering", "kubernetes", "cloud native", "security", "golang"]
 
-[[params.socialIcons]]
-icon = "fab fa-linkedin"
-title = "Linkedin"
-url = "https://www.linkedin.com/in/fabian-kammel-7781b7173/"
-
-[[params.socialIcons]]
-icon = "fab fa-github"
-title = "GitHub"
+# Shown in the home hero and footer, in this order, followed by RSS.
+[[params.social]]
+name = "GitHub"
+icon = "github"
 url = "https://github.com/datosh"
 
-[[params.socialIcons]]
-icon = "fab fa-bluesky"
-title = "Bluesky"
+[[params.social]]
+name = "LinkedIn"
+icon = "linkedin"
+url = "https://www.linkedin.com/in/fabian-kammel-7781b7173/"
+
+[[params.social]]
+name = "Bluesky"
+icon = "bluesky"
 url = "https://bsky.app/profile/datosh18.bsky.social"
 
 [menu]
 
   [[menu.main]]
-  name = "Home"
-  identifier = "home"
-  weight = 100
-  url = "/"
-
-  [[menu.main]]
   name = "Posts"
-  weight = 200
+  weight = 100
   identifier = "posts"
   url = "/post/"
 
   [[menu.main]]
   name = "Talks"
-  weight = 300
+  weight = 200
   identifier = "portfolio"
   url = "/portfolio/"
 
   [[menu.main]]
-  name = "RSS"
-  weight = 350
-  identifier = "RSS"
-  url = "/index.xml"
-
-  [[menu.main]]
-  name = "Side Projects"
-  weight = 400
-  identifier = "sideprojects"
-
-  [[menu.main]]
-  name = "GoInvaders"
-  parent = "sideprojects"
-  weight = 410
-  url = "/goinvaders/game.html"
-
-  [[menu.main]]
-  name = "Pin GH Actions"
-  parent = "sideprojects"
-  weight = 420
-  url = "https://pin-gh-actions.kammel.dev/"
-
-  [[menu.main]]
-  name = "ElvenXCEL"
-  parent = "sideprojects"
-  weight = 430
-  url = "https://elvenxcel.app"
-
-[module]
-  [[module.imports]]
-    path = "github.com/lxndrblz/anatole"
-    disable = false
+  name = "Projects"
+  weight = 300
+  identifier = "projects"
+  url = "/projects/"

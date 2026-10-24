@@ -1,0 +1,32 @@
+<!doctype html>
+<html data-theme="light">
+<head><meta charset="utf-8"><title>PostCard — preview</title>
+<style>body{margin:0;background:var(--surface)}</style><link rel="stylesheet" href="../../css/tokens.css"><link rel="stylesheet" href="../../css/bundle.css">
+<style>.ds-theme{position:fixed;right:12px;bottom:12px;z-index:99;font:500 13px/1 system-ui;padding:8px 12px;border-radius:980px;border:1px solid var(--hairline);background:var(--surface-raised);color:var(--ink);cursor:pointer}</style></head>
+<body>
+<div class="fk-page" id="root">
+<div class="fk-container" style="padding-top:24px;padding-bottom:24px">
+<div class="fk-grid fk-grid--2">
+  <a class="fk-card" href="#">
+    <img class="fk-card__media" src="../../assets/images/cover-nixos-vex.webp" alt="">
+    <div class="fk-card__body">
+      <p class="fk-card__meta caption">11 October 2026 · 6 min read</p>
+      <h3 class="fk-card__title title-3">The unreasonable effectiveness of VEX in NixOS</h3>
+      <p class="fk-card__desc body-sm">We explore why NixOS is uniquely positioned to implement a scalable process for vulnerability management.</p>
+    </div>
+  </a>
+  <a class="fk-card" href="#">
+    <img class="fk-card__media" src="../../assets/images/cover-coredns-insecure.webp" alt="">
+    <div class="fk-card__body">
+      <p class="fk-card__meta caption">18 May 2026 · 4 min read</p>
+      <h3 class="fk-card__title title-3">Kubernetes' Default CoreDNS Configuration is insecure</h3>
+      <p class="fk-card__desc body-sm">Discover how a default CoreDNS configuration left over for backward compatibility can allow attackers to completely bypass Cilium network policies.</p>
+    </div>
+  </a>
+</div>
+</div>
+</div>
+
+<button class="ds-theme" onclick="var d=document.documentElement;d.dataset.theme=d.dataset.theme==='dark'?'light':'dark'">Toggle theme</button>
+</body>
+</html>
