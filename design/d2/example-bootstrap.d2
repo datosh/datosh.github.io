@@ -1,0 +1,9 @@
+direction: right
+flux: Flux
+cilium: Cilium (CNI)
+nodes: Nodes Ready
+api: API server
+flux -> cilium: installs {class: accent}
+cilium -> nodes: pod network
+nodes -> api: register
+api -> flux: schedules {style.stroke-dash: 4}

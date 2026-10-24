@@ -1,0 +1,28 @@
+{{- /*
+  Inline an icon from assets/icons/ so it inherits the text colour.
+  Usage: partial "icon" "rss"  or  partial "icon" (dict "name" "copy" "class" "fk-icon--sm fk-ic-copy")
+  Lucide icons are stroked, Simple Icons brand marks are filled; both get aria-hidden, so pair them with a label.
+*/ -}}
+{{- $name := . -}}
+{{- $class := "" -}}
+{{- if reflect.IsMap . -}}
+  {{- $name = .name -}}
+  {{- $class = .class | default "" -}}
+{{- end -}}
+{{- $res := resources.Get (printf "icons/%s.svg" $name) -}}
+{{- if not $res -}}
+  {{- errorf "icon %q not found in assets/icons/" $name -}}
+{{- end -}}
+{{- $svg := $res.Content -}}
+{{- $svg = replaceRE `(?s)<!--.*?-->` "" $svg -}}
+{{- $svg = replaceRE `(?s)<title>.*?</title>` "" $svg -}}
+{{- $classes := trim (printf "fk-icon %s" $class) " " -}}
+{{- $open := "" -}}
+{{- if strings.Contains $svg "lucide" -}}
+  {{- $open = printf `<svg class="%s" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">` $classes -}}
+{{- else -}}
+  {{- $open = printf `<svg class="%s" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">` $classes -}}
+{{- end -}}
+{{- $svg = replaceRE `(?s)^\s*<svg.*?>` $open $svg 1 -}}
+{{- $svg = replaceRE `\s*\n\s*` "" $svg -}}
+{{- $svg | safeHTML -}}

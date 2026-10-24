@@ -1,0 +1,17 @@
+{{- $section := .Section -}}
+{{- if .Data.Plural }}{{ $section = "post" }}{{ end -}}
+<header class="fk-header">
+  <div class="fk-container fk-header__inner">
+    <a class="fk-wordmark headline" href="{{ "" | relURL }}">{{ site.Params.name }}</a>
+    <nav class="fk-nav ui" aria-label="Main">
+      {{- range site.Menus.main }}
+      {{- $current := eq (strings.TrimSuffix "/" .URL) (printf "/%s" $section) -}}
+      <a href="{{ .URL | relURL }}"{{ if $current }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+    <div class="fk-header__tools">
+      <a class="fk-icon-btn" href="{{ "index.xml" | relURL }}" aria-label="RSS feed">{{ partial "icon" "rss" }}</a>
+      <button class="fk-icon-btn fk-theme-toggle" type="button" aria-label="Switch colour theme">{{ partial "icon" (dict "name" "sun" "class" "fk-icon--sun") }}{{ partial "icon" (dict "name" "moon" "class" "fk-icon--moon") }}</button>
+    </div>
+  </div>
+</header>

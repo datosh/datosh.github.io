@@ -1,0 +1,207 @@
+/* Fabian Kammel — generated from tokens.json. Do not edit by hand; change tokens.json and regenerate. */
+
+@font-face { font-family: "Inter Variable"; src: url("../fonts/InterVariable.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Inter Variable"; src: url("../fonts/InterVariable-Italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "JetBrains Mono Variable"; src: url("../fonts/JetBrainsMonoVariable.woff2") format("woff2"); font-weight: 100 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "JetBrains Mono Variable"; src: url("../fonts/JetBrainsMonoVariable-Italic.woff2") format("woff2"); font-weight: 100 800; font-style: italic; font-display: swap; }
+
+:root, [data-theme="light"] {
+  color-scheme: light;
+  --surface: #ffffff;
+  --surface-subtle: #f5f5f7;
+  --surface-raised: #f5f5f7;
+  --surface-glass: rgba(255, 255, 255, 0.72);
+  --ink: #1d1d1f;
+  --ink-muted: #6e6e73;
+  --ink-faint: #86868b;
+  --hairline: #d2d2d7;
+  --accent: #0066cc;
+  --accent-hover: #004f9e;
+  --accent-fill: #0071e3;
+  --accent-fill-hover: #0062c4;
+  --on-accent: #ffffff;
+  --accent-subtle: #eef5fd;
+  --focus-ring: #0071e3;
+  --callout-info-ink: var(--accent);
+  --callout-info-bg: var(--accent-subtle);
+  --callout-note-ink: var(--ink-muted);
+  --callout-note-bg: var(--surface-subtle);
+  --callout-tip-ink: #1b7f3b;
+  --callout-tip-bg: #eef7f0;
+  --callout-warn-ink: #b64400;
+  --callout-warn-bg: #fdf3ec;
+  --code-bg: var(--surface-subtle);
+  --code-ink: var(--ink);
+  --code-line-highlight: rgba(0, 102, 204, 0.08);
+  --code-inserted-bg: #e6f4ea;
+  --code-deleted-bg: #fdecea;
+  --syntax-keyword: #0058b0;
+  --syntax-string: #1f7a3a;
+  --syntax-number: #a63d00;
+  --syntax-type: #6b3fa0;
+  --syntax-function: #0f6e7a;
+  --syntax-attribute: #8a4b00;
+  --syntax-comment: #6e6e73;
+  --syntax-punctuation: #4a4a4f;
+  --syntax-prompt: #6e6e73;
+  --diagram-ground: var(--surface);
+  --diagram-container: #f5f5f7;
+  --diagram-shape: #ffffff;
+  --diagram-stroke: #86868b;
+  --diagram-text: var(--ink);
+  --diagram-label: var(--ink-muted);
+  --diagram-accent: var(--accent);
+  --diagram-accent-fill: var(--accent-subtle);
+  --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.08);
+  --shadow-pop: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #000000;
+  --surface-subtle: #161617;
+  --surface-raised: #1d1d1f;
+  --surface-glass: rgba(0, 0, 0, 0.72);
+  --ink: #f5f5f7;
+  --ink-muted: #a1a1a6;
+  --ink-faint: #86868b;
+  --hairline: #424245;
+  --accent: #2997ff;
+  --accent-hover: #6bb6ff;
+  --accent-fill: #0071e3;
+  --accent-fill-hover: #0062c4;
+  --on-accent: #ffffff;
+  --accent-subtle: #0d1a2b;
+  --focus-ring: #2997ff;
+  --callout-info-ink: var(--accent);
+  --callout-info-bg: var(--accent-subtle);
+  --callout-note-ink: var(--ink-muted);
+  --callout-note-bg: var(--surface-subtle);
+  --callout-tip-ink: #4cd471;
+  --callout-tip-bg: #0e1f14;
+  --callout-warn-ink: #ff9f40;
+  --callout-warn-bg: #24170c;
+  --code-bg: var(--surface-subtle);
+  --code-ink: var(--ink);
+  --code-line-highlight: rgba(41, 151, 255, 0.14);
+  --code-inserted-bg: #0f2a17;
+  --code-deleted-bg: #2d1213;
+  --syntax-keyword: #5eb1ff;
+  --syntax-string: #7ed492;
+  --syntax-number: #ffa463;
+  --syntax-type: #c7a4ff;
+  --syntax-function: #5fd0d9;
+  --syntax-attribute: #e8c06a;
+  --syntax-comment: #8e8e93;
+  --syntax-punctuation: #c7c7cc;
+  --syntax-prompt: #8e8e93;
+  --diagram-ground: var(--surface);
+  --diagram-container: #161617;
+  --diagram-shape: #1d1d1f;
+  --diagram-stroke: #8e8e93;
+  --diagram-text: var(--ink);
+  --diagram-label: var(--ink-muted);
+  --diagram-accent: var(--accent);
+  --diagram-accent-fill: var(--accent-subtle);
+  --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 4px 16px rgba(0, 0, 0, 0.7);
+}
+
+/* No stored choice: follow the OS. The inline head script sets data-theme, so this only covers no-JS. */
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme]) {
+  color-scheme: dark;
+    --surface: #000000;
+    --surface-subtle: #161617;
+    --surface-raised: #1d1d1f;
+    --surface-glass: rgba(0, 0, 0, 0.72);
+    --ink: #f5f5f7;
+    --ink-muted: #a1a1a6;
+    --ink-faint: #86868b;
+    --hairline: #424245;
+    --accent: #2997ff;
+    --accent-hover: #6bb6ff;
+    --accent-fill: #0071e3;
+    --accent-fill-hover: #0062c4;
+    --on-accent: #ffffff;
+    --accent-subtle: #0d1a2b;
+    --focus-ring: #2997ff;
+    --callout-info-ink: var(--accent);
+    --callout-info-bg: var(--accent-subtle);
+    --callout-note-ink: var(--ink-muted);
+    --callout-note-bg: var(--surface-subtle);
+    --callout-tip-ink: #4cd471;
+    --callout-tip-bg: #0e1f14;
+    --callout-warn-ink: #ff9f40;
+    --callout-warn-bg: #24170c;
+    --code-bg: var(--surface-subtle);
+    --code-ink: var(--ink);
+    --code-line-highlight: rgba(41, 151, 255, 0.14);
+    --code-inserted-bg: #0f2a17;
+    --code-deleted-bg: #2d1213;
+    --syntax-keyword: #5eb1ff;
+    --syntax-string: #7ed492;
+    --syntax-number: #ffa463;
+    --syntax-type: #c7a4ff;
+    --syntax-function: #5fd0d9;
+    --syntax-attribute: #e8c06a;
+    --syntax-comment: #8e8e93;
+    --syntax-punctuation: #c7c7cc;
+    --syntax-prompt: #8e8e93;
+    --diagram-ground: var(--surface);
+    --diagram-container: #161617;
+    --diagram-shape: #1d1d1f;
+    --diagram-stroke: #8e8e93;
+    --diagram-text: var(--ink);
+    --diagram-label: var(--ink-muted);
+    --diagram-accent: var(--accent);
+    --diagram-accent-fill: var(--accent-subtle);
+    --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.6);
+    --shadow-pop: 0 4px 16px rgba(0, 0, 0, 0.7);
+}
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --measure: 680px;
+  --width-wide: 980px;
+  --header-height: 52px;
+  --radius-xs: 5px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-pill: 980px;
+  --font-sans: "Inter Variable", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.display { font-family: var(--font-sans); font-size: 64px; line-height: 68px; font-weight: 700; letter-spacing: -0.035em; font-variation-settings: "opsz" 32; }
+.title-1 { font-family: var(--font-sans); font-size: 44px; line-height: 50px; font-weight: 700; letter-spacing: -0.028em; font-variation-settings: "opsz" 32; }
+.title-2 { font-family: var(--font-sans); font-size: 30px; line-height: 36px; font-weight: 650; letter-spacing: -0.022em; font-variation-settings: "opsz" 28; }
+.title-3 { font-family: var(--font-sans); font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -0.014em; }
+.headline { font-family: var(--font-sans); font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.01em; }
+.lede { font-family: var(--font-sans); font-size: 21px; line-height: 32px; font-weight: 400; letter-spacing: -0.012em; }
+.body { font-family: var(--font-sans); font-size: 18px; line-height: 30px; font-weight: 400; letter-spacing: -0.008em; }
+.body-sm { font-family: var(--font-sans); font-size: 15px; line-height: 22px; font-weight: 400; letter-spacing: -0.005em; }
+.ui { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: -0.005em; }
+.caption { font-family: var(--font-sans); font-size: 13px; line-height: 18px; font-weight: 400; letter-spacing: 0em; }
+.eyebrow { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; }
+.code { font-family: var(--font-mono); font-size: 14px; line-height: 23px; font-weight: 400; letter-spacing: 0em; }
+.code-inline { font-family: var(--font-mono); font-size: 0.88em; line-height: 1; font-weight: 450; letter-spacing: 0em; }
+.code-label { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0em; }
+
+.eyebrow { text-transform: uppercase; }
+@media (max-width: 640px) {
+  .display { font-size: 44px; line-height: 50px; }
+  .title-1 { font-size: 32px; line-height: 38px; }
+}

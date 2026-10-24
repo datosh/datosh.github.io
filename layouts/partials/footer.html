@@ -1,0 +1,8 @@
+<footer class="fk-footer">
+  <div class="fk-container fk-footer__inner">
+    <p class="caption">© {{ site.Params.copyrightStart }}–{{ now.Year }} {{ site.Params.name }}</p>
+    <div class="fk-footer__social">
+      {{- partial "social-links" (dict "site" site "class" "fk-icon--sm") }}
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,13 @@
+{{- /* Replaces Hugo's built-in figure: figure.fk-figure, same parameters (src, alt, title, caption, link). */ -}}
+{{- $src := .Get "src" -}}
+{{- with .Page.Resources.Get $src }}{{ $src = .RelPermalink }}{{ end -}}
+{{- $caption := .Get "caption" | default (.Get "title") -}}
+<figure class="fk-figure{{ with .Get "class" }} {{ . }}{{ end }}">
+  {{- with .Get "link" }}<a href="{{ . }}">{{ end -}}
+  <img src="{{ $src }}" alt="{{ .Get "alt" | default ($caption | markdownify | plainify) }}" loading="lazy"
+    {{- with .Get "width" }} width="{{ . }}"{{ end }}{{ with .Get "height" }} height="{{ . }}"{{ end }}>
+  {{- if .Get "link" }}</a>{{ end -}}
+  {{- with $caption }}
+  <figcaption class="caption">{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

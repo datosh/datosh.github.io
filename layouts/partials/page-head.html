@@ -1,0 +1,8 @@
+<header class="fk-container fk-article-head">
+  <div class="fk-measure">
+    <h1 class="fk-article-head__title title-1">{{ if eq .Kind "term" }}Posts tagged “{{ .Title | lower }}”{{ else }}{{ .Title }}{{ end }}</h1>
+    {{- with .Description }}
+    <p class="fk-article-head__lede lede">{{ . }}</p>
+    {{- end }}
+  </div>
+</header>

@@ -1,12 +1,7 @@
 {{- $type := .Get 0 | default "info" -}}
-{{- $icon := cond (eq $type "warn") "exclamation-triangle" (cond (eq $type "tip") "lightbulb" (cond (eq $type "note") "pencil-alt" "info-circle")) -}}
-{{- $title := humanize $type -}}
-<div class="info-box info-box--{{ $type }}">
-  <div class="info-box__header">
-    <i class="fas fa-{{ $icon }}"></i>
-    <span>{{ $title }}</span>
-  </div>
-  <div class="info-box__content">
-    {{ .Inner | markdownify }}
-  </div>
-</div>
+{{- $icon := index (dict "info" "info" "note" "pencil-line" "tip" "lightbulb" "warn" "triangle-alert") $type | default "info" -}}
+<aside class="fk-callout fk-callout--{{ $type }} body-sm" role="note">
+  {{ partial "icon" (dict "name" $icon "class" "fk-callout__icon") }}
+  <p class="fk-callout__label">{{ humanize $type }}</p>
+  <div class="fk-callout__body">{{ .Inner | .Page.RenderString (dict "display" "block") }}</div>
+</aside>

@@ -1,0 +1,2 @@
+{{- $class := index (dict "2" "title-2" "3" "title-3" "4" "headline") (string .Level) -}}
+<h{{ .Level }} id="{{ .Anchor }}"{{ with $class }} class="{{ . }}"{{ end }}>{{ .Text }}<a class="fk-anchor" href="#{{ .Anchor }}" aria-label="Link to this section">#</a></h{{ .Level }}>

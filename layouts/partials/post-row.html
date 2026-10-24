@@ -1,0 +1,16 @@
+{{- /* Context: dict "page" <page> "h" <heading level>; h2 directly under a page title, h3 under a section head. */ -}}
+{{- $h := .h | default 3 -}}
+{{- with .page }}
+<li class="fk-postrow"><a href="{{ .RelPermalink }}">
+  <div class="fk-postrow__text">
+    <p class="fk-postrow__date caption">{{ partial "post-meta.html" . }}</p>
+    <h{{ $h }} class="fk-postrow__title headline">{{ .Title | markdownify }}</h{{ $h }}>
+    {{- with .Description }}
+    <p class="fk-postrow__desc body-sm">{{ . }}</p>
+    {{- end }}
+  </div>
+  {{- with partial "thumbnail.html" . }}
+  <img class="fk-postrow__thumb" src="{{ . }}" alt="" loading="lazy">
+  {{- end }}
+</a></li>
+{{- end }}

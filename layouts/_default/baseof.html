@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale | default "en" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    (function () {
+      var t;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  {{- $title := site.Title -}}
+  {{- if not .IsHome }}{{ $title = printf "%s · %s" .Title site.Title }}{{ end }}
+  <title>{{ $title }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+  {{- with site.Params.keywords }}
+  <meta name="keywords" content="{{ delimit . ", " }}">
+  {{- end }}
+  <meta name="author" content="{{ site.Params.name }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{- with .OutputFormats.Get "RSS" }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ site.Title }}">
+  {{- end }}
+  <link rel="preload" href="{{ "fonts/InterVariable.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+  {{- $css := slice (resources.Get "css/tokens.css") (resources.Get "css/bundle.css") | resources.Concat "css/site.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  {{- partial "opengraph.html" . }}
+  {{- partial "twitter_cards.html" . }}
+</head>
+<body class="fk-page">
+  <a class="fk-skip ui" href="#main">Skip to content</a>
+  {{ partial "header.html" . }}
+  <main id="main" class="fk-main">
+    {{- block "main" . }}{{ end }}
+  </main>
+  {{ partial "footer.html" . }}
+  <div class="fk-sr-only" aria-live="polite" id="fk-live"></div>
+  {{- $js := resources.Get "js/site.js" | minify | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+</body>
+</html>

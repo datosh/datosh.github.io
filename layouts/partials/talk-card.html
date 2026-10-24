@@ -1,0 +1,26 @@
+{{- /* Context: dict "talk" <entry of data/portfolio.yml> "h" <heading level>. */ -}}
+{{- $h := .h | default 3 -}}
+{{- with .talk -}}
+{{- $eyebrow := slice -}}
+{{- with .venue }}{{ $eyebrow = $eyebrow | append . }}{{ end -}}
+{{- with .with }}{{ $eyebrow = $eyebrow | append (printf "with %s" .) }}{{ end -}}
+{{- with .authors }}{{ $eyebrow = $eyebrow | append (index . 0) }}{{ end -}}
+<article class="fk-card fk-talk">
+  <img class="fk-card__media" src="{{ .image | relURL }}" alt="" loading="lazy">
+  <div class="fk-card__body">
+    <p class="fk-card__eyebrow eyebrow">{{ delimit $eyebrow " · " }}</p>
+    <h{{ $h }} class="fk-card__title title-3">{{ trim .name "\n " }}</h{{ $h }}>
+    <p class="fk-card__desc body-sm">{{ index (split (trim .description "\n ") "\n\n") 0 | markdownify | plainify | htmlUnescape }}</p>
+    <div class="fk-card__foot">
+      {{- if .link }}
+      {{- $watch := hasPrefix .linktext "Watch" }}
+      <a class="fk-btn {{ if $watch }}fk-btn--primary{{ else }}fk-btn--secondary{{ end }} fk-btn--sm ui" href="{{ .link }}" rel="noopener">
+        {{- partial "icon" (dict "name" (cond $watch "play" (cond (hasPrefix .linktext "Get the slides") "presentation" "link")) "class" "fk-icon--sm") }}{{ .linktext }}</a>
+      {{- end }}
+      {{- with .slides }}
+      <a class="fk-btn fk-btn--secondary fk-btn--sm ui" href="{{ . }}" rel="noopener">{{ partial "icon" (dict "name" "presentation" "class" "fk-icon--sm") }}Get the slides</a>
+      {{- end }}
+    </div>
+  </div>
+</article>
+{{- end }}

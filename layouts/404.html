@@ -1,0 +1,11 @@
+{{ define "main" }}
+<header class="fk-container fk-article-head">
+  <div class="fk-measure">
+    <h1 class="fk-article-head__title title-1">Page not found</h1>
+    <p class="fk-article-head__lede lede">This page doesn’t exist, or it has moved.</p>
+  </div>
+</header>
+<section class="fk-container fk-section">
+  <a class="fk-arrow-link body-sm" href="{{ "post/" | relURL }}">All posts{{ partial "icon" (dict "name" "chevron-right" "class" "fk-icon--sm") }}</a>
+</section>
+{{ end }}

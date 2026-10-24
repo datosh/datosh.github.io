@@ -1,0 +1,16 @@
+# Side projects on /projects/. domain is shown without the scheme.
+- name: GoInvaders
+  url: /goinvaders/game.html
+  domain: blog.kammel.dev/goinvaders
+  description: A Space Invaders clone written in Go, compiled to WebAssembly and playable in the browser.
+
+- name: Pin GH Actions
+  url: https://pin-gh-actions.kammel.dev/
+  domain: pin-gh-actions.kammel.dev
+  description: Tracks how many GitHub repositories pin their Actions to a full-length commit SHA.
+
+- name: ElvenXCEL
+  url: https://elvenxcel.app
+  domain: elvenxcel.app
+  # TODO(Fabian): placeholder, replace with the project's own one-liner.
+  description: Side project.

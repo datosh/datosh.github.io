@@ -1,0 +1,18 @@
+# House style, prepended to every diagram by render-diagrams.sh
+# (D2 does not apply globs from an imported file, so this is concatenated, not imported).
+vars: {
+  d2-config: {
+    theme-id: 0
+    pad: 0
+    center: true
+  }
+}
+classes: {
+  accent: {}
+}
+**.style.border-radius: 10
+**.style.stroke-width: 1
+**.style.font-size: 15
+(** -> **)[*].style.stroke-width: 1
+(** -> **)[*].style.font-size: 13
+(** -> **)[*].style.italic: false

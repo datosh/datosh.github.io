@@ -1,0 +1,31 @@
+<!doctype html>
+<html data-theme="light">
+<head><meta charset="utf-8"><title>Prose — preview</title>
+<style>body{margin:0;background:var(--surface)}</style><link rel="stylesheet" href="../../css/tokens.css"><link rel="stylesheet" href="../../css/bundle.css">
+<style>.ds-theme{position:fixed;right:12px;bottom:12px;z-index:99;font:500 13px/1 system-ui;padding:8px 12px;border-radius:980px;border:1px solid var(--hairline);background:var(--surface-raised);color:var(--ink);cursor:pointer}</style></head>
+<body>
+<div class="fk-page" id="root">
+<article class="fk-container" style="padding-top:24px;padding-bottom:24px">
+<div class="fk-prose body">
+  <p>If you spend any time in this space, it doesn't take long for you to hear about <a href="#">VEX</a> documents and statements. VEX stands for Vulnerability Exploitability eXchange: a machine-readable security advisory that tells you whether a specific software product is actually exposed to a known vulnerability.</p>
+  <h2 class="title-2" id="sbom-based-scanning">SBOM-Based Scanning<a class="fk-anchor" href="#sbom-based-scanning" aria-label="Link to this section">#</a></h2>
+  <p>A common approach to scan a program for vulnerabilities is to:</p>
+  <ol>
+    <li>Generate a Software Bill of Materials (SBOM)</li>
+    <li>Scan the components noted in the SBOM for known vulnerabilities</li>
+  </ol>
+  <p>Using <code>v0.38.0</code> of the <code>golang.org/x/text</code> library, every team using this approach sees the same two findings.</p>
+  <h3 class="title-3" id="reachability">Reachability<a class="fk-anchor" href="#reachability" aria-label="Link to this section">#</a></h3>
+  <blockquote><p>Sounds great! But can we actually generate these statements in an automated way? The answer is, as always: it depends.</p></blockquote>
+  <table>
+    <thead><tr><th>Vulnerability</th><th>Severity</th><th>Fixed in</th></tr></thead>
+    <tbody><tr><td><code>GO-2026-5970</code></td><td>High</td><td>0.39.0</td></tr><tr><td><code>GO-2026-6629</code></td><td>High</td><td>0.41.0</td></tr></tbody>
+  </table>
+  <ul><li>SysAdmins, SREs and AppSec teams</li><li>Maintainers of popular open source projects</li></ul>
+</div>
+</article>
+</div>
+
+<button class="ds-theme" onclick="var d=document.documentElement;d.dataset.theme=d.dataset.theme==='dark'?'light':'dark'">Toggle theme</button>
+</body>
+</html>

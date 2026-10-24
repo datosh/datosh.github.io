@@ -1,0 +1,35 @@
+{{- /*
+  figure.fk-code: a label bar (fence title, else the language) with a copy button, then Chroma's output.
+  Shell sessions are labelled "console"; bash/sh fences with "$ " prompts are highlighted as console
+  so the prompts become .gp spans, which the copy button skips.
+*/ -}}
+{{- $lang := .Type -}}
+{{- $lexer := $lang | default "text" -}}
+{{- $label := $lang -}}
+{{- if in (slice "console" "sh-session") $lang -}}
+  {{- $label = "console" -}}
+{{- else if and (in (slice "bash" "sh") $lang) (findRE `(?m)^\s*\$ ` .Inner 1) -}}
+  {{- $lexer = "console" -}}
+  {{- $label = "console" -}}
+{{- end -}}
+{{- with .Attributes.title }}{{ $label = . }}{{ end -}}
+{{- $html := transform.Highlight .Inner $lexer .Options -}}
+{{- $html = replaceRE `^\s*<div class="highlight">` "" $html 1 -}}
+{{- $html = replaceRE `</div>\s*$` "" $html 1 -}}
+{{- $html = replace $html `class="chroma"` `class="chroma code"` 1 -}}
+{{- /*
+  Width: text column (measure) when the longest line fits, otherwise width-wide (which scrolls if still too long).
+  The `code` style is JetBrains Mono at 14px, 8.4px per character; lines are padded by space-4 + space-5 (36px),
+  so measure (680px) fits 76 characters. Tabs count as 4 (tab-size).
+*/ -}}
+{{- $longest := 0 -}}
+{{- range split (strings.TrimRight "\n" .Inner) "\n" -}}
+  {{- $longest = math.Max $longest (strings.RuneCount (replace . "\t" "    ")) -}}
+{{- end -}}
+<figure class="fk-code{{ if gt $longest 76 }} fk-wide{{ end }}{{ if not $label }} fk-code--bare{{ end }}">
+  <div class="fk-code__bar">
+    {{- with $label }}<span class="fk-code__label code-label">{{ . }}</span>{{ end -}}
+    <button class="fk-code__copy" type="button" aria-label="Copy code">{{ partial "icon" (dict "name" "copy" "class" "fk-icon--sm fk-ic-copy") }}{{ partial "icon" (dict "name" "check" "class" "fk-icon--sm fk-ic-check") }}</button>
+  </div>
+  {{ $html | safeHTML }}
+</figure>
