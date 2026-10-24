@@ -12,5 +12,4 @@
 - name: ElvenXCEL
   url: https://elvenxcel.app
   domain: elvenxcel.app
-  # TODO(Fabian): placeholder, replace with the project's own one-liner.
-  description: Side project.
+  description: Tool for knowledge point hunting in the browser game Elvenar.
