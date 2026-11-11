@@ -1,6 +1,71 @@
 portfolioitems:
   - title: Things I've spoken about
     portfolioitem:
+      - image: "/images/portfolio/kubecon_saltlakecity_2026.png"
+        # TODO: Add Link once available
+        # link: https://www.youtube.com/watch?v=3yOwAIpbuQ0
+        # linktext: "Watch the recording"
+        name: |
+          Mythos vs Maintainers: Drowning in the Vulnerability Tsunami
+        description: |
+          Open source maintainers are facing a double assault. On one side, threat
+          actors like TeamPCP are leveraging LLMs to scale attacks against well-known
+          GitHub Actions misconfigurations, and propagating credential-stealing worms
+          through ecosystems like PyPI and npm. On the other side, well-meaning security
+          researchers are using those same LLMs to hunt for and report issues in
+          good-faith, burying projects under a flood of (at times low-quality)
+          vulnerability reports.
+
+          In this joint talk, we assume the roles of a combative offensive security
+          researcher and a defensive open source maintainer to grapple with the tsunami
+          of AI slop and irresponsible public disclosures using examples from in-toto’s
+          Witness project. We will:
+          + Recon: use LLMs for targeted vulnerability discovery and exploit writing
+          + Report: attempt to communicate & disclose the discovery
+          + Remediate: provide actionable solutions and actual code via private PRs
+          + Reinforce: use AI to proactively secure the project
+        slides: https://drive.google.com/file/d/14vFZ3Ym4GlnOigFiv8PZp5nJUrSdtiva/view
+        tags:
+          - Talk
+          - LLMs
+          - Security
+          - Vulnerabilities
+        venue: "KubeCon North America: Salt Lake City"
+        authors:
+          - November 2026
+
+      - image: "/images/portfolio/opensourcesecuritycon_saltlakecity_2026.png"
+        # TODO: Add Link once available
+        # link: https://www.youtube.com/watch?v=3yOwAIpbuQ0
+        linktext: "Watch the recording"
+        name: |
+          Why Post-quantum Authentication Will Break K8s (and How Merkle Trees Fix It)
+        description: |
+          The industry is actively working to secure our key exchanges against quantum
+          threats, but what about our identities? As industry leaders update their PQC
+          migration timeline to 2029, the focus is urgently shifting from encryption
+          to the untackled authentication challenge.
+          Traditional PKIs retrofitted with ML-DSA face crippling performance degradation
+          from massive signatures and compute overhead. So, how do we secure K8s’ internal
+          communication without grinding the control plane to a halt?
+
+          In this talk we:
+          + detail the reality of (lacking) ML-DSA support across the ecosystem which makes
+          even experimenting with PQC incredibly difficult
+          + analyze the critical compute and size bottlenecks introduced by standard ML-DSA
+          signatures with a local PKI and hard numbers
+          + explore Merkle Tree Certificates as a high-performance alternative to side-step
+          PQC signature limits
+          + demonstrate how to run an MTC PKI locally and map out how K8s can adopt this
+          approach for its internal certificate requirements
+        slides: https://drive.google.com/file/d/1UH4WaSfbsRUKv6-c7pEC2XLZygdKqt8f/view
+        tags:
+          - Talk
+          - Post Quantum Cryptography
+        venue: "Open Source SecurityCon: Salt Lake City"
+        authors:
+          - November 2026
+
       - image: "/images/portfolio/kubecon_atlanta_2025.png"
         link: https://www.youtube.com/watch?v=3yOwAIpbuQ0
         linktext: "Watch the recording"
